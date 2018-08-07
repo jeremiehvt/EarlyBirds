@@ -60,7 +60,7 @@ class AddPostType extends AbstractType
                     'L’art d\'observer les oiseaux'           => 'L’art d\'observer les oiseaux',
                     'Identifier un oiseau'                    => 'Identifier un oiseau',
                     'Ornithologie sans frontières'            => 'Ornithologie sans frontières',
-                    'Biodiversité / environnement'            => 'Biodiversité / environnement',
+                    'Biodiversité , environnement'            => 'Biodiversité , environnement',
                     'Programmes de recherche et publications' => 'Programmes de recherche et publications'
                 ],
                 'placeholder' => 'choisissez une catégorie'

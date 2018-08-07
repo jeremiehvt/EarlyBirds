@@ -1,0 +1,24 @@
+h1 {
+    font-family: "Didot LT Std", serif;
+    font-size: 120px;
+    color: #F2994A;
+}
+
+#error-desc {
+    font-family: Montserrat, serif;
+    font-weight: 500;
+}
+
+@media (max-width: 992px) {
+    div#mob-nav-icon {
+        position: fixed;
+        z-index: 1000;
+        right: 0;
+        margin-top: -7em;
+    }
+
+    .error-row {
+        position: relative;
+        margin-top: 100px;
+    }
+}

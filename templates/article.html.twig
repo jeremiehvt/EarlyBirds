@@ -83,19 +83,17 @@
                             {% endif %}
                                 {{ comment.content }}<br>
                             statut: {% if "ROLE_ADMIN" in  comment.author.roles %}
-                                Administrateur
+                                Administrateur <br>
                             {% elseif"ROLE_NATURALIST" in  comment.author.roles %}
-                                Naturaliste
-                            {% elseif"ROLE_USER" in  comment.author.roles %}
-
+                                Naturaliste <br>
+                            {% elseif "ROLE_USER" in  comment.author.roles %}
                             {% endif %}
-
                                 <em id="comment-date">posté le : {{ comment.createdAt|localizeddate('long', 'none') }} </em>
                         </li>
                         {% endfor %}
                     </ul>
                 </div>
-                {% if is_granted('ROLE_USER') == true %}
+                {% if is_granted('ROLE_USER') %}
                     {{ form_start(form) }}
                         <div class="input-field col l8 m8 s12">
                             {{ form_widget(form.content) }}

@@ -135,6 +135,7 @@ class Mailer implements MailerInterface
 
     /**
      * @param Contact $contact
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -144,8 +145,8 @@ class Mailer implements MailerInterface
         $message = new Swift_Message($contact->getSubject());
 
         $message
-            ->setFrom(self::ADMIN_EMAIL)
-            ->setTo($contact->getMail())
+            ->setFrom([$contact->getMail()])
+            ->setTo([$contact->getMail(), self::ADMIN_EMAIL])
             ->setBody(
                 $this->environment->render(
                     "Emails/contactMail.html.twig",

@@ -1,0 +1,10 @@
+tests:
+    'You should execute less SQL queries':
+        path:
+            - '/.*'
+        methods:
+            - ANY
+        assertions:
+            - { label: null, expression: 'metrics.sql.queries.count <= 10' }
+            - { label: null, expression: 'diff(metrics.sql.queries.count) < 2' }
+        exclude: {  }

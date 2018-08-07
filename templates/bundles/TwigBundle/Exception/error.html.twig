@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur {{ status_code }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        @font-face {
+            font-family: "Didot LT Std"; src: url("{{ asset('fonts/DidotLTStd-Roman.otf') }}");
+        }
+    </style>
+    <link rel="stylesheet" href="{{ asset('css/error.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="row error-row">
+        <div class="col s12">
+            <img src="{{ asset('img/other/glen-carrie-513355-unsplash.jpg') }}" style="width: 100%; filter: contrast(1.03)">
+        </div>
+    </div>
+    <div class="row error-row">
+        <div class="s12 center-align">
+            <h1>Erreur {{ status_code }}</h1>
+            <p id="error-desc" class="flow-text">
+                <b>{{ status_text }}</b><br/>
+                <br/>
+                Nous vous prions de nous excuser pour la gêne occasionnée<br/>
+                <br/>
+                Veuillez réessayer plus tard, si l'erreur est persistante, vous pouvez nous contacter à l'adresse suivante: <a href="mailto:admin@nao.org">admin@nao.org</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

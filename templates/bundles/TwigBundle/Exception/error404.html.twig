@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 404{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        @font-face {
+            font-family: "Didot LT Std"; src: url("{{ asset('fonts/DidotLTStd-Roman.otf') }}");
+        }
+    </style>
+    <link rel="stylesheet" href="{{ asset('css/error.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="row error-row">
+        <div class="col s12">
+            <img src="{{ asset('img/other/glen-carrie-513355-unsplash.jpg') }}" style="width: 100%; filter: contrast(1.03)">
+        </div>
+    </div>
+    <div class="row error-row">
+        <div class="s12 center-align">
+            <h1>404</h1>
+            <p id="error-desc" class="flow-text">
+                Cette page n’existe pas ou n’existe plus !<br/>
+                Nous vous prions de nous excuser pour la gêne occasionnée<br/>
+                <br/>
+                Nous vous invitons à revenir à la <a href="{{ path('app_home') }}">page d’accueil</a> de notre site
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

@@ -94,8 +94,8 @@ class UpdatePostAction implements UpdatePostActionInterface
     public function __invoke(Request $request)
     {
         $responder = $this->updatePostResponder;
-        $id = $request->attributes->get('id');
-        $updPost = $this->postRepository->findOneBy(['id' => $id]);
+        $id        = $request->attributes->get('id');
+        $updPost   = $this->postRepository->findOneBy(['id' => $id]);
 
         $updPostDto = new UpdatePostDTO(
             $updPost->getTitle(),
@@ -114,8 +114,8 @@ class UpdatePostAction implements UpdatePostActionInterface
             }
         } elseif (true === $this->authChecker->isGranted('ROLE_NATURALIST')) {
             $userPostId = $updPost->getAuthor()->getId();
-            $uId = $this->token->getToken()->getUser();
-            $userId = $uId->getId();
+            $uId        = $this->token->getToken()->getUser();
+            $userId     = $uId->getId();
 
             if ($userId !== $userPostId) {
                 throw new AccessDeniedException('Vous n\'ètes pas le propriétaire de cet

@@ -1,5 +1,5 @@
 div#subHeader {
-    margin-top: -24em;
+    margin-top: -23em;
 }
 
 #slogan {
@@ -16,18 +16,18 @@ div#subHeader {
 }
 .header_text {
     text-shadow: 4px 4px 14px rgba(150, 150, 150, 0.5);
-    font-family: MontSerrat, serif;
+    font-family: Didot, serif;
     font-weight: 500;
     font-size: 2.3em;
-    color: white;
+    color: #579BC1;
 }
 
 .header-little-text {
     margin-top: 0;
     text-shadow: 4px 4px 14px rgba(150, 150, 150, 0.5);
     font-family: MontSerrat, serif;
-    font-size: 1em;
-    color: white;
+    font-size: 1.1em;
+    color: black;
     font-weight: 300;
 }
 
@@ -107,6 +107,11 @@ div#subHeader {
         margin-top: 2em;
     }
 
+    .header-little-text {
+
+        font-size: .9em;
+    }
+
     #citation-mobile {
         display: none !important;
     }
@@ -122,6 +127,15 @@ div#subHeader {
         margin-top: 5em;
     }
 
+    #header {
+        padding-top: 0;
+    }
+
+    .header-little-text {
+
+        font-size: 1em;
+    }
+
     #citation-mobile {
         display: none !important;
     }
@@ -132,6 +146,11 @@ div#subHeader {
 }
 
 @media (max-width: 1920px) and (min-width: 1601px) {
+
+    div#subHeader {
+        margin-top: -23em;
+    }
+
     #header {
         height: 450px;
         margin-top: 0;
@@ -139,18 +158,18 @@ div#subHeader {
 
     .header_text {
         text-shadow: 4px 4px 14px rgba(150, 150, 150, 0.5);
-        font-family: MontSerrat, serif;
+        font-family: Didot, serif;
         font-weight: 500;
         font-size: 2.5em;
-        color: white;
+        color: #579BC1;
     }
 
     .header-little-text {
         margin-top: 0;
         text-shadow: 4px 4px 14px rgba(150, 150, 150, 0.5);
         font-family: MontSerrat, serif;
-        font-size: 1em;
-        color: white;
+        font-size: 1.2em;
+        color: black;
         font-weight: 300;
     }
 }

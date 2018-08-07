@@ -3,10 +3,11 @@
         position: relative;
         margin-top: 100px;
     }
-    div#mob-nav-icon {
 
-        margin-top: -7em;
+    #citation-mobile {
+        display: none!important;
     }
+
 }
 
 @media (min-width: 993px) {

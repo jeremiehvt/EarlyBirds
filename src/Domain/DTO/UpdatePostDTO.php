@@ -57,7 +57,7 @@ class UpdatePostDTO implements UpdatePostDTOInterface
      *  @Assert\File(
      *     maxSize = "1M",
      *     mimeTypes = {"image/jpeg", "image/png"},
-     *     maxSizeMessage = "votre image doit être inférieur à 1mo",
+     *     maxSizeMessage = "votre image doit être inférieur à {{ limit }} {{ suffix }}",
      *     mimeTypesMessage = "votre image doit être de type jpeg ou png"
      * )
      * @var UploadedFile
@@ -68,7 +68,7 @@ class UpdatePostDTO implements UpdatePostDTOInterface
      *  @Assert\File(
      *     maxSize = "1M",
      *     mimeTypes = {"image/jpeg", "image/png"},
-     *     maxSizeMessage = "votre image doit être inférieur à 1mo",
+     *     maxSizeMessage = "votre image doit être inférieur à {{ limit }} {{ suffix }}",
      *     mimeTypesMessage = "votre image doit être de type jpeg ou png"
      * )
      * @var UploadedFile
