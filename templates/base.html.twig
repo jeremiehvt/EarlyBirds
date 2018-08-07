@@ -1,179 +1,320 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#317EFB"/>
+        <meta name="description" content="{% block metadesc %}{% endblock %}"/>
         <title>{% block title %}NAO{% endblock %}</title>
         {% block stylesheets %}
+            <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2" />
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
             <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
             <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+            <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+            <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+            <script>
+                window.addEventListener("load", function(){
+                    window.cookieconsent.initialise({
+                        "palette": {
+                            "popup": {
+                                "background": "#488194",
+                                "text": "#ffffff"
+                            },
+                            "button": {
+                                "background": "#f2994a",
+                                "text": "#ffffff"
+                            }
+                        },
+                        "theme": "classic",
+                        "content": {
+                            "message": "Ce site web stocke les cookies sur votre ordinateur. Ces cookies sont utilisés pour collecter des informations sur la manière dont vous interagissez avec notre site web et nous permettent de nous souvenir de vous. Nous améliorons et personnalisons ainsi votre expérience de navigation. Ils nous permettent également d’analyser le trafic en provenance ou vers nos autres supports.  \n" +
+                            "Si vous refusez l'utilisation des cookies, seul un cookie sera utilisé dans votre navigateur pour se souvenir de ne pas suivre vos préférences. Important : vous ne pourrez pas créer de compte utilisateur.",
+                            "dismiss": "J’ai compris, j’accepte",
+                            "link": "En savoir plus sur les cookies que nous utilisons",
+                            "href": "{{ path('app_confidentiality') }}#4-4"
+                        }
+                    })});
+            </script>
         {% endblock %}
     </head>
     
     <body>
-    <div id="navnav"></div>
-    <ul id="dropdown_profile" class="dropdown-content dp_nav">
-        <li><a href="{{ path('app_profile') }}">Profil</a></li>
-        <li><a href="/logout">Se déconnecter</a></li>
-    </ul>
-    <ul id="dropdown_observe" class="dropdown-content dp_nav">
-        <li><a href="{{ path('app_lastobserve') }}">Dernières
-                observations</a></li>
-        <li><a href="{{ path('app_observe') }}">Saisie d'une observation</a></li>
-        <li><a href="{{ path('app_map') }}">Carte</a></li>
-    </ul>
-    <ul id="dropdown_discover" class="dropdown-content dp_nav">
-        <li><a href="#">NAO</a></li>
-        <li><a href="#">Les oiseaux</a></li>
+
+    <ul class="col s1 right" id="little_nav">
+        <li><a href="{{ path('app_lastobserve') }}"><img src="{{ asset('/img/vector/loupe.png') }}" alt="recherche"></a></li>
+        <li><a href="{{ path('app_observe') }}"><img src=" {{ asset('/img/vector/Very-Basic-Binoculars-icon.png') }}" alt="saisir une observation"></a></li>
+        <li><a href="{{ path('app_contact') }}"><img src="{{ asset('/img/vector/mail.png') }}" alt="nous contacter"></a></li>
     </ul>
 
-    <div class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper" id="c_nav">
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li>
-                        <a class="black-text" href="{{ path('app_home') }}"><i class="material-icons">home</i></a>
-                    </li>
-                    <li>
-                        <a class="dropdown-trigger black-text" href="#!" data-target="dropdown_discover">Découvrir</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-trigger black-text" href="#!" data-target="dropdown_observe">Observer</a>
-                    </li>
+    <div class="col s5 right" id="mob-nav-icon">
+        <a href="{{ path('app_home') }}">
+            <img id="logo-nav-icon" src="{{ asset('/img/logo/logo_Nao.png') }}" alt="mobile logo">
+        </a>
+        <a href="{{ path('app_observe') }}" class=""><img id="bin-nav-icon" src="{{ asset('/img/vector/Very-Basic-Binoculars-icon.png') }}" alt="mobile saisir une observation"/></a>
+        <a href="{{ path('app_lastobserve') }}" ><img id="loupe-nav-icon" src="{{ asset('/img/vector/loupe.png') }}" alt="mobile rechercher"/></a>
+        {% if is_granted('ROLE_USER') == false %}
+            <a href="{{ path('security_login') }}" ><img id="profil-nav-icon" src="{{ asset('/img/vector/perso.png') }}" alt="mobile se connecter"/></a>
+        {% endif %}
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('app_profile') }}"><img id="profil-nav-icon" src="{{ asset('/img/vector/perso.png') }}" alt="mobile profil"/></a>
+        {% endif %}
+    </div>
+   
+        <div id="navnav"></div>
+        <ul id="dropdown_profile" class="dropdown-content dp_nav">
+            <li><a href="{{ path('app_profile') }}">Profil</a></li>
+            <li><a href="/logout">Se déconnecter</a></li>
+        </ul>
+        <ul id="dropdown_observe" class="dropdown-content dp_nav">
+            <li><a href="{{ path('app_lastobserve') }}">Dernières
+                    observations</a></li>
+            <li><a href="{{ path('app_observe') }}">Saisie d'une observation</a></li>
+            <li><a href="{{ path('app_map') }}">Carte</a></li>
+        </ul>
+        <ul id="dropdown_discover" class="dropdown-content dp_nav">
+            <li><a href="{{ path('app_discover_nao') }}">NAO</a></li>
+            <li><a href="{{ path('app_discover_birds') }}">Les oiseaux</a></li>
+        </ul>
 
-                    <li><a href="#" class="black-text">Actualités</a></li>
-                    <li><a href="{{ path('app_contact') }}" class="black-text">Contact</a></li>
+        <div class="navbar-fixed">
 
+            <nav>
+                <div class="nav-wrapper" id="c_nav">
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
+                                class="material-icons">menu</i></a>
+                    <!--
+                        <a href="{{ path('app_observe') }}" class="nav-icon"><img class="icon-img"
+                                                                    id="icon-img-un" src="{{
+                            asset
+                                ('/img/vector/Very-Basic-Binoculars-icon.png') }}"/></a>
+                        <a href="{{ path('app_lastobserve') }}" class="nav-icon"><img
+                                    class="icon-img"
+                                                                  id="icon-img-deux"
+                                                                          src="{{ asset
+                                ('/img/vector/loupe.png') }}"/></a>
                     {% if is_granted('ROLE_USER') == false %}
-                        <li><a href="{{ path('security_login') }}" class="black-text">Login</a></li>
+                        <a href="{{ path('security_login') }}" class="nav-icon"><img
+                                    class="icon-img"
+                                                                          src="{{ asset
+                                ('/img/vector/perso.png') }}"/></a>
                     {% endif %}
-
                     {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('app_profile') }}" class="nav-icon"><img
+                                class="icon-img"
+                                src="{{ asset
+                                    ('/img/vector/perso.png') }}"/></a>
+                    {% endif %}-->
+
+
+
+                    <ul class="right hide-on-med-and-down">
                         <li>
-                            <a href="{{ path('app_profile') }}" class="dropdown-trigger
-                            black-text"  data-target="dropdown_profile"><i class="material-icons
-                            left">person</i>Compte</a>
+                            <a class="black-text" href="{{ path('app_home') }}"><i class="material-icons" style="font-size: 30px">home</i></a>
                         </li>
-                    {% endif %}
+                        <li>
+                            <a class="dropdown-trigger black-text" href="#!" data-target="dropdown_discover">Découvrir</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-trigger black-text" href="#!" data-target="dropdown_observe">Observer</a>
+                        </li>
+
+                        <li><a href="{{ path('app_actuality') }}"
+                               class="black-text">Actualités</a></li>
+                        <li><a href="{{ path('app_contact') }}" class="black-text">Contact</a></li>
+
+                        {% if is_granted('ROLE_USER') == false %}
+                            <li><a href="{{ path('security_login') }}" class="black-text">Se connecter</a></li>
+                        {% endif %}
+
+                        {% if is_granted('ROLE_USER') %}
+                            <li>
+                                <a href="{{ path('app_profile') }}" class="dropdown-trigger
+                                black-text"  data-target="dropdown_profile"><i class="material-icons
+                                left" style="font-size: 30px">person</i>Compte</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                        <a class="brand-logo left" href="{{ path('app_home') }}">
+                            <img id="logo" src="{{ asset('/img/logo/logo_Nao.png') }}">
+                        </a>
+                </div>
+            </nav>
+
+
+        </div>
+
+        <ul id="dropdown_profile" class="dropdown-content dp_nav">
+            <li><a href="{{ path('app_profile') }}">Profil</a></li>
+            <li><a href="/logout">Se déconnecter</a></li>
+        </ul>
+        <ul id="dropdown_observe" class="dropdown-content dp_nav">
+            <li><a href="{{ path('app_lastobserve') }}">Dernières
+                    observations</a></li>
+            <li><a href="{{ path('app_observe') }}">Saisie d'une observation</a></li>
+            <li><a href="{{ path('app_map') }}">Carte</a></li>
+        </ul>
+        <ul id="dropdown_discover" class="dropdown-content dp_nav">
+            <li><a href="{{ path('app_discover_nao') }}">NAO</a></li>
+            <li><a href="{{ path('app_discover_birds') }}">Les oiseaux</a></li>
+        </ul>
+
+        <ul class="sidenav collapsible" id="mobile-demo">
+            <li><a href="{{ path('app_home') }}" class="black-text collapsible-header">NAO</a></li>
+            <li><a class="collapsible-header black-text">Découvrir</a>
+                <ul class="collapsible-body">
+                    <li><a href="{{ path('app_discover_nao') }}" class="black-text">NAO</a></li>
+                    <li><a href="{{ path('app_discover_birds') }}" class="black-text">Les
+                            oiseaux</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="collapsible-header black-text">Observer</a>
+                <ul class="collapsible-body">
+                    <li><a href="{{ path('app_lastobserve') }}" class="black-text">Dernières
+                            observations</a></li>
+                    <li><a href="{{ path('app_observe') }}" class="black-text">Saisie d'une observation</a></li>
+                    <li><a href="{{ path('app_map') }}" class="black-text">Carte</a></li>
                 </ul>
 
-                    <a class="brand-logo left" href="{{ path('app_home') }}">
-                        <img id="logo" src="{{ asset('/img/logo/logo_Nao.png') }}">
-                    </a>
-            </div>
-        </nav>
-    </div>
+            </li>
+            <li><a href="{{ path('app_actuality') }}" class="black-text
+            collapsible-header">Actualités</a></li>
+            <li><a href="{{ path('app_contact') }}" class="black-text collapsible-header">Contact</a></li>
 
-    <ul class="sidenav" id="mobile-demo">
-        <li><a href="{{ path('app_home') }}">NAO</a></li>
-        <li><a href="{{ path('app_observe') }}">Observer</a></li>
-        <li><a href="#">Découvrir</a></li>
-        <li><a href="#">Actualités</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="{{ path('security_login') }}">Login</a></li>
-    </ul>
-    <div class="container" id="c_body">
-        <div class="row">
+            {% if is_granted('ROLE_USER') == false %}
+                <li><a href="{{ path('security_login') }}" class="black-text
+                collapsible-header">Se connecter</a></li>
+            {% endif %}
 
-                {% block body %}
-                {% endblock %}
+            {% if is_granted('ROLE_USER') %}
+                <li>
+                    <a  href="#" class="black-text collapsible-header">Compte</a>
+                    <ul class="collapsible-body">
+                        <li><a href="{{ path('app_profile') }}" class="black-text">Profil</a></li>
+                        <li><a href="/logout" class="black-text">Se déconnecter</a></li>
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
+
+        <div id="c_body">
+            {% block body %}
+            {% endblock %}
         </div>
-    </div>
 
+        <!--<img class="hide-on-med-and-down" id="blackBird" src="{{ asset
+        ('/img/logo/oiseau-silhouette-noir.png') }}">-->
+        <div id="footer">
 
-    <img id="blackBird" src="{{ asset('/img/logo/oiseau-silhouette-noir.png') }}">
-    <div id="footer">
-        <div class="container">
-            <div class="row">
-                    <div class="row info" id="containerInfos">
+            <div class="row info hide-on-med-and-down" id="containerInfos">
+                <div>
+                    <img class="hide-on-med-and-down" id="blackBird" src="{{ asset('/img/logo/oiseau-silhouette-noir.png') }}">
+                </div>
+                <ul class="col m3 offset-m8 l3 offset-l8">
+                    <li id="company">nao</li>
+                    <li class="info1">Impasse du Gypaète</li>
+                    <li class="info1">40190 Saint-Paul Lès Dax</li>
+                    <li class="info1">05 48 49 26 07</li>
+                    <li class="info1"><a href="mailto: contact@nao.org">contact@nao.org</a></li>
+                </ul>
+            </div>
 
-
-                        <ul class="col s3 offset-s9">
-                            <li id="company">nao</li>
-                            <li class="info1">Impasse du Gypaète</li>
-                            <li class="info1">40190 Saint-Paul Lès Dax</li>
-                            <li class="info1">05 48 49 26 07</li>
-                            <li class="info1">contact@nao.org</li>
-                        </ul>
-                    </div>
-
-                    <div class="row info" >
-
-                        <ul class="col s3" id="infoAssoCopyright">
-                            <li class="info2">Copyright 2018</li>
-                            <li class="info2">Nao Nos amis les oiseaux</li>
-                            <li class="info2">Associations loi 1901</li>
-                        </ul>
-                        <div class="col s3 offset-s6">
-                            <p id="info3">Abonnez-vous à la newsletter</p>
-                            <input type="email"
-                                   placeholder="
-                                                          "
-                                   id="email"/>
+            <div class="row info hide-on-med-and-down">
+                <ul class="col m4 l4 hide-on-med-and-down" id="infoAssoCopyright">
+                    <li class="info2">Copyright 2018</li>
+                    <li class="info2">Nao Nos amis les oiseaux</li>
+                    <li class="info2">Associations loi 1901</li>
+                </ul>
+                <div class="col m3 offset-m4 l3 offset-l4 hide-on-med-and-down">
+                    <p id="info3">Abonnez-vous à la newsletter</p>
+                    <form>
+                        <div class="input-field inline">
+                            <input id="email_inline" type="email" class="footernewsletter
+                            validate" required placeholder="
+                                                   "/>
+                            <span class="helper-text" style="display: none; margin-bottom: 10px; width: 200%; right: 30%;"></span>
+                        </div>
+                        <div>
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Envoyer</button>
+                        </div>
+                        <div>
                             <label id="info4">
-                                <input type="checkbox" id="info5"/>
-                                <span id="info6">J'accepte que mon email soit utilisé pour m'adresser
-                                    la newsletter et j'ai bien pris connaissance de la politique de
-                                    confidentialité de nao.</span>
+                                <input type="checkbox" required="required" id="info5"/>
+                                <span id="info6">J'accepte que mon email soit utilisé pour m'adresser la newsletter et j'ai bien pris connaissance de
+                                    <a href="{{ path('app_confidentiality') }}">la politique de confidentialité de nao.</a>
+                                </span>
                             </label>
                         </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="row info hide-on-med-and-down">
+                <ul class="col m4 l4 hide-on-med-and-down">
+                    <li><a class="footer-link" href="{{ path('app_faq') }}">FAQ</a></li>
+                    <li><a class="footer-link" href="{{ path('app_legal') }}">Mentions Légales</a></li>
+                    <li><a class="footer-link" href="{{ path('app_confidentiality') }}">Politique de
+                            confidentialité</a></li>
+                </ul>
+                <div class="col m7 l7 hide-on-med-and-down" id="info8">
+                    <p id="info7">Suivez-nous</p>
+                    <div>
+                        <svg width="15" height="28" viewBox="0 0 15 28" fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.32329 28H9.97529V13.9984H14.4124L15 9.17399H9.97529L9.98252 6.75862C9.98252 5.50062 10.1199 4.82601 12.1956 4.82601H14.9693V1.91956e-07H10.5304C5.19829 1.91956e-07 3.32329 2.34146 3.32329 6.27743V9.17399H4.27636e-07V14H3.32329V28Z" fill="white"/>
+                        </svg>
+
+                        <svg width="32" height="27" viewBox="0 0 32 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.0459 0.319089C17.1562 1.39184 15.3298 4.15615 15.5369 7.1817L15.606 8.34894L14.4501 8.20628C10.2429 7.65786 6.56626 5.79955 3.44397 2.67765L1.91736 1.12874L1.52662 2.2719C0.694247 4.82129 1.22674 7.5152 2.96054 9.3272C3.8856 10.3277 3.6766 10.4703 2.08274 9.87561C1.52843 9.68478 1.04137 9.54212 0.995935 9.61437C0.834186 9.78112 1.38849 11.9488 1.8283 12.8085C2.42986 14.0017 3.65479 15.1671 4.99603 15.86L6.13009 16.4084L4.78703 16.4288C3.49304 16.4288 3.44579 16.4529 3.58573 16.955C4.04735 18.5039 5.87383 20.1492 7.90932 20.8643L9.34325 21.3646L8.09469 22.1279C6.24458 23.2266 4.07097 23.8454 1.89736 23.8899C0.855994 23.914 1.80253e-07 24.0084 1.80253e-07 24.0807C1.80253e-07 24.3179 2.82242 25.6518 4.46171 26.178C9.38687 27.7269 15.2371 27.0581 19.6297 24.4142C22.752 22.5318 25.8725 18.7892 27.33 15.1652C28.117 13.2365 28.9021 9.70887 28.9021 8.0173C28.9021 6.92046 28.9712 6.7778 30.2651 5.4679C31.0285 4.70457 31.7445 3.87083 31.8844 3.63367C32.1171 3.17975 32.0916 3.17975 30.914 3.5855C28.9493 4.30067 28.6713 4.20617 29.6436 3.13343C30.3596 2.37009 31.2156 0.987936 31.2156 0.584035C31.2156 0.51363 30.8685 0.632206 30.476 0.845273C30.0598 1.08428 29.1347 1.44186 28.4405 1.65493L27.1919 2.06068L26.0597 1.27141C25.4345 0.843419 24.5585 0.365408 24.0951 0.222746C22.9138 -0.110751 21.1109 -0.0625787 20.0459 0.319089Z" fill="white"/>
+                        </svg>
+
+                        <svg width="32" height="31" viewBox="0 0 32 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M28.0017 -4.10025e-07H4.00025C1.74156 -4.10025e-07 -4.23252e-07 1.68714 -4.23252e-07 3.87524V27.1248C-4.23252e-07 29.3129 1.74156 31 4.00025 31H27.9998C30.2584 31 32 29.3129 32 27.1248V3.87524C32.002 1.68714 30.2584 -4.10025e-07 28.0017 -4.10025e-07ZM16.0248 9.41075C19.5733 9.41075 22.4501 12.1113 22.4501 15.4415C22.4501 18.7716 19.5733 21.4722 16.0248 21.4722C12.4782 21.4722 9.60139 18.7697 9.60139 15.4415C9.60139 12.1113 12.4782 9.41075 16.0248 9.41075ZM28.0017 26.1574C28.0017 26.8369 27.7026 27.1267 27.0012 27.1267H5.0008C4.3014 27.1267 4.00025 26.8369 4.00025 26.1574V12.595L6.49272 13.1209C6.22525 13.9635 6.08061 14.8541 6.08061 15.7793C6.08061 20.9309 10.5346 25.1132 16.0228 25.1132C21.515 25.1132 25.9669 20.9328 25.9669 15.7793C25.9669 14.8541 25.8223 13.9635 25.5548 13.1209L27.9998 12.595V26.1574H28.0017ZM28.0017 8.71977C28.0017 9.25528 27.554 9.68906 27.0012 9.68906H23.0009C22.4481 9.68906 22.0004 9.25528 22.0004 8.71977V4.84453C22.0004 4.30902 22.4481 3.87524 23.0009 3.87524H27.0012C27.554 3.87524 28.0017 4.30902 28.0017 4.84453V8.71977Z" fill="#FFFEFE"/>
+                        </svg>
                     </div>
-
-
-                    <div class="row info">
-                        <ul class="col s3">
-                            <li><a href="{{ path('app_faq') }}">FAQ</a></li>
-                            <li><a href="{{ path('app_site_mapping') }}">Plan du Site</a></li>
-                            <li><a href="{{ path('app_legal') }}">Mentions Légales</a></li>
-                            <li><a href="{{ path('app_confidentiality') }}">Politique de
-                                    confidentialité</a></li>
-                        </ul>
-                        <div class="col s9" id="info8">
-                            <p id="info7">Suivez-nous</p>
-                            <div>
-                                <svg width="15" height="28" viewBox="0 0 15 28" fill="none"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M3.32329 28H9.97529V13.9984H14.4124L15 9.17399H9.97529L9.98252 6.75862C9.98252 5.50062 10.1199 4.82601 12.1956 4.82601H14.9693V1.91956e-07H10.5304C5.19829 1.91956e-07 3.32329 2.34146 3.32329 6.27743V9.17399H4.27636e-07V14H3.32329V28Z" fill="white"/>
-                                </svg>
-
-                                <svg width="32" height="27" viewBox="0 0 32 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20.0459 0.319089C17.1562 1.39184 15.3298 4.15615 15.5369 7.1817L15.606 8.34894L14.4501 8.20628C10.2429 7.65786 6.56626 5.79955 3.44397 2.67765L1.91736 1.12874L1.52662 2.2719C0.694247 4.82129 1.22674 7.5152 2.96054 9.3272C3.8856 10.3277 3.6766 10.4703 2.08274 9.87561C1.52843 9.68478 1.04137 9.54212 0.995935 9.61437C0.834186 9.78112 1.38849 11.9488 1.8283 12.8085C2.42986 14.0017 3.65479 15.1671 4.99603 15.86L6.13009 16.4084L4.78703 16.4288C3.49304 16.4288 3.44579 16.4529 3.58573 16.955C4.04735 18.5039 5.87383 20.1492 7.90932 20.8643L9.34325 21.3646L8.09469 22.1279C6.24458 23.2266 4.07097 23.8454 1.89736 23.8899C0.855994 23.914 1.80253e-07 24.0084 1.80253e-07 24.0807C1.80253e-07 24.3179 2.82242 25.6518 4.46171 26.178C9.38687 27.7269 15.2371 27.0581 19.6297 24.4142C22.752 22.5318 25.8725 18.7892 27.33 15.1652C28.117 13.2365 28.9021 9.70887 28.9021 8.0173C28.9021 6.92046 28.9712 6.7778 30.2651 5.4679C31.0285 4.70457 31.7445 3.87083 31.8844 3.63367C32.1171 3.17975 32.0916 3.17975 30.914 3.5855C28.9493 4.30067 28.6713 4.20617 29.6436 3.13343C30.3596 2.37009 31.2156 0.987936 31.2156 0.584035C31.2156 0.51363 30.8685 0.632206 30.476 0.845273C30.0598 1.08428 29.1347 1.44186 28.4405 1.65493L27.1919 2.06068L26.0597 1.27141C25.4345 0.843419 24.5585 0.365408 24.0951 0.222746C22.9138 -0.110751 21.1109 -0.0625787 20.0459 0.319089Z" fill="white"/>
-                                </svg>
-
-                                <svg width="32" height="31" viewBox="0 0 32 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M28.0017 -4.10025e-07H4.00025C1.74156 -4.10025e-07 -4.23252e-07 1.68714 -4.23252e-07 3.87524V27.1248C-4.23252e-07 29.3129 1.74156 31 4.00025 31H27.9998C30.2584 31 32 29.3129 32 27.1248V3.87524C32.002 1.68714 30.2584 -4.10025e-07 28.0017 -4.10025e-07ZM16.0248 9.41075C19.5733 9.41075 22.4501 12.1113 22.4501 15.4415C22.4501 18.7716 19.5733 21.4722 16.0248 21.4722C12.4782 21.4722 9.60139 18.7697 9.60139 15.4415C9.60139 12.1113 12.4782 9.41075 16.0248 9.41075ZM28.0017 26.1574C28.0017 26.8369 27.7026 27.1267 27.0012 27.1267H5.0008C4.3014 27.1267 4.00025 26.8369 4.00025 26.1574V12.595L6.49272 13.1209C6.22525 13.9635 6.08061 14.8541 6.08061 15.7793C6.08061 20.9309 10.5346 25.1132 16.0228 25.1132C21.515 25.1132 25.9669 20.9328 25.9669 15.7793C25.9669 14.8541 25.8223 13.9635 25.5548 13.1209L27.9998 12.595V26.1574H28.0017ZM28.0017 8.71977C28.0017 9.25528 27.554 9.68906 27.0012 9.68906H23.0009C22.4481 9.68906 22.0004 9.25528 22.0004 8.71977V4.84453C22.0004 4.30902 22.4481 3.87524 23.0009 3.87524H27.0012C27.554 3.87524 28.0017 4.30902 28.0017 4.84453V8.71977Z" fill="#FFFEFE"/>
-                                </svg>
-                            </div>
-                            <p id="nosPartenaires">Nos partenaires</p>
-                            <div class="col s12" id="rowPartenaires">
-                                <img src="{{ asset
-                                    ('/img/logo/federation-francaise-de-la-randonnee-pedestre-randonnee-fspartenaires-nao.png') }}"/>
-                                <img class="imgPartenires" src="{{ asset('/img/logo/45759partenaires-nao.png') }}"/>
-                                <img class="imgPartenires" src="{{ asset('/img/logo/Logo Geo-Decouvertepartenaires-nao.png') }}"/>
-                                <img class="imgPartenires" src="{{ asset
-                                    ('/img/logo/logo-5partenaires-nao.png') }}"/>
-                                <img class="imgPartenires" src="{{ asset
-                                    ('/img/logo/vne_vne_LogoMNHN-partenaires-nao.png') }}">
-                            </div>
-
-                        </div>
+                    <p id="nosPartenaires">Nos partenaires</p>
+                    <div class="col m12 l12 hide-on-med-and-down" id="rowPartenaires">
+                        <a href="https://www.ffrandonnee.fr/"><img src="{{ asset
+                            ('/img/logo/federation-francaise-de-la-randonnee-pedestre-randonnee-fspartenaires-nao.png') }}"/></a>
+                        <a href=""><img class="imgPartenires" src="{{ asset('/img/logo/hydraelec2.png') }}"/></a>
+                        <a href="https://www.geo.fr/"><img class="imgPartenires" src="{{ asset('/img/logo/natgeo2.png') }}"/></a>
+                        <a href="https://laruchequiditoui.fr/fr"><img class="imgPartenires" src="{{ asset
+                            ('/img/logo/logo-5partenaires-nao.png') }}"/></a>
+                        <a href="https://www.mnhn.fr/"><img class="imgPartenires" src="{{ asset
+                            ('/img/logo/vne_vne_LogoMNHN-partenaires-nao.png') }}"></a>
                     </div>
+                </div>
+            </div>
+            <div class="row show-on-medium-and-down" id="footer-mobile">
+                <div class="col s12 show-on-medium-and-down" id="citation-mobile">
+                    “ Juste là où<br>
+                    vous êtes est le<br>
+                    bon endroit pour <br>commencer”
+                    <br><span id="little_text">Pema Chödrön</span>
+                </div>
+                <div class="col s12 show-on-medium-and-down" id="nao">
+                    Nao
+                </div>
             </div>
         </div>
 
-    </div>
-
-        {% block javascripts %}
-            <script
-                    src="https://code.jquery.com/jquery-3.3.1.js">
-            </script>
-            <script
-                    src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-            <script
-                    src="{{ asset('js/navbar.js') }}">
-            </script>
-        {% endblock %}
+            {% block javascripts %}
+                <script
+                        src="https://code.jquery.com/jquery-3.3.1.js">
+                </script>
+                <script
+                        src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js">
+                </script>
+                <script type="text/javascript">
+                    M.AutoInit();
+                </script>
+                <script src="{{ asset('js/navbar.js') }}"></script>
+                <script src="{{ asset('js/newsletter.js') }}"></script>
+            {% endblock %}
     </body>
 </html>

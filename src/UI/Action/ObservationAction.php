@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class ObservationAction
  * @Route(
- *     "/observe",
+ *     "/saisir-observation",
  *     name="app_observe",
  *     methods={"GET","POST"}
  * )
@@ -36,6 +36,11 @@ final class ObservationAction implements ObservationActionInterface
      */
     private $formFactory;
 
+    /**
+     * ObservationAction constructor.
+     * @param ObserveTypeHandlerInterface $observationTypeHandler
+     * @param FormFactoryInterface        $formFactory
+     */
     public function __construct(
         ObserveTypeHandlerInterface $observationTypeHandler,
         FormFactoryInterface        $formFactory

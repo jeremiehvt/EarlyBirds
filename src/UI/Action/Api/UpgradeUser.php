@@ -9,6 +9,7 @@
 namespace App\UI\Action\Api;
 
 use App\Domain\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,8 +18,9 @@ use Symfony\Component\Routing\Annotation\Route;
  * @Route(
  *     "/upgradeuser/{id}",
  *     name="upgrade_user",
- *     methods={"PATCH"}
+ *     methods={"POST"}
  * )
+ * @IsGranted("ROLE_ADMIN")
  */
 class UpgradeUser
 {
@@ -45,7 +47,12 @@ class UpgradeUser
     {
         $user = $this->userRepository->findOneBy(['id' => $id]);
 
-        $user->addRole("ROLE_NATURALIST");
+        if (in_array("ROLE_NATURALIST", $user->getRoles())) {
+            $user->addRole("ROLE_ADMIN");
+        } else {
+            $user->addRole("ROLE_NATURALIST");
+        }
+
         $status = $this->userRepository->update();
 
         return new JsonResponse($status);

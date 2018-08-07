@@ -10,7 +10,6 @@ namespace App\Domain\Builder;
 
 use App\Domain\Builder\Interfaces\ObserveBuilderInterface;
 use App\Domain\Models\Observe;
-use App\Domain\Models\TaxRef;
 use App\Domain\Models\User;
 
 /**
@@ -29,23 +28,23 @@ class ObserveBuilder implements ObserveBuilderInterface
      */
     public function create(
         User      $author,
-        TaxRef    $ref,
+                  $ref,
         string    $description,
         string    $latitude,
         string    $longitude,
         \DateTime $date,
         string    $img
     ): ObserveBuilderInterface {
-       $this->observe = new Observe();
-       $this->observe
-            ->setAuthor($author)
-            ->setRef($ref)
-            ->setDescription($description)
-            ->setLatitude($latitude)
-            ->setLongitude($longitude)
-            ->setObsDate($date)
-            ->setImg($img)
-       ;
+       $this->observe = new Observe(
+           $author,
+           $ref,
+           $description,
+           $latitude,
+           $longitude,
+           $date,
+           $img
+       );
+
        return $this;
     }
 

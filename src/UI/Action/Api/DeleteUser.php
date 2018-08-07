@@ -9,6 +9,7 @@
 namespace App\UI\Action\Api;
 
 use App\Domain\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *     name="delete_user",
  *     methods={"DELETE"}
  * )
+ * @IsGranted("ROLE_ADMIN")
  */
 class DeleteUser
 {

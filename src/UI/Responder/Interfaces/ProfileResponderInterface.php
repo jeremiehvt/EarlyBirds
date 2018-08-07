@@ -18,6 +18,7 @@ interface ProfileResponderInterface
      * @param array|null         $observe
      * @param array|null         $observesToValidate
      * @param array|null         $users
+     * @param array|null         $level
      *
      * @return mixed
      */
@@ -26,6 +27,7 @@ interface ProfileResponderInterface
         FormInterface $form = null,
         array $observe = null,
         array $observesToValidate = null,
-        array $users = null
+        array $users = null,
+        array $level = null
     );
 }

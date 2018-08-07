@@ -45,6 +45,7 @@ final class ProfileResponder implements ProfileResponderInterface
      * @param array|null         $myObserves
      * @param array|null         $observesToValidate
      * @param array|null         $users
+     * @param array|null         $level
      *
      * @return mixed|RedirectResponse|Response
      *
@@ -57,7 +58,8 @@ final class ProfileResponder implements ProfileResponderInterface
         FormInterface $form = null,
         array $myObserves = null,
         array $observesToValidate = null,
-        array $users = null
+        array $users = null,
+        array $level = null
     ) {
         if ($redirect) {
             $response = new RedirectResponse($this->urlGenerator->generate('app_profile'));
@@ -70,6 +72,7 @@ final class ProfileResponder implements ProfileResponderInterface
                         'myObserves' => $myObserves,
                         'users'      => $users,
                         'observes'   => $observesToValidate,
+                        'level'      => $level,
                     ]
                 )
             );

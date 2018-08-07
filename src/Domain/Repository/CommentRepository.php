@@ -47,4 +47,16 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @param Comment $comment
+     * @return bool
+     */
+    public function save(Comment $comment): bool
+    {
+        $this->_em->persist($comment);
+        $this->_em->flush();
+
+        return true;
+    }
 }

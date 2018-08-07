@@ -1,0 +1,294 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/actualite.css') }}">
+{% endblock %}
+
+{% block title %}
+    Actualités - NAO (Nos Amis les Oiseaux)
+{% endblock %}
+
+{% block metadesc %}Toute l'information ornithologique rédigée par
+    des spécialistes : conseils d'identification des espèces, bonnes pratiques d'observation,
+    agenda et articles de fond.{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <div class="col l12 m12 s12" id="subHeader">
+            <div class=" col l2 m2 s2">
+                <p id="slogan">
+                    Nos amis les oiseaux
+                </p>
+            </div>
+
+            <div class="col m8 s12" id="header">
+                <h1 class="col m10 offset-m1 s12 header_text">
+                    Le blog
+                </h1>
+            </div>
+        </div>
+
+        <div class="col l10 offset-l1 m10 offset-m1 s10 offset-s1" id="search-container">
+            <input class="col l8 offset-l2 m8 offset-m2 s12"
+                   type="text"
+                   placeholder="Champ de Recherche"
+                   id="search"
+                   autocomplete="off"
+            />
+            <div class="col l10 offset-l1 m10 offset-m1 s10 offset-s1" >
+                <div>
+                    {% if app.user %}
+                        {% for role in app.user.roles %}
+                            {% if role is same as("ROLE_ADMIN") %}
+                                <p id="author" data-author="{{ role }}"></p>
+                            {% elseif role is same as ("ROLE_NATURALIST") %}
+                                <p id="author" data-author="{{ role }}"></p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                {% if is_granted('ROLE_NATURALIST') %}
+                    <a  href="{{ path('app_add_post') }}"
+                       id="add-article-btn"
+                       class="col l4
+                    offset-l4 m4 offset-m4
+                    s12 btn
+                waves-effect">
+                        ajouter un article
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col l10 offset-l1 m10 offset-m1 s12">
+
+            <div class="col l4 m12 s12">
+                <div class="card grey lighten-5" id="head-card">
+                    <div class="card-content">
+                        <h2 id="first-article-title">Sur le perchoir</h2>
+                        {% if lastPost is not null %}
+                            {% if lastPost.miniature is not null %}
+                                <p id="head-img-container">
+                                    <img class="circle" id="head-img" alt="image du dernier
+                                    article paru sur nao" src="
+                                    {{lastPost.miniature }}">
+                                </p>
+                            {% else %}
+
+                            {% endif %}
+                        <h2 class="card-title" id="head-article-title">
+                            {{ lastPost.title}}
+                        </h2>
+                        <p>
+                            <em>  auteur :
+                                {% if lastPost.author.nickname is not null %}
+                                    {{ lastPost.author.nickName }}
+                                    {% if "ROLE_ADMIN" in  lastPost.author.roles %}
+                                        - Administrateur
+                                    {% elseif"ROLE_USER" in  lastPost.author.roles %}
+                                        - Naturaliste
+                                    {% endif %}
+                                {% else %} nc
+                                    {% if "ROLE_ADMIN" in  lastPost.author.roles %}
+                                        - Administrateur
+                                    {% elseif"ROLE_USER" in  lastPost.author.roles %}
+                                        - Naturaliste
+                                    {% endif %}
+                                {% endif %}
+                            </em>
+                        </p>
+                        <p class="short"><strong class="short-head">Description :
+                            </strong><br>{{ lastPost.shortDesc }}</p>
+                        <p class="chip">{{ lastPost.category }}</p>
+                        <p>crée le : <em>{{ lastPost.createdAt|localizeddate('long',
+                                    'none') }}
+                            </em>
+                        </p>
+                        
+                        <a id="head-article-link" href="{{ path('app_read_article', {'id' : lastPost
+                            .id} ) }}">lire l'article</a>
+                    </div>
+                    <div class="card-action">
+
+                       <div id="heart-infos" class="head-link" data-url="{{ path('get_favoured') }}">
+                            <span class="js-like-post-count" style="position: relative; bottom: 8px; font-size: 12px">{{ lastPost.favouredBy.count }}</span>
+                            {% if is_granted('ROLE_USER')%}
+                            <a class="toggle-heart" href="{{ path('toogle_post_heart', {id: lastPost.id}) }}">
+                                <i id="postheart" data-id="{{ lastPost.id }}" class="material-icons head-heart">favorite_border</i>
+                                <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloader.gif') }}" style="display: none; margin-bottom: 4px;">
+                            </a>
+                            {% else %}
+                                <a href="{{ path('security_login') }}">
+                                    <i class="material-icons" style="color: #EB5757">favorite_border</i>
+                                </a>
+                            {% endif %}
+                            <a href=""><i class="material-icons head-share">share</i></a>
+
+
+                           {% if is_granted('ROLE_NATURALIST') %}
+                               <a href="#" class="data-delete-post" data-delete="{{ path
+                                ('app_delete_article',
+                                {'id' : lastPost.id}) }}"><i
+                                        class="material-icons
+                            head-delete"
+                                >delete</i></a>
+                            <a href="{{ path('app_update_post', {'id' : lastPost.id}) }}"><i
+                                        class="material-icons
+                            head-edit"
+                                >edit</i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <ul class="collapsible grey lighten-5" id="category">
+                    <li>
+                        <div class="collapsible-header grey lighten-5">
+                            <h2 id="category-title">Catégories</h2>
+                        </div>
+                        <div class="collapsible-body">
+                            <ul id="category-list">
+                               <li data-cat="vie de l'association"
+                                       class="category-link">vie de l'association
+
+                               </li>
+                                <li data-cat="Événements"
+                                        class="category-link">Événements
+                                </li>
+                                <li data-cat="L’art d'observer les oiseaux"
+                                    class="category-link">L’art d'observer les oiseaux
+                                </li>
+                                <li data-cat="Identifier un oiseau" class="category-link">Identifier un oiseau
+                                </li>
+                                <li class="category-link"
+                                data-cat="Ornithologie sans frontières">Ornithologie sans
+                                    frontières</li>
+                                <li data-cat="Biodiversité , environnement"
+                                    class="category-link">
+                                    Biodiversité , environnement
+                                </li>
+                                <li data-cat="Programmes de recherche et publications"
+                                    class="category-link">
+                                    Programmes de recherche et publications
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="collapsible grey lighten-5" id="newsletter">
+                    <li>
+                        <div class="collapsible-header grey lighten-5" id="newsletter-title-container">
+
+                            <h2 id="newsletter-title">Abonnez-vous à la newsletter</h2>
+                        </div>
+                        <div class="collapsible-body" id="newsletter-body">
+                        
+                            <form id="newsletter-form">
+                                <input class="actalitynewsletter validate" type="email" placeholder="votre email" id="email_inline" required="required"/><br>
+                                <span class="helper-text" style="display: none; margin-bottom: 10px; width: 200%; right: 30%;"></span>
+                                <div>
+                                    <button class="btn waves-effect" type="submit">envoyer</button>
+                                </div>
+                                <label>
+                                    <input type="checkbox" required>
+                                <span id="newsletter-span">J'accepte que mon email soit utilisé pour m'adresser la newsletter et j'ai bien pris connaissance de la politique de confidentialité de
+                                    <a id="newsletter-span-link" href="{{ path('app_confidentiality') }}">nao.</a>
+                                </span>
+                                </label>                        
+                            </form>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col l8 m12 s12" id="article">
+                {% if posts is not null %}
+                    {% for post in posts %}
+                        <div class="col l6 m6 s12">
+                            <div class="card" id="article-card">
+                                <div class="card-image">
+                                    <img src="{{ post.img }}" alt="image de l'article de nao">
+                                    <h2 class="card-title" id="article-card-title">{{ post.title }}</h2>
+                                </div>
+                                <div class="card-content">
+                                    <p>auteur : <em>
+                                            {% if post.author.nickName is not null %}
+                                            {{ post.author.nickName }}
+                                                {% if "ROLE_ADMIN" in  post.author.roles %}
+                                                    - Administrateur
+                                                {% elseif"ROLE_USER" in  post.author.roles %}
+                                                    - Naturaliste
+                                                {% endif %}
+                                            {% else %} nc
+                                                {% if "ROLE_ADMIN" in  post.author.roles %}
+                                                    - Administrateur
+                                                {% elseif"ROLE_USER" in  post.author.roles %}
+                                                    - Naturaliste
+                                                {% endif %}
+                                            {% endif %}</em></p>
+                                    <p class="short"><strong
+                                                class="short-head">Description :
+                                        </strong><br>{{ post
+                                        .shortDesc
+                                        }}</p>
+                                    <p class="chip">{{ post.category }}</p>
+                                    <p>crée le : <em>{{ post.createdAt|localizeddate('long', 'none') }}
+                                        </em>
+                                    </p>
+                                    <a
+                                        id="head-article-link"
+                                        href="{{ path('app_read_article', {'id' : post.id} )
+                                        }}">lire l'article
+                                    </a>
+                                </div>
+                                <div class="card-action">
+                                   <!-- <a
+                                        href="{{ path('app_read_article', {'id' : post.id} ) }}"
+                                        class="btn-floating halfway-fab waves-effect waves-light
+                                        orange darken-1 btn-card"
+                                      >
+                                        <i class="material-icons">add</i>
+                                    </a> -->
+                                    <div class="head-link">
+                                        <span class="js-like-post-count" style="position: relative; bottom: 8px; font-size: 12px">{{ post.favouredBy.count }}</span>
+                                    {% if is_granted('ROLE_USER')%}
+                                    <a class="toggle-heart" href="{{ path('toogle_post_heart', {id: post.id}) }}">
+                                        <i id="postheart" data-id="{{ post.id }}" class="material-icons head-heart">favorite_border</i>
+                                        <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloader.gif') }}" style="display: none; margin-bottom: 4px;">
+                                    </a>
+                                    {% else %}
+                                        <a href="{{ path('security_login') }}">
+                                            <i class="material-icons" style="color: #EB5757">favorite_border</i>
+                                        </a>
+                                    {% endif %}
+                                        <a href=""><i class="material-icons head-share"
+                                                     >share</i></a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="data-delete-post" href="" data-delete="{{ path
+                                            ('app_delete_article', {'id' : post
+                                            .id}) }}"><i
+                                                    class="material-icons head-delete"
+                                            >delete</i></a>
+                                        <a href="{{ path('app_update_post', {'id' : post.id}) }}">
+                                            <i class="material-icons head-edit">edit</i></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/actuality.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/delete_post.js') }}"></script>
+{% endblock %}
+
+

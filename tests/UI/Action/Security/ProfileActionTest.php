@@ -20,7 +20,7 @@ class ProfileActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/profile');
+        $client->request('GET', '/profil');
 
         static::assertSame(
             Response::HTTP_FOUND,

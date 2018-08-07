@@ -23,6 +23,49 @@ class LevelRepository extends ServiceEntityRepository
         parent::__construct($registry, Level::class);
     }
 
+    /**
+     * @param Level $level
+     *
+     * @return bool
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Level $level): bool
+    {
+        $this->getEntityManager()->persist($level);
+        $this->getEntityManager()->flush();
+
+        return true;
+    }
+
+    /**
+     * @param Level $level
+     *
+     * @return bool
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function remove(Level $level): bool
+    {
+        $this->getEntityManager()->remove($level);
+        $this->getEntityManager()->flush();
+
+        return true;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function findAllOrderByPrice()
+    {
+        return $this->createQueryBuilder('level')
+            ->orderBy('level.points')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Level[] Returns an array of Level objects
 //     */

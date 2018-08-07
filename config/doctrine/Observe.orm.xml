@@ -10,16 +10,34 @@
         <many-to-one field="author" target-entity="App\Domain\Models\User" inversed-by="observes">
             <join-column nullable="false"/>
         </many-to-one>
-        <many-to-one field="ref" target-entity="App\Domain\Models\TaxRef">
-            <join-column nullable="true"/>
+        <many-to-one field="ref" target-entity="App\Domain\Models\TaxRef" fetch="EXTRA_LAZY">
+            <join-column/>
         </many-to-one>
-        <field name="description" type="text"/>
+        <field name="description" type="text" nullable="false"/>
         <field name="latitude"/>
         <field name="longitude"/>
         <field name="img"/>
         <field name="obsDate" type="datetime"/>
-        <many-to-one field="validator" target-entity="App\Domain\Models\User" inversed-by="validatedObserve"/>
-        <many-to-many field="upvoter" target-entity="App\Domain\Models\User" inversed-by="upvoted"/>
+        <many-to-one field="validator" target-entity="App\Domain\Models\User" inversed-by="validatedObserve">
+            <join-table name="validators">
+                <join-columns>
+                    <join-column/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-one>
+        <many-to-many field="upvoter" target-entity="App\Domain\Models\User" inversed-by="upvoted">
+            <join-table name="upvoters">
+                <join-columns>
+                    <join-column/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
         <field name="createdAt" type="datetime">
             <gedmo:timestampable on="create"/>
         </field>

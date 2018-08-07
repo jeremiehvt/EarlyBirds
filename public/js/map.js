@@ -1,6 +1,6 @@
 $(function() {
 
-    let mymap = L.map('map')
+    let map = L.map('map')
                  .setView([51.505,
                            -0.09],
                           5
@@ -14,21 +14,17 @@ $(function() {
                     accessToken: 'pk.eyJ1IjoibmVva2lsbGVyMTEzIiwiYSI6ImNqZ2h2c2xxMzBsbm0ycWsxemJ6YnNpZXEifQ.PiGeZsNjVNyo1G80Y1KD4Q'
                 }
     )
-     .addTo(mymap);
+     .addTo(map);
+
+    let domainUrl = document.location.origin;//set base uri origin to ajax request !!!!!!
 
     //INIT_GEOLOCATION
-    let latitude = $('input#observe_latitude');
-    let longitude = $('input#observe_longitude');
 
     function success(pos) {
         let cLong = pos.coords.longitude;
         let cLat = pos.coords.latitude;
 
-        if(longitude.val() === "" && latitude.val() === "") {
-            latitude.val(cLat);
-            longitude.val(cLong);
-        }
-        mymap.flyTo([cLat,cLong], 10);
+        map.flyTo([cLat,cLong], 10);
     }
 
     function error(err) {
@@ -61,19 +57,75 @@ $(function() {
 //END_GEOLOCATION
 
     $().ready(function () {
-        $.getJSON('http://127.0.0.1:8000/recherche-les-dernieres-observations',
+        $.getJSON(domainUrl + '/recherche-les-dernieres-observations',
                   function(data) {
 
                       let i = 0;
                       data.forEach(function (datas) {
 
                           i++;
+
+                          let dateObs = new Date(datas.obsDate.date);
+                          let refName;
+                          if (datas.ref == null) {
+                              refName ="NC";
+                          } else {
+                              refName = datas.ref.nomComplet;
+                          }
+
+                          let YY = dateObs.getFullYear();
+                          let DD = dateObs.getDate();
+                          let MM;
+
+                          switch(dateObs.getMonth()){
+                              case 1: MM = "Janvier";
+                                  break;
+                              case 2: MM = "Février";
+                                  break;
+                              case 3: MM = "Mars";
+                                  break;
+                              case 4: MM = "Avril";
+                                  break;
+                              case 5: MM = "Mai";
+                                  break;
+                              case 6: MM = "Juin";
+                                  break;
+                              case 7: MM = "Juillet";
+                                  break;
+                              case 8: MM = "Août";
+                                  break;
+                              case 9: MM = "Septembre";
+                                  break;
+                              case 10: MM = "Octobre";
+                                  break;
+                              case 11: MM = "Novembre";
+                                  break;
+                              case 12: MM = "Décembre";
+                                  break;
+                          }
+
+                          let nickname;
+
+                          if (datas.author.nickname === null) {
+                              nickname = "NC";
+                          } else {
+                              nickname = datas.author.nickname;
+                          }
+
                           let layer = L.marker([datas.latitude,datas.longitude]);
                           let tab = [];
                           tab.push(layer);
-                          console.log(datas);
-                          L.featureGroup(tab).bindPopup(datas.ref.nomComplet).addTo(mymap);
-
+                          L.featureGroup(tab).bindPopup(
+                              '<div id="popupMap">' +
+                              '<img id="birdPopup" class="circle responsive-img" src="'+ datas.img +'"/>' +
+                              '<br><span id="birdName">'+ refName +'</span>'+
+                              '<br>Observé le '+ DD +' '+ MM +' '+ YY +
+                              '<br><span id="author">'+ nickname +'</span>'+
+                              '<br><br>Latitude : '+ datas.latitude + '<br>Longitude :'+ datas.longitude +
+                              '<br><br><a href="'+ domainUrl +'/voir-observation-'+ datas.id +'">voir' +
+                              ' l\'observation en' +
+                              ' détail</a></div>'
+                          ).addTo(map);
 
                       });
               }

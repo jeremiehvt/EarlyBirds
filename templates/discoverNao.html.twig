@@ -1,0 +1,365 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+          integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+          crossorigin=""/>
+    <link rel="stylesheet" href="{{ asset('css/discoverNao.css') }}">
+{% endblock %}
+
+{% block metadesc %}
+    Nos Amis les Oiseaux, un lieu où tous, professionnels,
+    amateurs et néophytes- peuvent participer à l'étude des oiseaux et à la préservation
+    de la biodiversité.
+{% endblock %}
+
+{% block title %}
+    l'association ornithologique collaborative par nature
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col l12 m12 s12" id="subHeader">
+            <div class=" col l2 m2 s2">
+                <p id="slogan">
+                    Nos amis les oiseaux
+                </p>
+            </div>
+
+
+            <div class="col l8  m8 s12" id="header">
+                <h2 class="col m10 offset-m1 s12 header_text">
+                    DÉCOUVRIR NAO<br>
+                </h2>
+                <h3 class="header-little-text">
+                    L’association collaborative par nature
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col l8 offset-l2  m8 offset-m2 s10 offset-s1" id="intro">
+            <div class="hide-on-med-and-down" id="story_group">
+                <h1 id="story">HISTORIQUE</h1>
+            </div>
+            <h2 class="sub_title">l’association ORNITHOLOGIQUE</h2>
+            <p class="paraph_page">
+                Créée en 2010 par Michel Dujardin, naturaliste aujourd'hui à la retraite,
+                pour lutter contre le braconnage des bruants ortolans dans le département
+                des Landes, <a class="paraph_link" href="{{ path('app_home') }}">Nos Amis les Oiseaux</a>
+                est une association loi 1901, reconnue d'intérêt général .
+                <br><br>
+                Aujourd'hui, forte de ses 2 000 adhérents et 200 bénévoles actifs répartis
+                partout en France, son champ d'action et ses missions se sont élargies
+                pour s'intégrer au concept du "Réfléchissons global et agissons local".
+            </p>
+            <p class="paraph_page">Les membres de l’association <button id="btn-role"
+                                                                        class="waves-effect
+            waves-light btn">EN SAVOIR +</button></p>
+            <ul class="paraph_page" id="member">
+                <li><strong class="bold-text"> Le président : Michel Dujardin</strong>, naturaliste ornithologue à la
+                    retraite. Fervent défenseur de la protection de l'environnement
+                    et des sciences participatives ;
+                </li>
+                <li><strong class="bold-text">La vice-présidente : Nathalie Laurent</strong>, ornithologue
+                    amateur depuis toujours ;</li>
+                <li><strong class="bold-text">Le secrétaire : Cédric Martin </strong>, naturaliste ornithologue et
+                    blogueur
+                </li>
+                <li><strong class="bold-text">La secrétaire adjointe : Lorina Walter</strong> qui remplit la
+                    fonction de
+                             webmaster
+                    du site <a class="page_link" href="{{ path('app_home') }}">nao.org</a> et de
+                    déléguée à la
+                    protection des
+                    données
+                    personnelles ;
+                </li>
+                <li><strong class="bold-text">La trésorière : Yasmina Delta</strong>, acheteur "services indirects"
+                    et apprentie "ornitho" le week-end.</li>
+                <li><br>Vous pouvez consulter nos <a href="{{ asset('/doc/statuts.pdf') }}"
+                download="statuts">statuts</a>
+                    pour plus de détail sur le fonctionnement de l'association</li>
+            </ul>
+        </div>
+
+        <div class="col s12" id="separator">
+            <div class="col s8 offset-s2">
+                <p id="text-separator">
+                    “ Il n’y a pas l’homme d’un côté la nature de l’autre. L’homme est nature  “
+                </p>
+                <p id="text-separator-deux">
+                    Pierre Rabhi
+                </p>
+            </div>
+        </div>
+
+        <div class="col l8 offset-l2  m8 offset-m2 s10 offset-s1">
+            <div class="hide-on-med-and-down" id="method_group">
+                <h2 id="method">APPROCHE</h2>
+            </div>
+            <h3 class="sub_title"> Une science populaire et citoyenne</h3>
+            <p class="paraph_page">L'ornithologie est
+                une science mais c’est une des rares qui peut être pratiquée à la fois par des
+                naturalistes et des amateurs, avertis ou débutants.
+                Nos Amis les Oiseaux, c'est l'expression de cette particularité. C'est un
+                "lieu unique" pour tous les amoureux de la nature qui ont envie de participer,
+                ensemble, à préserver la diversité biologique.
+            </p>
+
+            <h3 class="second_sub_title">Une pratique qui nous reconnecte à la nature
+            </h3>
+            <p class="paraph_page">Physiquement déjà,
+                puisque les observations sont réalisées en extérieur, sur le terrain.
+                Et Intellectuellement également : l’étude des oiseaux permet de se rendre
+                compte à quel point nos existences sont liées à la leur et que l’Homme aussi
+                fait partie de cette diversité biologique.
+            </p>
+
+            <h3 class="second_sub_title">Une activité à
+                associer à d’autres centres d’intérêt
+            </h3>
+            <p class="paraph_page">Pour les membres de NAO,
+                l’ornithologie n’est pas une pratique de laboratoire réservée à des experts.
+                Au contraire, c’est une activité de plein air que chacun peut exercer, à sa guise,
+                seul, en groupe ou en famille, en même temps qu’un métier en extérieur ou un autre
+                loisir : la randonnée, la balade du dimanche, le vélo, la photographie, le jardinage, etc.…
+            </p>
+
+            <h3 class="second_sub_title">Une source de données
+                fiables et reconnues
+            </h3>
+            <p class="paraph_page">
+                Près de 40% de nos adhérents sont des professionnels (naturalistes). Nombre
+                d’entre eux interviennent lors de colloques ou conférences, sont consultés pour
+                des programmes de recherche à l’échelle européenne et participent à des échanges
+                avec leurs confrères du monde entier.
+                C’est grâce à leur aide que NAO peut garantir la qualité des données recueillies
+                et asseoir la crédibilité des analyses qui en sont tirées.
+            </p>
+        </div>
+        <div class="col l8 offset-l2  m8 offset-m2 s10 offset-s1">
+            <h2 class="sub_title">S’associer à des
+                programmes de recherche participatifs</h2>
+            <div class="col s12 frame_group">
+                <h3 class="frame" id="frame_un">RÉCOLTER DES DONNÉES</h3>
+                <p class="col m5 little_paraph_page" id="frame_paraph_un">Récolter des données
+                    localement
+                    sur les oiseaux est important pour la bonne compréhension du biotope régional
+                    mais les compiler à un niveau national, voire européen, est absolument
+                    primordial pour avoir une vision à la fois plus globale et plus précise des
+                    enjeux écologiques à l’échelle planétaire.<br>
+                    <br>
+                    Toutefois, cela nécessite
+                    de recueillir un très grand nombre de données d’observations pour établir des
+                    analyses crédibles et en tirer des hypothèses pertinentes.
+                </p>
+                <div  class="col m5 hide-on-small-only" id="frame_img_un">
+                    <img src="{{ asset('/img/other/discover_nao_un.png') }}"/>
+                </div>
+            </div>
+
+            <div class="col s12 frame_group">
+                <h3 class="frame" id="frame_deux">PARTICIPER INDIVIDUELLEMENT</h3>
+                <div  class="col m5 hide-on-small-only" id="frame_img_deux">
+                    <img src="{{ asset('/img/other/discover_nao_deux.png') }}"/>
+                </div>
+                <p class="col m5 little_paraph_page" id="frame_paraph_deux">C’est tout l’intérêt de
+                    l’aspect collaboratif
+                    des sciences dites citoyennes : chacun, quel que soit son niveau d’expertise,
+                    peut prendre part à ces inventaires.<br><br>
+                    Ces participations individuelles démultiplient l’action des chercheurs et
+                    les aident à établir plus rapidement des rapports et des plans d’actions associés.
+                    <a class="col l10 offset-l1 m10 offset-m1 s12 waves-effect waves-light btn"
+                       id="frame_btn" href="{{ path('app_observe') }}">
+                        Je saisis ma 1ère
+                        observation !
+                    </a>
+                </p>
+            </div>
+
+            <div class="col s12 frame_group">
+                <h3 class="frame" id="frame_trois">AGIR ENSEMBLE</h3>
+                <p class="col m5 little_paraph_page" id="frame_paraph_trois">Pour NAO, la démarche
+                    favorise également
+                    la prise de conscience que nous avons tous un rôle à jouer dans la sauvegarde
+                    de notre environnement : nous sommes tous des éco citoyens.
+                    <br><br>
+                    Le programme d’étude mené actuellement, en partenariat avec
+                    <a id="link_frame_trois" href="https://www.mnhn.fr/">
+                        le Muséum national d’Histoire naturelle
+                    </a>, vise à analyser l’impact du climat, de l’urbanisation et
+                    de l’agriculture sur la biodiversité en France.
+                </p>
+                <div  class="col m5 hide-on-small-only" id="frame_img_trois">
+                    <img src="{{ asset('/img/other/discover_nao_trois.png') }}"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="col l8 offset-l2  m8 offset-m2 s10 offset-s1">
+            <div class="hide-on-med-and-down" id="mission_group">
+                <h2 id="mission">MISSIONS</h2>
+            </div>
+            <h2 class="sub_title" id="mission_title">Nos trois principales missions</h2>
+            <ul class="paraph_page">
+                <li class="mission-li">
+                    <h4 class="third_sub_title">Étude de l'avifaune par région
+                    </h4>
+                </li>
+                <li>
+                    <ul class="paraph_page">
+                        <li>identifier, compter, localiser les espèces d'oiseaux.</li>
+                    </ul>
+                </li>
+                <li class="mission-li">
+                    <h4 class="third_sub_title">Protection de
+                        l’environnement et de la biodiversité des régions
+                    </h4>
+                </li>
+                <li>
+                    <ul class="paraph_page">
+                        <li>œuvrer pour une agriculture et une économie plus respectueuses.</li>
+                        <li>contribuer à faire évoluer certaines pratiques de chasse.</li>
+                    </ul>
+                </li>
+                <li class="mission-li">
+                    <h4 class="third_sub_title">Préservation
+                        des espaces naturels français
+                    </h4>
+                </li>
+                <li>
+                    <ul class="paraph_page">
+                        <li>agir pour la création de nouvelles zones naturelles protégées.
+                        </li>
+                        <li>veiller à la qualité des espaces dédiés.</li>
+                        <li>Nettoyer le littoral, les forêts, les berges (deux fois par an, dans
+                            le cadre des activités de l'association).
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col s12" id="separator-trois">
+            <div class="col m5 offset-m7 s10 offset-s1">
+                <p id="text-separator-trois">
+                    SOUTENEZ-NOUS !
+                </p>
+            </div>
+        </div>
+
+        <div class="col l8 offset-l2  m8 offset-m2 s10 offset-s1" id="ressources">
+            <h2 class="sub_title" id="ressources-title">
+                NOS RESSOURCES
+            </h2>
+
+            <ul class="paraph_page">
+                <li class="ressource-li">
+                    <h4 class="third_sub_title">VOS ADHÉSIONS</h4>
+                </li>
+                <li>L’adhésion annuelle s’élève à 20€ par personne.
+                </li>
+                <li>Une réduction de 50% est applicable pour les étudiants ou les personnes en recherche d’emploi sur présentation d’un justificatif.
+                </li>
+                <li>Un jeune, mineur, ne pourra pas adhérer en son nom. Il devra être rattaché à l’adhésion d’un de ses parents. </li>
+            </ul>
+
+            <ul class="paraph_page">
+                <li class="ressource-li">
+                    <h4 class="third_sub_title">
+                       VOS DONS
+                    </h4>
+                </li>
+                <li>
+                    Les dons nous permettent de faire connaître notre action, de sensibiliser plus
+                    de personnes au fait qu’ils ont la possibilité d’agir concrètement et simplement
+                    à la protection des oiseaux et de la planète.<br>
+                    Ce sont vos dons qui nous ont permis de développer l’outil « carnet de terrain
+                    numérique » en ligne.
+                </li>
+            </ul>
+
+            <button id="btn-donate"
+                    class="waves-effect
+            waves-light btn">EN SAVOIR +</button>
+
+            <ul id="hide-donate">
+                <li>
+                    <h4 class="donate_title">Comment faire un don ?</h4>
+                    <ul>
+                        <li>
+                            En nous adressant votre versement par chèque, libellé à l’ordre de :
+                        </li>
+                        <li>Nos Amis les Oiseaux</li>
+                        <li>Impasse du Gypaète</li>
+                        <li>40990 SAINT-PAUL-LÈS-DAX</li>
+                        <li>Nous vous retournerons le reçu fiscal dans les meilleurs délais.</li>
+                    </ul>
+                </li>
+
+                <li>
+                    <h4 class="donate_title">Réduction d’impôt
+                    </h4>
+                </li>
+
+                <li>
+                    NAO est une association d’intérêt général et remplit les<a
+                            class="paraph_link"
+                            href="https://www.service-public.fr/particuliers/vosdroits/F426#fiche-item-2">
+                        3 conditions nécessaires
+                    </a>pour l’attribution d’une réduction d’impôt (selon l’article 200 du CGI) :
+
+                    <ul>
+                        <li>
+                            <h5 class="donate_sub_title">Particulier</h5>
+                        </li>
+                        <li>en tant que <span class="bold-text">particulier</span>, la réduction d’impôt
+                            est de
+                            66%
+                            du montant total de votre don, plafonnée à 20% de votre revenu imposable.
+                            Lorsque le montant des dons dépasse la limite de 20 % du revenu
+                            imposable, l’excédent est reporté sur les 5 années suivantes et
+                            ouvre droit à la réduction d’impôt dans les mêmes conditions.
+                        </li>
+
+                        <li>
+                            <h6 class="donate_second_sub_title">Exemples
+                            </h6>
+                        </li>
+                        <li>*  Vous faites un <span class="bold-text">don de 100€.</span> Vous
+                            bénéficiez d’une  réduction d’impôts  de 66€. <span class="bold-text">Vous ne
+                                déboursez, en fait, que 34€.</span>
+                        </li>
+                        <li>
+                            *  Vous faites un <span
+                                    class="bold-text">don de 30€.</span> Vous bénéficiez d’une
+                            réduction d’impôts  de 19.80€. <span class="bold-text">Vous ne
+                                déboursez, en fait, que 10,20€.</span>
+                        </li>
+
+                        <li>
+                            <h5 class="donate_sub_title">Entreprise</h5>
+                        </li>
+                        <li>
+                            en tant qu’<span class="bold-text">’entreprise,</span>la réduction
+                            d’impôt est égale à 60% du montant total de votre don, plafonnée à
+                            5‰ de votre chiffre d’affaires.
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/discoverNao.js') }}"></script>
+{% endblock %}

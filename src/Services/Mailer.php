@@ -9,6 +9,7 @@
 namespace App\Services;
 
 use App\Domain\Models\Contact;
+use App\Domain\Models\Newsletter;
 use App\Domain\Models\User;
 use App\Services\Interfaces\MailerInterface;
 use Swift_Mailer;
@@ -72,7 +73,7 @@ class Mailer implements MailerInterface
                     "Emails/registerConfirm.html.twig",
                     [
                         'data' => $user,
-//                        'logo' => $message->embed(\Swift_Image::fromPath($this->logoPath)),
+                        //'logo' => $message->embed(\Swift_Image::fromPath($this->logoPath)),
                     ]
                 ),
                 'text/html'
@@ -134,6 +135,7 @@ class Mailer implements MailerInterface
 
     /**
      * @param Contact $contact
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -143,8 +145,8 @@ class Mailer implements MailerInterface
         $message = new Swift_Message($contact->getSubject());
 
         $message
-            ->setFrom(self::ADMIN_EMAIL)
-            ->setTo($contact->getMail())
+            ->setFrom($contact->getMail())
+            ->setTo([$contact->getMail(), self::ADMIN_EMAIL])
             ->setBody(
                 $this->environment->render(
                     "Emails/contactMail.html.twig",
@@ -154,6 +156,33 @@ class Mailer implements MailerInterface
                 ),
                 'text/html'
             );
+        $this->mailer->send($message);
+    }
+
+    /**
+     * @param Newsletter $newsletter
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function sendConfirmNewsletter(Newsletter $newsletter)
+    {
+        $message = new Swift_Message("[NAO] Confirmation abonnement newsletter");
+
+        $message
+            ->setFrom(self::ADMIN_EMAIL, $newsletter->getEmail())
+            ->setTo($newsletter->getEmail())
+            ->setBody(
+                $this->environment->render(
+                    "Emails/newsletter.html.twig",
+                    [
+                        'data' => $newsletter,
+                    ]
+                ),
+                'text/html'
+            );
+
         $this->mailer->send($message);
     }
 }

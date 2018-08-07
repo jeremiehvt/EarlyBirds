@@ -25,26 +25,30 @@ class ObserveType extends AbstractType
     ) {
         $builder
             ->add('ref', TextType::class, [
-                'label' => false,
+                'label'    => false,
+                'required' => false,
                 'attr'  => [
                     'placeholder'  => 'veuillez choisir un oiseau',
                     'autocomplete' => 'off'
                 ]
             ])
             ->add('description',TextareaType::class, [
-                'label' => false,
+                'label'    => false,
+                'required' => true,
                 'attr'  => [
                     'placeholder' => 'description'
-                ]
+                ],
             ])
             ->add('latitude',TextType::class,[
-                'label' => false,
+                'label'    => false,
+                'required' => true,
                 'attr'  => [
                     'placeholder' => 'latitude'
                 ]
             ])
             ->add('longitude',TextType::class, [
-                'label' => false,
+                'label'    => false,
+                'required' => true,
                 'attr'  => [
                     'placeholder' => 'longitude'
                 ]
@@ -52,12 +56,13 @@ class ObserveType extends AbstractType
             ->add('obsDate', DateType::class, [
                 'label'       => false,
                 'widget'      => 'single_text',
-                'placeholder' => 'année/mois/jour'
+                'required' => true
 
             ]
                 )
             ->add('img',FileType::class, [
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
         ;
     }

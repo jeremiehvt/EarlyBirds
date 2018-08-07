@@ -71,7 +71,8 @@ class RegisterTypeHandler implements RegisterTypeHandlerInterface
             $this->userBuilder->createFromRegistration(
                 $registerType->getData()->email,
                 $registerType->getData()->password,
-                \Closure::fromCallable([$encoder, 'encodePassword'])
+                \Closure::fromCallable([$encoder, 'encodePassword']),
+                100
             );
 
             // Save user in db

@@ -20,7 +20,7 @@ class ObservationActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/observe');
+        $client->request('GET', '/saisir-observation');
 
         static::assertSame(
             Response::HTTP_FOUND,

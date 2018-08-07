@@ -39,7 +39,7 @@ $(document).ready(function() {
         })
     });
 
-    $('.observe').hide("normal", function () {
+    $('.observe').hide(function () {
         $('.observe:lt(9)').show()
     });
 
@@ -75,7 +75,7 @@ $(document).ready(function() {
 });
 
 function hideAjaxLoader() {
-    $('#ajaxLoader').fadeOut('normal', function () {
+    $('.ObserveAjaxLoader').fadeOut('normal', function () {
         $(this).hide();
     });
 }

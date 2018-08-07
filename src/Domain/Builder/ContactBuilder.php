@@ -27,20 +27,26 @@ class ContactBuilder implements ContactBuilderInterface
      * @param string $mail
      * @param string $message
      * @param string $subject
+     * @param bool   $response
+     * @param bool   $marketing
      *
      * @return ContactBuilder
      */
     public function create(
         string $author,
-        string $mail,
         string $message,
-        string $subject
+        string $subject,
+        string $mail,
+        bool   $marketing,
+        bool   $response
     ): self {
         $this->contact = new Contact(
             $author,
             $message,
             $subject,
-            $mail
+            $mail,
+            $marketing,
+            $response
         );
 
         return $this;

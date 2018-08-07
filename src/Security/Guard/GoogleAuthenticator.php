@@ -225,7 +225,8 @@ class GoogleAuthenticator extends SocialAuthenticator
                 $googleUser->getName(),
                 $googleUser->getFirstName(),
                 $googleUser->getLastName(),
-                $googleUser->getAvatar()
+                $googleUser->getAvatar(),
+                100
             );
 
             $user = $this->userBuilder->getUser();

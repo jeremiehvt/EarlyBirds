@@ -64,11 +64,34 @@ class Observe
 
     /**
      * Observe constructor.
+     * @param User      $author
+     * @param           $ref
+     * @param string    $description
+     * @param string    $latitude
+     * @param string    $longitude
+     * @param \DateTime $obsDate
+     * @param string    $img
+     *
+     * @throws \Exception
      */
-    public function __construct()
-    {
-        $this->id      = Uuid::uuid4();
-        $this->upvoter = new ArrayCollection();
+    public function __construct(
+        User      $author,
+                  $ref,
+        string    $description,
+        string    $latitude,
+        string    $longitude,
+        \DateTime $obsDate,
+        string    $img
+    ) {
+        $this->id          = Uuid::uuid4();
+        $this->upvoter     = new ArrayCollection();
+        $this->author      = $author;
+        $this->ref         = $ref;
+        $this->description = $description;
+        $this->latitude    = $latitude;
+        $this->longitude   = $longitude;
+        $this->obsDate     = $obsDate;
+        $this->img         = $img;
     }
 
     /**

@@ -7,650 +7,990 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
           integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
           crossorigin=""/>
+    <link rel="stylesheet" href="{{ asset('/css/profil.css') }}">
 {% endblock %}
 
 {% block body %}
 
-<div id="profilePanel">
-    <div class="row" style="background: rgba(34, 112, 138, 0.25); height: 336px">
-        <div class="col s12 l3 center">
-            <img id="profilePicture" src="{% if app.user.img %}{% if app.user.img matches '/^https?:/' %}{{ app.user.img | replace({'sz=50':'sz=256'}) }}{% else %}{{ app.user.img }}{% endif %}{% else %}{{ '#' }}{% endif %}" alt="" class="circle responsive-img">
-        </div>
-        <div class="col s12 offset-l1 l4">
-            <span>124 obervations</span>
-            <div class="progress right-align">
-                <div class="determinate" style="width: 70%"></div>
+    <div class="container">
+        <div id="profilePanel" class="card-panel">
+            <div id="upperPannel" class="row" style="background-image: url('{{ asset('/img/other/mike-wilson-300693-unsplash.jpg') }}')">
+                <div id="profileDetails" class="col s12 l3 center">
+                    <img id="profilePicture" src="{% if app.user.img %}{% if app.user.img matches '/^https?:/' %}{{ app.user.img | replace({'sz=50':'sz=256'}) }}{% else %}{{ app.user.img }}{% endif %}{% else %}{{ asset('/img/logo/oiseau-silhouette-noir.png') }}{% endif %}" alt="" class="circle responsive-img">
+                    <p id="nick" class="flow-text">{% if app.user.nickname is defined %}{{ app.user.nickname }}{% else %}{{ app.user.email }}{% endif %}{% if app.user.nickname is empty %}{{ app.user.email }}{% endif %}</p>
+                    <p id="level" class="flow-text">{% if level.level != false %}{{ level.level.name }}{% else %}{{ level.previousLevel.name }}{% endif %}</p>
+                </div>
             </div>
-            <span>226 points</span><span>1237 points</span>
+            <div class="row center valign-wrapper" style="height: 135px">
+                <div class="col s3">
+                    <h6>{{ myObserves|length }} observation{% if myObserves|length > 1%}s{% endif %}</h6>
+                </div>
+                <div class="col s9" style="margin-right: 3%;">
+                    <div class="row" style="margin-bottom: 0">
+                        <div class="progress col s10 grey lighten-2" style="margin-top: 20px;">
+                            {% if level.previousLevel.points is defined %}
+                            {% set previousPoints = level.previousLevel.points %}
+                            {% else %}
+                            {% set previousPoints = 0 %}
+                            {% endif %}
+                            <div class="determinate purple lighten-1" style="width: {% if level.level != false %}{{ ((app.user.score - previousPoints) / level.level.points) * 100 }}{% else %}100{% endif %}%"></div>
+                        </div>
+                        {% if level.level != false %}
+                        <div class="col s2">
+                            <h6>{{ level.level.points }} point{% if level.level.points > 1%}s{% endif %}</h6>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <h6 style="margin-top: 0; margin-right: 15%;">{% if app.user.score is defined %}{{ app.user.score }} point{% if app.user.score > 1%}s{% endif %}{% endif %}</h6>
+                </div>
+            </div>
         </div>
 
-    </div>
-</div>
+        <div id="profileContent"  class="row">
 
-    <div class="row">
-
-        <div class="vertical-tab col s2" style="background: rgba(255, 255, 255, 0.9);
-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.12);">
-            <button class="tablinks btn waves-effect waves-light" onclick="verticalTab(event, 'dashboard')" id="defaultOpen">
-                <i class="material-icons" style="font-size: 42px">dashboard</i>
-            </button>
-            <button class="tablinks btn waves-effect waves-light" onclick="verticalTab(event, 'profil')">
-                <i class="material-icons" style="font-size: 42px">contact_mail</i>
-            </button>
-            <button class="tablinks btn waves-effect waves-light" onclick="verticalTab(event, 'observations')">
-                <i class="material-icons" style="font-size: 42px">add_a_photo</i>
-            </button>
-            {% if is_granted('ROLE_ADMIN')%}
-            <button class="tablinks btn waves-effect waves-light" onclick="verticalTab(event, 'admin')">
-                <i class="material-icons" style="font-size: 42px">assignment</i>
-            </button>
-            {% endif %}
-        </div>
-
-            <div class="col s10 m9 l8">
-                <div id="dashboard" class="vertical-tabcontent">
-
-                    <div class="row">
-                        <div class="col s12 offset-l1 l5">
-
-                            <div class="row">
-                                <div class="col s12">
-                                    <div class="card-panel blue-grey darken-1">
-                                        <h5 class="white-text center">Mes dernières observations</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            {% set index = 0 %}
-                    {% for observe in myObserves if index < 5 %}
-
-                        {% set index = index+1 %}
-
-                        <div id="observeTule" class="observe col s12" style="margin-bottom: 45px">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="{{ observe.img }}">
-                                    <span data-lbnom="{{ observe.ref.lbNom }}" class="left-align truncate card-title black-text" style="padding-left: 18px; padding-bottom: 13px"><b>{% if observe.ref.nomVern is defined %}{{ observe.ref.nomVern }}{% else %}{{ observe.ref.lbNom }}{% endif %}</b></span>
-                                    <a class="btn-floating halfway-fab waves-effect waves-light orange darken-1"><i class="material-icons">add</i></a>
-                                </div>
-                                <div class="card-content row" style="padding-bottom: 9px; padding-top: 9px">
-                                    <div class="col s8 m6 l8 left-align">
-                                        <div class="row" style="margin-bottom: 0">
-                                            <span style="font-size: 12px">Observé le {{ observe.createdAt|localizeddate('long', 'none') }}</span>
-                                        </div>
-                                        <div class="row" style="margin-bottom: 0">
-                                            <span style="font-size: 12px">{% if observe.author.nickname is defined %}{{ observe.author.nickname }}{% else %}{{ observe.author.email }}{% endif %}</span>
-                                        </div>
-                                    </div>
-                                    <div class="col s3 m4 l3 left-align" style="padding-right: 0px; padding-top: 15px;">
-                                        <span class="js-like-observe-count" style="position: relative; bottom: 8px; font-size: 12px">{{ observe.upvoter.count }}</span>
-                                        <a class="js-like-observe" href="{{ path('toggle_observe_heart', {id: observe.id}) }}">
-                                            <i id="heart" data-url="{{ path('get_observe_like_status') }}" data-id="{{ observe.id }}" class="material-icons" style="color: #EB5757">favorite_border</i>
-                                            <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloader.gif') }}" style="display: none; margin-bottom: 4px;">
-                                        </a>
-                                        <a href="#">
-                                            <i class="material-icons" style="color: #2D9CDB">share</i>
-                                        </a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    {% endfor %}
-
-                        </div>
-
-                        <div class="col s12 offset-l1 l5">
-
-                            <div class="row">
-                                <div class="col s12">
-                                    <div class="card-panel blue-grey darken-1">
-                                        <h5 class="white-text center">Mes articles favoris</h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col s12">
-                                <div class="card">
-                                    <div class="card-image">
-                                        <img src="#">
-                                        <span class="card-title">Posts</span>
-                                        <a class="btn-floating halfway-fab waves-effect waves-light orange darken-1"><i class="material-icons">add</i></a>
-                                    </div>
-                                    <div class="card-content">
-                                        <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-                <div id="profil" class="vertical-tabcontent">
-
-                    <div class="row" id="loginPanel">
-                        <div class="card-panel grey lighten-4 hoverable col s10 offset-s1">
-                            <div class="row" style="padding-top: 6%; padding-bottom: 3%">
-
-
-                                {{ form_start(form) }}
-
-                                <div class="row">
-                                    <div class="input-field col s10 offset-s1">
-                                        <input disabled value="{{ app.user.email }}" id="disabled" type="text" class="validate">
-                                        <label for="disabled">Email</label>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="input-field col s10 offset-s1">
-                                        {{ form_widget(form.nickname, {
-                                            'attr':{
-                                                'class':'validate',
-                                                'value':app.user.nickname
-                                            }
-                                        }) }}
-                                        {{ form_label(form.nickname) }}
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="input-field offset-s1 col s5">
-                                        {{ form_widget(form.firstname, {
-                                            'attr':{
-                                                'class':'validate',
-                                                'value':app.user.firstname
-                                            }
-                                        }) }}
-                                        {{ form_label(form.firstname) }}
-                                    </div>
-                                    <div class="input-field col s5">
-                                        {{ form_widget(form.lastname, {
-                                            'attr':{
-                                                'class':'validate',
-                                                'value':app.user.lastname
-                                            }
-                                        }) }}
-                                        {{ form_label(form.lastname) }}
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="file-field input-field col s10 offset-s1">
-                                        <div class="btn">
-                                            <span>Envoyer un avatar</span>
-                                            {{ form_widget(form.img) }}
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="input-field col s4 offset-s4 center">
-                                        <button class="btn waves-effect waves-light cyan lighten-2 black-text" type="submit" name="action">Modifier
-                                            <i class="material-icons right">send</i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                {{ form_end(form) }}
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="observations" class="vertical-tabcontent">
-
-                    <div class="row">
-
-                        <div id="obsTab" class="col s12">
-
-                            <ul class="tabs">
-                                <li class="tab col s6"><a class="active" href="#myobserves" style="font-family: Montserrat, serif; font-size: 24px; text-transform: none; color: black">Mes Observations</a></li>
-                                <li class="tab col s6"><a href="#observes" style="font-family: Montserrat, serif; font-size: 24px; text-transform: none; color: black">Observations à valider {{ observes|length }}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div id="myobserves" class="col s12">
-
-                        <div class="row">
-                            <div class="col s6" style="height: 100px">
-                                <div class="card-panel blue-grey darken-1" style="height: inherit">
-                                    <h5 class="white-text center">Mes observations</h5>
-                                </div>
-                            </div>
-                            <div class="valign-wrapper col s6" style="height: 100px">
-                                <a href="{{ path('app_observe') }}" class="center-align waves-effect waves-light btn">Saisir une observation</a>
-                            </div>
-                        </div>
-
-                        <div class="row">
-
-
-
-                            <ul class="collapsible">
-
-                                {% for observe in myObserves %}
-
-                                <li class="observePanel" data-index="{{ observe.id }}" data-lat="{{ observe.latitude }}" data-long="{{ observe.longitude }}">
-                                    <div class="collapsible-header js-taxref" data-taxref="{{ path('taxref', {id: observe.ref.id}) }}">
-                                        <div style="position: relative;top: 45px;left: 95%;width: 40px!important;">
-                                            <a class="btn-floating waves-effect waves-light orange darken-1"><i class="material-icons" style="width: 40px">add</i></a>
-                                        </div>
-
-                                        <div class="imgContainer">
-                                            <img id="thumbnails" src="{{ observe.img }}" class="materialboxed" style="display: block; position: relative;right: 41px;">
-                                        </div>
-                                        <div class="ObsTitle col s8 xl10  center">
-                                            <h6>{{ observe.ref.nomVern }}</h6>
-                                            <span>le {{ observe.createdAt|localizeddate('full', 'none') }}</span>
-                                            <hr>
-                                            <div id="obsButtons" class="row">
-                                                <div class="col s4 m3 l2 xl1">
-                                                    {% if observe.validator is same as(null) %}
-                                                        <img src="{{ asset('/img/icons/baseline-hourglass_empty-24px.svg') }}">
-                                                    {% else %}
-                                                        <img src="{{ asset('/img/icons/baseline-assignment_turned_in-24px.svg') }}">
-                                                    {% endif %}
-                                                </div>
-                                                <div class="col s4 m3 l2 xl1">
-                                                    {% if observe.validator is same as(null) %}
-                                                        <img class="modifObs" src="{{ asset('/img/icons/baseline-edit-24px.svg') }}" href="#">
-                                                    {% else %}
-                                                        <img src="{{ asset('/img/icons/baseline-edit-24px.svg') }}" style="opacity: 0.5">
-                                                    {% endif %}
-                                                </div>
-                                                <div class="col s4 m3 l2 xl1">
-                                                    {% if observe.validator is same as(null) %}
-                                                        <img class="delObs" src="{{ asset('/img/icons/baseline-delete-24px.svg') }}">
-                                                    {% else %}
-                                                        <img src="{{ asset('/img/icons/baseline-delete-24px.svg') }}" style="opacity: 0.5">
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="collapsible-body">
-                                        <div class="row">
-                                            <div id="mapContainer" class="map-container-{{ observe.id }} row" data-index="{{ observe.id }}">
-                                                <div class="obsMapDiv col s6">
-                                                    <ul id="info">
-                                                        <li>Règne : {{ observe.ref.regne }}</li>
-                                                        <li>Embranchement : {{ observe.ref.phylum }}</li>
-                                                        <li>Famille : {{ observe.ref.famille }}</li>
-                                                        <li class="js-taxrefrang" data-rang="{{ observe.ref.rang }}"></li>
-                                                        <li>Nom vernaculaire : {{ observe.ref.nomVern }}</li>
-                                                        <li class="js-taxrefhab" data-hab="{{ observe.ref.habitat }}"></li>
-                                                        {% if observe.ref.fr %}
-                                                            <li class="js-taxref-fr" data-fr="{{ observe.ref.fr }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.gf %}
-                                                            <li class="js-taxref-gf" data-gf="{{ observe.ref.gf }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.mar %}
-                                                            <li class="js-taxref-mar" data-mar="{{ observe.ref.mar }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.gua %}
-                                                            <li class="js-taxref-gua" data-gua="{{ observe.ref.gua }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.sm %}
-                                                            <li class="js-taxref-sm" data-sm="{{ observe.ref.sm }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.spm %}
-                                                            <li class="js-taxref-spm" data-spm="{{ observe.ref.spm }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.may %}
-                                                            <li class="js-taxref-may" data-may="{{ observe.ref.may }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.epa %}
-                                                            <li class="js-taxref-epa" data-epa="{{ observe.ref.epa }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.reu %}
-                                                            <li class="js-taxref-reu" data-reu="{{ observe.ref.reu }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.sa %}
-                                                            <li class="js-taxref-sa" data-sa="{{ observe.ref.sa }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.ta %}
-                                                            <li class="js-taxref-ta" data-ta="{{ observe.ref.ta }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.nc %}
-                                                            <li class="js-taxref-nc" data-nc="{{ observe.ref.nc }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.wf %}
-                                                            <li class="js-taxref-wf" data-wf="{{ observe.ref.wf }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.pf %}
-                                                            <li class="js-taxref-pf" data-pf="{{ observe.ref.pf }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.cli %}
-                                                            <li class="js-taxref-cli" data-cli="{{ observe.ref.cli }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.sb %}
-                                                            <li class="js-taxref-sb" data-sb="{{ observe.ref.sb }}"></li>
-                                                        {% endif %}
-                                                        <li><a href="https://inpn.mnhn.fr/espece/cd_nom/{{ observe.ref.cdNom }}">lien INPN</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col s12">
-                                                <p>{{ observe.description }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                {% endfor %}
-
-                            </ul>
-
-
-                        </div>
-                    </div>
-
-                    <div id="observes" class="col s12">
-
-                        <div class="row">
-                            <div class="col s6">
-                                <div class="card-panel blue-grey darken-1">
-                                    <h5 class="white-text center">Observations à valider</h5>
-                                </div>
-                            </div>
-                            <div class="col s6 center" style="height: inherit">
-                                <a href="{{ path('app_observe') }}" class="waves-effect waves-light btn">Saisir une observation</a>
-                            </div>
-                        </div>
-
-                        <div class="row">
-
-
-
-                            <ul class="collapsible">
-
-                                {% for observe in observes %}
-
-                                <li class="observePanel" data-index="{{ observe.id }}2" data-lat="{{ observe.latitude }}" data-long="{{ observe.longitude }}">
-                                    <div class="collapsible-header js-taxref" data-taxref="{{ path('taxref', {id: observe.ref.id}) }}">
-                                        <div style="position: relative;top: 45px;left: 95%;width: 40px!important;">
-                                            <a class="btn-floating waves-effect waves-light orange darken-1"><i class="material-icons" style="width: 40px">add</i></a>
-                                        </div>
-                                        <div class="imgContainer">
-                                            <img id="thumbnails" src="{{ observe.img }}" class="materialboxed" style="display: block; position: relative;right: 41px;">
-                                        </div>
-                                        <div class="ObsTitle col s8 xl10  center">
-                                            <h6>{{ observe.ref.nomVern }}</h6>
-                                            <span>le {{ observe.createdAt|localizeddate('full', 'none') }} par {% if observe.author.nickname is defined %}{{ observe.author.nickname }}{% else %}{{ observe.author.email }}{% endif %}</span>
-
-                                            <hr>
-                                            <div id="obsButtons" class="row">
-                                                <div class="col s4 m3 l2 xl1">
-                                                    {% if observe.validator is same as(null) %}
-                                                        <img src="{{ asset('/img/icons/baseline-hourglass_empty-24px.svg') }}">
-                                                    {% else %}
-                                                        <img src="{{ asset('/img/icons/baseline-assignment_turned_in-24px.svg') }}">
-                                                    {% endif %}
-                                                </div>
-                                                <div class="col s4 m3 l2 xl1">
-                                                    {% if observe.validator is same as(null) %}
-                                                        <img class="modifObs" src="{{ asset('/img/icons/baseline-edit-24px.svg') }}" href="#">
-                                                    {% else %}
-                                                        <img src="{{ asset('/img/icons/baseline-edit-24px.svg') }}" style="opacity: 0.5">
-                                                    {% endif %}
-                                                </div>
-                                                <div class="col s4 m3 l2 xl1">
-                                                    {% if observe.validator is same as(null) %}
-                                                        <img class="delObs" src="{{ asset('/img/icons/baseline-delete-24px.svg') }}">
-                                                    {% else %}
-                                                        <img src="{{ asset('/img/icons/baseline-delete-24px.svg') }}" style="opacity: 0.5">
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="collapsible-body">
-                                        <div class="row">
-                                            <div id="mapContainer" class="map-container-{{ observe.id }}2 row" data-index="{{ observe.id }}">
-                                                <div class="obsMapDiv col s6">
-                                                    <ul id="info">
-                                                        <li>Règne : {{ observe.ref.regne }}</li>
-                                                        <li>Embranchement : {{ observe.ref.phylum }}</li>
-                                                        <li>Famille : {{ observe.ref.famille }}</li>
-                                                        <li class="js-taxrefrang" data-rang="{{ observe.ref.rang }}"></li>
-                                                        <li>Nom vernaculaire : {{ observe.ref.nomVern }}</li>
-                                                        <li class="js-taxrefhab" data-hab="{{ observe.ref.habitat }}"></li>
-                                                        {% if observe.ref.fr %}
-                                                            <li class="js-taxref-fr" data-fr="{{ observe.ref.fr }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.gf %}
-                                                            <li class="js-taxref-gf" data-gf="{{ observe.ref.gf }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.mar %}
-                                                            <li class="js-taxref-mar" data-mar="{{ observe.ref.mar }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.gua %}
-                                                            <li class="js-taxref-gua" data-gua="{{ observe.ref.gua }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.sm %}
-                                                            <li class="js-taxref-sm" data-sm="{{ observe.ref.sm }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.spm %}
-                                                            <li class="js-taxref-spm" data-spm="{{ observe.ref.spm }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.may %}
-                                                            <li class="js-taxref-may" data-may="{{ observe.ref.may }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.epa %}
-                                                            <li class="js-taxref-epa" data-epa="{{ observe.ref.epa }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.reu %}
-                                                            <li class="js-taxref-reu" data-reu="{{ observe.ref.reu }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.sa %}
-                                                            <li class="js-taxref-sa" data-sa="{{ observe.ref.sa }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.ta %}
-                                                            <li class="js-taxref-ta" data-ta="{{ observe.ref.ta }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.nc %}
-                                                            <li class="js-taxref-nc" data-nc="{{ observe.ref.nc }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.wf %}
-                                                            <li class="js-taxref-wf" data-wf="{{ observe.ref.wf }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.pf %}
-                                                            <li class="js-taxref-pf" data-pf="{{ observe.ref.pf }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.cli %}
-                                                            <li class="js-taxref-cli" data-cli="{{ observe.ref.cli }}"></li>
-                                                        {% endif %}
-                                                        {% if observe.ref.sb %}
-                                                            <li class="js-taxref-sb" data-sb="{{ observe.ref.sb }}"></li>
-                                                        {% endif %}
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col s12">
-                                                <p>{{ observe.description }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-
-                                {% endfor %}
-
-                            </ul>
-
-
-
-                        </div>
-                    </div>
-                </div>
-
+            <div class="vertical-tab col s12 l2">
+                <a class="tablinks btn waves-effect waves-light" onclick="verticalTab(event, 'dashboard')" id="defaultOpen">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a>
+                <a class="tablinks btn waves-effect waves-light" onclick="verticalTab(event, 'profil')">
+                    <i class="material-icons">contact_mail</i>
+                    <p>Profil</p>
+                </a>
+                <a class="tablinks btn waves-effect waves-light" onclick="verticalTab(event, 'observations')">
+                    <i class="material-icons">visibility</i>
+                    {#<img src="{{ asset('/img/vector/Very-Basic-Binoculars-icon.png') }}" alt="observations">#}
+                    <p>Observations</p>
+                </a>
                 {% if is_granted('ROLE_ADMIN')%}
-                <div id="admin" class="vertical-tabcontent">
-
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">textsms</i>
-                                    <input type="text" id="autocomplete-input" class="autocomplete">
-                                    <label for="autocomplete-input">Rechercher un utilisateur</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="card-panel white">
-
-                                <table class="responsive-table highlight">
-                                    <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Observations</th>
-                                        <th>Compte créé le</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-
-                                    <tbody>
-
-                                        {% for user in users %}
-                                    <tr class="userAutocomplete userContainer-{{ user.id }}">
-                                        <td>
-                                            {% if user.img is not null %}
-                                                <img class="avatarTable" src="{{ user.img }}">
-                                            {% endif %}
-                                        </td>
-                                        <td class="userMail">{{ user.email }}</td>
-                                        <td>
-                                            {% set display = "" %}
-                                            {% for role in user.roles %}
-                                                {% if role|trim|replace({'ROLE_USER': "", 'ROLE_NATURALIST': ""}) == "ROLE_ADMIN" %}
-                                                    {% set display = "ADMIN" %}
-                                                {% elseif role|trim|replace({'ROLE_USER': ""}) == "ROLE_NATURALIST" %}
-                                                    {% set display = "Naturaliste" %}
-                                                {% else %}
-                                                    {% set display = "Utilisateur" %}
-                                                {% endif %}
-                                            {% endfor %}
-                                            {{ display }}
-
-                                        </td>
-                                        <td>{{ user.observes.count }}</td>
-                                        <td>{{ user.createdAt|date('d/m/Y') }}</td>
-                                        <td>
-                                            <a href="#modalDelUser{{ user.id }}" class="waves-effect waves-light btn red darken-2 modal-trigger"><i class="material-icons">delete</i></a>
-                                            {% if is_granted('ROLE_ADMIN') %}
-                                                <a href="#modalUpUser{{ user.id }}" class="waves-effect waves-light btn green accent-4 modal-trigger"><i class="material-icons">publish</i></a>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-
-                                            <!-- Modal Structure -->
-                                            <div id="modalDelUser{{ user.id }}" class="modal">
-                                                <div class="modal-content">
-                                                    <h4>Supprimer {% set display = "" %}
-                                                        {% for role in user.roles %}
-                                                            {% if role|trim|replace({'ROLE_USER': "", 'ROLE_NATURALIST': ""}) == "ROLE_ADMIN" %}
-                                                                {% set display = "l'administrateur" %}
-                                                            {% elseif role|trim|replace({'ROLE_USER': ""}) == "ROLE_NATURALIST" %}
-                                                                {% set display = "le naturaliste" %}
-                                                            {% else %}
-                                                                {% set display = "l'utilisateur" %}
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                        {{ display }}</h4>
-                                                    <p>Voulez-vous vraiment supprimer {% set display = "" %}
-                                                        {% for role in user.roles %}
-                                                            {% if role|trim|replace({'ROLE_USER': "", 'ROLE_NATURALIST': ""}) == "ROLE_ADMIN" %}
-                                                                {% set display = "l'administrateur" %}
-                                                            {% elseif role|trim|replace({'ROLE_USER': ""}) == "ROLE_NATURALIST" %}
-                                                                {% set display = "le naturaliste" %}
-                                                            {% else %}
-                                                                {% set display = "l'utilisateur" %}
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                        {{ display }} de façon permanente ?</p>
-                                                    <p>Avec l'adresse email : "{{ user.email }}"</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="#!" class="modal-close waves-effect waves-light btn">Annuler</a>
-                                                    <a data-id="{{ user.id }}" href="{{ path('delete_user', {id: user.id}) }}" class="js-delete-user waves-effect waves-light btn red darken-2">
-                                                        <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloaderonred.gif') }}" style="display: none; position: relative; top: 2px; right: 10px;">
-                                                        <i class="material-icons left">delete</i>Supprimer
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <!-- Modal Structure -->
-                                            <div id="modalUpUser{{ user.id }}" class="modal">
-                                                <div class="modal-content">
-                                                    <h4>Upgrader {% set display = "" %}
-                                                        {% for role in user.roles %}
-                                                            {% if role|trim|replace({'ROLE_USER': "", 'ROLE_NATURALIST': ""}) == "ROLE_ADMIN" %}
-                                                                {% set display = "l'administrateur" %}
-                                                            {% elseif role|trim|replace({'ROLE_USER': ""}) == "ROLE_NATURALIST" %}
-                                                                {% set display = "le naturaliste" %}
-                                                            {% else %}
-                                                                {% set display = "l'utilisateur" %}
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                        {{ display }}</h4>
-                                                    <p>Voulez-vous vraiment upgrader {% set display = "" %}
-                                                        {% for role in user.roles %}
-                                                            {% if role|trim|replace({'ROLE_USER': "", 'ROLE_NATURALIST': ""}) == "ROLE_ADMIN" %}
-                                                                {% set display = "l'administrateur" %}
-                                                            {% elseif role|trim|replace({'ROLE_USER': ""}) == "ROLE_NATURALIST" %}
-                                                                {% set display = "le naturaliste" %}
-                                                            {% else %}
-                                                                {% set display = "l'utilisateur" %}
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                        {{ display }} ?</p>
-                                                    <p>Avec l'adresse email : "{{ user.email }}"</p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <a href="#!" class="modal-close waves-effect waves-light btn">Annuler</a>
-                                                    <a data-id="{{ user.id }}" href="{{ path('upgrade_user', {id: user.id}) }}" class="js-upgrade-user waves-effect waves-light btn green accent-4">
-                                                        <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloaderonred.gif') }}" style="display: none; position: relative; top: 2px; right: 10px;">
-                                                        <i class="material-icons left">publish</i>Upgrade
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                        {% endfor %}
-
-                                    </tbody>
-
-                                </table>
-
-
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
+                <a class="tablinks btn waves-effect waves-light" onclick="verticalTab(event, 'admin')">
+                    <i class="material-icons">settings</i>
+                    <p>Gestion profils</p>
+                </a>
                 {% endif %}
             </div>
+
+                <div class="col s12 l10">
+                    <div id="dashboard" class="vertical-tabcontent">
+
+                        {% if form.vars.errors.form.getErrors(true) is not empty %}
+                            <div class="row">
+                                <div class="col s8 offset-s2 center">
+                                    <div class="card-panel red darken-2 white-text">
+                                        <i class="material-icons" style="position: relative; top: 5px;">priority_high</i>
+                                        <ul>
+                                            {% for error in form.vars.errors.form.getErrors(true) %}
+                                                <li>{{ error.message }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="row">
+
+                            {% set index = 0 %}
+                            {% for observe in myObserves if index < 1 %}
+
+                            {% set index = index+1 %}
+
+                            <div class="col s12 offset-l1 l5">
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="card-panel border-panel-obs">
+                                            <h5 class="flow-text center">Mes observations</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="observeTule" class="observe col s12">
+
+                                    <div class="card">
+                                        <div class="card-image">
+                                            <img src="{{ observe.img }}">
+                                            <span {% if observe.ref %}data-lbnom="{{ observe.ref.lbNom }}"{% endif %} class="left-align truncate card-title black-text" style="padding-left: 18px; padding-bottom: 13px"><b>{% if observe.ref.nomVern is defined %}{{ observe.ref.nomVern }}{% elseif observe.ref.lbNom is defined %}{{ observe.ref.lbNom }}{% else %}Non identifié{% endif %}</b></span>
+                                            <a href="{{ path('app_view_observe', {id: observe.id}) }}" class="btn-floating halfway-fab waves-effect waves-light orange darken-1"><i class="material-icons">add</i></a>
+                                        </div>
+                                        <div class="card-content row" style="padding-bottom: 9px; padding-top: 9px">
+                                            <div class="col s7">
+                                                <div class="row" style="margin-bottom: 0">
+                                                    <span class="flow-text truncate"
+                                                          style="font-size: 12px">Observé le {{ observe.obsDate|localizeddate('long', 'none') }}</span>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 0">
+                                                    <span class="flow-text truncate"
+                                                          style="font-size: 12px">{% if observe.author.nickname is defined %}{{ observe.author.nickname }}{% else %}{{ observe.author.email }}{% endif %}{% if observe.author.nickname is empty %}{{ observe.author.email }}{% endif %}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col s5 right-align" style="padding-right: 0; padding-top: 15px;">
+                                                <span class="js-like-observe-count" style="position: relative; bottom: 8px; font-size: 12px">{{ observe.upvoter.count }}</span>
+                                                <a class="js-like-observe" href="{{ path('toggle_observe_heart', {id: observe.id}) }}">
+                                                    <i id="heart" data-url="{{ path('get_observe_like_status') }}" data-id="{{ observe.id }}" class="material-icons" style="color: #EB5757">favorite_border</i>
+                                                    <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloader.gif') }}" style="display: none; margin-bottom: 4px;">
+                                                </a>
+                                                <a href="#">
+                                                    <i class="material-icons" style="color: #2D9CDB">share</i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+
+                            {% set indexFavoured = 0 %}
+                            {% for favoured in app.user.favoured if indexFavoured < 1 %}
+                            {% set indexFavoured = indexFavoured+1 %}
+
+                            <div class="col s12 offset-l1 l5">
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="card-panel border-panel-article">
+                                            <h5 class="flow-text center">Mes articles favoris</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col s12">
+                                    <div class="card">
+                                        <div class="card-image">
+                                            <img src="{{ favoured.img }}">
+                                            <span class="card-title truncate">{{ favoured.title }}</span>
+                                            <a href="{{ path('app_read_article', {id: favoured.id}) }}" class="btn-floating halfway-fab waves-effect waves-light orange darken-1"><i class="material-icons">add</i></a>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="row">
+                                                <div class="col s12">
+                                                   <!-- <p class="truncate">{{ favoured.content
+                                                        }}</p> -->
+                                                </div>
+                                            </div>
+                                            <div class="divider"></div>
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="col s7">
+                                                    <a href="{{ path('app_read_article', {id:
+                                                        favoured.id}) }}" >lire l'article</a>
+                                                </div>
+                                                <div class="col s5 right-align">
+                                                    <span class="js-like-post-count" style="position: relative; bottom: 8px; font-size: 12px">{{ favoured.favouredBy.count }}</span>
+                                                    <a class="js-like-post" href="{{ path('toogle_post_heart', {id: favoured.id}) }}">
+                                                        <i id="postheart" data-url="{{ path('get_favoured') }}" data-id="{{ favoured.id }}" class="material-icons" style="color: #EB5757">favorite_border</i>
+                                                        <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloader.gif') }}" style="display: none; margin-bottom: 4px;">
+                                                    </a>
+                                                    <a href="#">
+                                                        <i class="material-icons" style="color: #2D9CDB">share</i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                            {% if is_granted('ROLE_NATURALIST')%}
+
+                            {% set indexToValidate = 0 %}
+                            {% for observe in observes if indexToValidate < 1 %}
+                            {% set indexToValidate = indexToValidate+1 %}
+
+                            <div class="col s12 offset-l1 l5">
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="card-panel border-panel-obs">
+                                            <h5 class="flow-text center"><span
+                                                        class="badge">{{ observes|length }}</span>Observations à valider
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="observeTule" class="observe col s12">
+
+                                    <div class="card">
+                                        <div class="card-image">
+                                            <img src="{{ observe.img }}">
+                                            <span {% if observe.ref %}data-lbnom="{{ observe.ref.lbNom }}"{% endif %} class="left-align truncate card-title black-text" style="padding-left: 18px; padding-bottom: 13px"><b>{% if observe.ref.nomVern is defined %}{{ observe.ref.nomVern }}{% elseif observe.ref.lbNom is defined %}{{ observe.ref.lbNom }}{% else %}Non identifié{% endif %}</b></span>
+                                            <a href="{{ path('app_view_observe', {id: observe.id}) }}" class="btn-floating halfway-fab waves-effect waves-light orange darken-1"><i class="material-icons">add</i></a>
+                                        </div>
+                                        <div class="card-content row" style="padding-bottom: 9px; padding-top: 9px">
+                                            <div class="col s7">
+                                                <div class="row" style="margin-bottom: 0">
+                                                    <span class="flow-text truncate"
+                                                          style="font-size: 12px">Observé le {{ observe.obsDate|localizeddate('long', 'none') }}</span>
+                                                </div>
+                                                <div class="row" style="margin-bottom: 0">
+                                                    <span class="flow-text truncate"
+                                                          style="font-size: 12px">{% if observe.author.nickname is defined %}{{ observe.author.nickname }}{% else %}{{ observe.author.email }}{% endif %}{% if observe.author.nickname is empty %}{{ observe.author.email }}{% endif %}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col s5 right-align" style="padding-right: 0; padding-top: 15px;">
+                                                <a href="#">
+                                                    <i class="material-icons" style="color: #2D9CDB">share</i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+
+                            {% endif %}
+
+                            {% set indexMyPosts = 0 %}
+                            {% for post in app.user.posts if indexMyPosts < 1 %}
+                                {% set indexMyPosts = indexMyPosts+1 %}
+
+                            <div class="col s12 offset-l1 l5">
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="card-panel border-panel-article">
+                                            <h5 class="flow-text center"><span
+                                                        class="badge">{{ app.user.posts|length }}</span>Mes articles
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col s12">
+                                    <div class="card">
+                                        <div class="card-image">
+                                            <img src="{{ post.img }}">
+                                            <span class="card-title truncate">{{ post.title }}</span>
+                                            <a href="{{ path('app_read_article', {id: post
+                                                .id}) }}" class="btn-floating halfway-fab
+                                                waves-effect waves-light orange darken-1"><i
+                                                        class="material-icons">add</i></a>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <p class="short"><strong class="short-head">Description :
+                                                        </strong><br>{{ post.shortDesc }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="divider"></div>
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="col s12">
+                                                    <a href="{{ path('app_read_article', {id:
+                                                        post.id}) }}" >lire l'article</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div id="profil" class="vertical-tabcontent">
+
+                        <div class="row" id="loginPanel">
+                            <div class="card-panel grey lighten-4 hoverable col s10 offset-s1">
+                                <div class="row" style="padding-top: 6%; padding-bottom: 3%">
+
+
+                                    {{ form_start(form) }}
+
+                                    <div class="row">
+                                        <div class="input-field col s10 offset-s1">
+                                            <input disabled value="{{ app.user.email }}" id="disabled" type="text" class="validate">
+                                            <label for="disabled">Email</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="js-nickname-input input-field col s10 offset-s1">
+                                            {{ form_widget(form.nickname, {
+                                                'attr':{
+                                                    'class':'validate',
+                                                    'value':app.user.nickname
+                                                }
+                                            }) }}
+                                            {{ form_label(form.nickname) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="js-firstname-input input-field offset-s1 col s5">
+                                            {{ form_widget(form.firstname, {
+                                                'attr':{
+                                                    'class':'validate',
+                                                    'value':app.user.firstname
+                                                }
+                                            }) }}
+                                            {{ form_label(form.firstname) }}
+                                        </div>
+                                        <div class="js-lastname-input input-field col s5">
+                                            {{ form_widget(form.lastname, {
+                                                'attr':{
+                                                    'class':'validate',
+                                                    'value':app.user.lastname
+                                                }
+                                            }) }}
+                                            {{ form_label(form.lastname) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="file-field input-field col s10 offset-s1" style="margin-top: 0; margin-bottom: 0">
+                                            <a href="{{ path('security_forgottenpassword') }}" id="submitBtn" class="js-changepsw-button waves-effect waves-light btn">Changer le mot de passe</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="file-field input-field col s10 offset-s1">
+                                            <div id="submitBtn" class="js-avatar-btn btn">
+                                                <span>Envoyer un avatar</span>
+                                                {{ form_widget(form.img) }}
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="js-avatar-input file-path validate" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="offset-s1 col s3">
+                                            <a href="#modalDelCurrentUser" class="deleteProfileBtn modal-trigger btn-floating btn-large waves-effect waves-light orange darken-1"><i class="material-icons">delete</i></a>
+                                            <a class="modifyProfileBtn btn-floating btn-large waves-effect waves-light orange darken-1"><i class="material-icons">mode_edit</i></a>
+                                        </div>
+                                        <div class="col s8 valign-wrapper">
+                                            <button id="submitBtn" class="js-submitBtn btn waves-effect waves-light btn-small" type="submit" name="action">Enregistrer</button>
+                                            <button id="submitBtn" class="js-cancelBtn btn waves-effect waves-light orange darken-1 btn-small" type="submit" name="action">Annuler</button>
+                                        </div>
+                                    </div>
+
+                                    {{ form_end(form) }}
+
+                                    <!-- Modal delete Structure -->
+                                    <div id="modalDelCurrentUser" class="modal">
+                                        <div class="modal-content">
+                                            <h4>Supprimer le compte ?</h4>
+                                            <p>Voulez-vous vraiment supprimer votre compte de façon permanente ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#!" class="modal-close waves-effect waves-light btn">Annuler</a>
+                                            <a href="{{ path('delete_account') }}" class="js-delete-account waves-effect waves-light btn red darken-2">
+                                                <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloaderonred.gif') }}" style="display: none; position: relative; top: 2px; right: 10px;">
+                                                <i class="material-icons left">delete</i>Supprimer
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="observations" class="vertical-tabcontent">
+
+                        {% if is_granted('ROLE_NATURALIST')%}
+
+                        <div class="row">
+
+                            <div id="obsTab" class="col s12">
+
+                                <ul class="tabs">
+                                    <li class="tab col s12 m6"><a class="active" href="#myobserves" style="font-family: Montserrat, serif; font-size: 24px; text-transform: none; color: black">Mes Observations</a></li>
+                                    <li class="tab col s12 m6"><a class="js-obs-count" href="#observes" style="font-family: Montserrat, serif; font-size: 24px; text-transform: none; color: black"><span class="badge">{{ observes|length }}</span>Observations à valider</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        {% endif%}
+
+                        <div id="myobserves" class="col s12">
+
+                            <div id="myObsTop" class="row">
+                                <div class="col s12 m6">
+                                    <div class="card-panel border-panel-obs">
+                                        <h5 class="center">Mes observations</h5>
+                                    </div>
+                                </div>
+                                <div id="myObsTopBtn" class="col s12 m6 valign-wrapper">
+                                    <a id="submitBtn" href="{{ path('app_observe') }}" class="waves-effect waves-light btn orange darken-1">Saisir une observation</a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <ul id="myObservesObs" class="collapsible" data-length="{{ myObserves|length }}">
+
+                                    {% set curentMyObserve = 0 %}
+                                    {% for observe in myObserves %}
+
+                                        {% set curentMyObserve = curentMyObserve+1 %}
+
+                                    <li class="observePanel obsverveContainer-{{ observe.id }} myObserve" data-obscount="{{ curentMyObserve }}" data-index="{{ observe.id }}" data-lat="{{ observe.latitude }}" data-long="{{ observe.longitude }}">
+                                        <div class="collapsible-header js-taxref" data-taxref="{% if observe.ref %}{{ path('taxref', {id: observe.ref.id}) }}{% endif %}">
+                                            <div id="moreBtn">
+                                                <a class="hide-on-med-and-down btn-floating waves-effect waves-light orange darken-1"><i class="material-icons" style="width: 40px">add</i></a>
+                                            </div>
+
+                                            <div class="imgContainer col s6 xl4">
+                                                <img id="thumbnails" src="{{ observe.img }}" class="materialboxed" style="display: block; position: relative;right: 41px;">
+                                            </div>
+                                            <div class="ObsTitle col s6 xl8 center">
+                                                <h6>
+                                                    {% if observe.ref %}
+                                                        {% if observe.ref.nomVern %}
+                                                        {{ observe.ref.nomVern }}
+                                                            {% else %}
+                                                                {{ observe.ref.lbNom }}
+                                                                {% endif %}
+                                                    {% else %}Non identifié
+                                                    {% endif %}
+                                                </h6>
+                                                <span>Observé le {{ observe.obsDate|localizeddate('long', 'none') }}</span>
+                                                <div class="divider"></div>
+                                                <div class="obsButtons row">
+                                                    <div class="col s4 m3 l2 xl1">
+                                                        {% if observe.validator is same as(null) %}
+                                                            <i class="material-icons left" style="font-size: 30px">hourglass_empty</i>
+                                                        {% else %}
+                                                            <i class="material-icons left" style="font-size: 30px">assignment_turned_in</i>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div id="obsContent" class="collapsible-body">
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <i class="material-icons" style="font-size: 36px">forum</i>
+                                                    <p>{{ observe.description }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom: 0">
+                                                <div id="mapContainer" class="map-container-{{ observe.id }} row" data-index="{{ observe.id }}">
+                                                    <div class="obsMapDiv col s12 l6">
+                                                        <ul id="info">
+                                                            <li><b>Règne : </b>{% if observe.ref %}{{ observe.ref.regne }}{% else %}inconnu{% endif %}</li>
+                                                            <li><b>Embranchement : </b>{% if observe.ref %}{{ observe.ref.phylum }}{% else %}inconnu{% endif %}</li>
+                                                            <li><b>Famille : </b>{% if observe.ref %}{{ observe.ref.famille }}{% else %}inconnu{% endif %}</li>
+                                                            <li class="js-taxrefrang" data-rang="{% if observe.ref %}{{ observe.ref.rang }}{% endif %}"></li>
+                                                            <li><b>Nom vernaculaire : </b>{% if observe.ref %}{{ observe.ref.nomVern }}{% else %}inconnu{% endif %}</li>
+                                                            {% if observe.ref %}
+                                                                <li class="js-taxrefhab" data-hab="{% if observe.ref %}{{ observe.ref.habitat }}{% endif %}"></li>
+                                                            {% endif %}
+                                                            {% if observe.ref %}
+                                                                {% if observe.ref.fr %}
+                                                                    <li class="js-taxref-fr" data-fr="{{ observe.ref.fr }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.gf %}
+                                                                    <li class="js-taxref-gf" data-gf="{{ observe.ref.gf }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.mar %}
+                                                                    <li class="js-taxref-mar" data-mar="{{ observe.ref.mar }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.gua %}
+                                                                    <li class="js-taxref-gua" data-gua="{{ observe.ref.gua }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.sm %}
+                                                                    <li class="js-taxref-sm" data-sm="{{ observe.ref.sm }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.spm %}
+                                                                    <li class="js-taxref-spm" data-spm="{{ observe.ref.spm }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.may %}
+                                                                    <li class="js-taxref-may" data-may="{{ observe.ref.may }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.epa %}
+                                                                    <li class="js-taxref-epa" data-epa="{{ observe.ref.epa }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.reu %}
+                                                                    <li class="js-taxref-reu" data-reu="{{ observe.ref.reu }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.sa %}
+                                                                    <li class="js-taxref-sa" data-sa="{{ observe.ref.sa }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.ta %}
+                                                                    <li class="js-taxref-ta" data-ta="{{ observe.ref.ta }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.nc %}
+                                                                    <li class="js-taxref-nc" data-nc="{{ observe.ref.nc }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.wf %}
+                                                                    <li class="js-taxref-wf" data-wf="{{ observe.ref.wf }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.pf %}
+                                                                    <li class="js-taxref-pf" data-pf="{{ observe.ref.pf }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.cli %}
+                                                                    <li class="js-taxref-cli" data-cli="{{ observe.ref.cli }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.sb %}
+                                                                    <li class="js-taxref-sb" data-sb="{{ observe.ref.sb }}"></li>
+                                                                {% endif %}
+                                                                <li><b>Date : </b>{{ observe.obsDate|localizeddate('long', 'none') }}</li>
+                                                                <li><b>Latitude : </b>{{ observe.latitude }}</li>
+                                                                <li><b>Longitude : </b>{{ observe.longitude }}</li>
+                                                                <li><a href="https://inpn.mnhn.fr/espece/cd_nom/{{ observe.ref.cdNom }}">lien INPN</a></li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                {% if observe.validator is same as(null) %}
+                                                <div class="divider"></div>
+                                                <div id="obsControl" class="row" style="margin-bottom: 0">
+                                                    <div class="col s12 center">
+                                                        <a id="submitBtn" href="{{ path('modifyobserve', {id: observe.id}) }}" class="waves-effect waves-light btn-small orange darken-1"><i class="material-icons left">create</i>modifier</a>
+                                                        <a id="submitBtn" href="#modalDelMyObserve{{ observe.id }}" class="modal-trigger delObs waves-effect waves-light btn-small orange darken-1"><i class="material-icons left">delete</i>supprimer</a>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    {% endfor %}
+
+                                </ul>
+
+                                <div class="row">
+                                    <div class="col s12 center">
+                                        <ul class="pagination">
+                                            <li id="myObservesPagStart" class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                                            <li class="myObservesPagNbr active"><a href="#!">1</a></li>
+                                            <li id="myObservesPagEnd" class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        {% for observe in myObserves %}
+
+                        <!-- Modal delete Structure -->
+                        <div id="modalDelMyObserve{{ observe.id }}" class="modal">
+                            <div class="modal-content">
+                                <h4>Supprimer l'observation ?</h4>
+                                <p>Voulez-vous vraiment supprimer "{% if observe.ref %}{{ observe.ref.nomVern }}{% else %}Non identifié{% endif %}" de façon permanente ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-light btn">Annuler</a>
+                                <a data-id="{{ observe.id }}" href="{{ path('delete_observe', {id: observe.id}) }}" class="js-delete-observe waves-effect waves-light btn red darken-2">
+                                    <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloaderonred.gif') }}" style="display: none; position: relative; top: 2px; right: 10px;">
+                                    <i class="material-icons left">delete</i>Supprimer
+                                </a>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+
+                        {% if is_granted('ROLE_NATURALIST')%}
+
+                        <div id="observes" class="col s12">
+
+                            <div id="myObsTop" class="row">
+                                <div class="col s6">
+                                    <div class="card-panel border-panel-obs">
+                                        <h5 class="center">Observations à valider</h5>
+                                    </div>
+                                </div>
+                                <div id="myObsTopBtn" class="col s6 valign-wrapper">
+                                    <a id="submitBtn" href="{{ path('app_observe') }}" class="waves-effect waves-light btn orange darken-1">Saisir une observation</a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                {% set curentObserve = 0 %}
+
+                                <ul id="toValidateObs" class="collapsible" data-length="{{ observes|length }}">
+
+                                    {% for observe in observes %}
+                                        {% set curentObserve = curentObserve+1 %}
+
+                                    <li class="observePanel obsverveContainer-{{ observe.id }} observeToValidate" data-obscount="{{ curentObserve }}" data-index="{{ observe.id }}2" data-lat="{{ observe.latitude }}" data-long="{{ observe.longitude }}">
+                                        <div class="collapsible-header js-taxref" data-taxref="{% if observe.ref %}{{ path('taxref', {id: observe.ref.id}) }}{% endif %}">
+                                            <div id="moreBtn">
+                                                <a class="hide-on-med-and-down btn-floating waves-effect waves-light orange darken-1"><i class="material-icons" style="width: 40px">add</i></a>
+                                            </div>
+                                            <div class="imgContainer col s6 xl4">
+                                                <img id="thumbnails" src="{{ observe.img }}" class="materialboxed" style="display: block; position: relative;right: 41px;">
+                                            </div>
+                                            <div class="ObsTitle col s6 xl8 center">
+                                                <h6>
+                                                    {% if observe.ref %}
+                                                        {% if observe.ref.nomVern %}
+                                                            {{ observe.ref.nomVern }}
+                                                        {% else %}
+                                                            {{ observe.ref.lbNom }}
+                                                        {% endif %}
+                                                    {% else %}Non identifié
+                                                    {% endif %}
+                                                </h6>
+                                                <span>Observé le {{ observe.obsDate|localizeddate('long', 'none') }} par {% if observe.author.nickname is defined %}{{ observe.author.nickname }}{% else %}{{ observe.author.email }}{% endif %}{% if observe.author.nickname is empty %}{{ observe.author.email }}{% endif %}</span>
+                                                <div class="divider"></div>
+                                            </div>
+
+                                        </div>
+                                        <div id="obsContent" class="collapsible-body">
+                                            <div class="row">
+                                                <div class="col s12">
+                                                    <i class="material-icons" style="font-size: 36px">forum</i>
+                                                    <p>{{ observe.description }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom: 0">
+                                                <div id="mapContainer" class="map-container-{{ observe.id }}2 row" data-index="{{ observe.id }}">
+                                                    <div class="obsMapDiv col s12 l6">
+                                                        <ul id="info">
+                                                            <li><b>Règne : </b>{% if observe.ref %}{{ observe.ref.regne }}{% else %}inconnu{% endif %}</li>
+                                                            <li><b>Embranchement : </b>{% if observe.ref %}{{ observe.ref.phylum }}{% else %}inconnu{% endif %}</li>
+                                                            <li><b>Famille : </b>{% if observe.ref %}{{ observe.ref.famille }}{% else %}inconnu{% endif %}</li>
+                                                            <li class="js-taxrefrang" data-rang="{% if observe.ref %}{{ observe.ref.rang }}{% endif %}"></li>
+                                                            <li><b>Nom vernaculaire : </b>{% if observe.ref %}{{ observe.ref.nomVern }}{% else %}inconnu{% endif %}</li>
+                                                            {% if observe.ref %}
+                                                                <li class="js-taxrefhab" data-hab="{% if observe.ref %}{{ observe.ref.habitat }}{% endif %}"></li>
+                                                            {% endif %}
+                                                            {% if observe.ref %}
+                                                                {% if observe.ref.fr %}
+                                                                    <li class="js-taxref-fr" data-fr="{{ observe.ref.fr }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.gf %}
+                                                                    <li class="js-taxref-gf" data-gf="{{ observe.ref.gf }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.mar %}
+                                                                    <li class="js-taxref-mar" data-mar="{{ observe.ref.mar }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.gua %}
+                                                                    <li class="js-taxref-gua" data-gua="{{ observe.ref.gua }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.sm %}
+                                                                    <li class="js-taxref-sm" data-sm="{{ observe.ref.sm }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.spm %}
+                                                                    <li class="js-taxref-spm" data-spm="{{ observe.ref.spm }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.may %}
+                                                                    <li class="js-taxref-may" data-may="{{ observe.ref.may }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.epa %}
+                                                                    <li class="js-taxref-epa" data-epa="{{ observe.ref.epa }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.reu %}
+                                                                    <li class="js-taxref-reu" data-reu="{{ observe.ref.reu }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.sa %}
+                                                                    <li class="js-taxref-sa" data-sa="{{ observe.ref.sa }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.ta %}
+                                                                    <li class="js-taxref-ta" data-ta="{{ observe.ref.ta }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.nc %}
+                                                                    <li class="js-taxref-nc" data-nc="{{ observe.ref.nc }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.wf %}
+                                                                    <li class="js-taxref-wf" data-wf="{{ observe.ref.wf }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.pf %}
+                                                                    <li class="js-taxref-pf" data-pf="{{ observe.ref.pf }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.cli %}
+                                                                    <li class="js-taxref-cli" data-cli="{{ observe.ref.cli }}"></li>
+                                                                {% endif %}
+                                                                {% if observe.ref.sb %}
+                                                                    <li class="js-taxref-sb" data-sb="{{ observe.ref.sb }}"></li>
+                                                                {% endif %}
+                                                                <li><b>Date : </b>{{ observe.obsDate|localizeddate('long', 'none') }}</li>
+                                                                <li><b>Latitude : </b>{{ observe.latitude }}</li>
+                                                                <li><b>Longitude : </b>{{ observe.longitude }}</li>
+                                                                <li><a href="https://inpn.mnhn.fr/espece/cd_nom/{{ observe.ref.cdNom }}">lien INPN</a></li>
+                                                            {% endif %}
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="divider"></div>
+                                                <div id="obsControl" class="row" style="margin-bottom: 0">
+                                                    <div class="col s12 center">
+                                                        <a id="submitBtn" href="#modalValObserve{{ observe.id }}" class="modal-trigger waves-effect waves-light btn-small orange darken-1"><i class="material-icons left">done</i>valider</a>
+                                                        {% if observe.author.email == app.user.email %}
+                                                        <a id="submitBtn" href="{{ path('modifyobserve', {id: observe.id}) }}" class="waves-effect waves-light btn-small orange darken-1"><i class="material-icons left">create</i>modifier</a>
+                                                        {% endif %}
+                                                        <a id="submitBtn" href="#modalDelObserve{{ observe.id }}" class="modal-trigger waves-effect waves-light btn-small orange darken-1"><i class="material-icons left">delete</i>effacer</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    {% endfor %}
+
+                                </ul>
+
+                                <div class="row">
+                                    <div class="col s12 center">
+                                        <ul class="pagination">
+                                            <li id="toValidatePagStart" class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                                            <li class="toValidatePagNbr active"><a href="#!">1</a></li>
+                                            <li id="toValidatePagEnd" class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {% for observe in observes %}
+
+                                <!-- Modal delete Structure -->
+                                <div id="modalDelObserve{{ observe.id }}" class="modal">
+                                    <div class="modal-content">
+                                        <h4>Supprimer l'observation ?</h4>
+                                        <p>Voulez-vous vraiment supprimer "{% if observe.ref %}{{ observe.ref.nomVern }}{% else %}Non identifié{% endif %}" de façon permanente ?</p>
+                                        <p>de {% if observe.author.nickname is defined %}{{ observe.author.nickname }}{% else %}{{ observe.author.email }}{% endif %}{% if observe.author.nickname is empty %}{{ observe.author.email }}{% endif %}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#!" class="modal-close waves-effect waves-light btn">Annuler</a>
+                                        <a data-id="{{ observe.id }}" href="{{ path('delete_observe', {id: observe.id}) }}" class="js-delete-observe waves-effect waves-light btn red darken-2">
+                                            <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloaderonred.gif') }}" style="display: none; position: relative; top: 2px; right: 10px;">
+                                            <i class="material-icons left">delete</i>Supprimer
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Modal upgrade Structure -->
+                                <div id="modalValObserve{{ observe.id }}" class="modal">
+                                    <div class="modal-content">
+                                        <h4>Valider l'observation ?</h4>
+                                        <p>Voulez-vous vraiment valider "{% if observe.ref %}{{ observe.ref.nomVern }}{% else %}Non identifié{% endif %}" de façon permanente ?</p>
+                                        <p>de {% if observe.author.nickname is defined %}{{ observe.author.nickname }}{% else %}{{ observe.author.email }}{% endif %}{% if observe.author.nickname is empty %}{{ observe.author.email }}{% endif %}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#!" class="modal-close waves-effect waves-light btn">Annuler</a>
+                                        <a data-id="{{ observe.id }}" href="{{ path('validate_observe', {id: observe.id}) }}" class="js-validate-observe waves-effect waves-light btn green accent-4">
+                                            <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloaderongreen.gif') }}" style="display: none; position: relative; top: 2px; right: 10px;">
+                                            <i class="material-icons left">done</i>Valider
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+                    {% if is_granted('ROLE_ADMIN')%}
+                    <div id="admin" class="vertical-tabcontent">
+
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">textsms</i>
+                                        <input type="text" data-url="{{ path('getusers') }}" id="autocomplete-input" class="autocomplete">
+                                        <img class="UserAjaxLoader" src="{{ asset('/img/ajaxLoader/ajaxloader.gif') }}" style="display: none;">
+                                        <label for="autocomplete-input">Rechercher un utilisateur</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="card-panel white admin-panel">
+
+                                    <table class="responsive-table highlight">
+                                        <thead>
+                                        <tr>
+                                            <th>Avatar</th>
+                                            <th>Email</th>
+                                            <th>Rôle</th>
+                                            <th>Observations</th>
+                                            <th>Compte créé le</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                        {% for user in users %}
+
+                                        <tr class="userAutocomplete userContainer-{{ user.id }}">
+                                            <td>
+                                                {% if user.img is not null %}
+                                                    <img class="avatarTable" src="{{ user.img }}">
+                                                    {% else %}
+                                                        <img class="avatarTable" src="{{ asset('/img/logo/oiseau-silhouette-noir.png') }}">
+                                                {% endif %}
+                                            </td>
+                                            <td class="userMail">{{ user.email }}</td>
+                                            <td class="userRole">
+                                                {% set display = "" %}
+                                                {% for role in user.roles %}
+                                                    {% if role|trim|replace({'ROLE_USER': "", 'ROLE_NATURALIST': ""}) == "ROLE_ADMIN" %}
+                                                        {% set display = "ADMIN" %}
+                                                    {% elseif role|trim|replace({'ROLE_USER': ""}) == "ROLE_NATURALIST" %}
+                                                        {% set display = "Naturaliste" %}
+                                                    {% else %}
+                                                        {% set display = "Utilisateur" %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                                {{ display }}
+
+                                            </td>
+                                            <td class="center">{{ user.observes.count }}</td>
+                                            <td>{{ user.createdAt|date('d/m/Y') }}</td>
+                                            <td>
+
+                                                {% if app.user.email != user.email %}
+
+                                                    <a href="#modalDelUser{{ user.id }}" class="waves-effect waves-light btn red darken-2 modal-trigger"><i class="material-icons">delete</i></a>
+
+                                                    {% if display == "Utilisateur" or display == "Naturaliste" %}
+                                                        <a href="#modalUpUser{{ user.id }}" class="js-upgradeBtn waves-effect waves-light btn green accent-4 modal-trigger"><i class="material-icons">arrow_upward</i></a>
+                                                    {% else %}
+                                                        <a href="#modalUpUser{{ user.id }}" class="js-upgradeBtn waves-effect waves-light btn green accent-4 modal-trigger" style="display: none"><i class="material-icons">arrow_upward</i></a>
+                                                    {% endif %}
+
+                                                    {% if display == "ADMIN" or display == "Naturaliste" %}
+                                                        <a href="#modalDownUser{{ user.id }}" class="js-downgradeBtn waves-effect waves-light btn orange modal-trigger"><i class="material-icons">arrow_downward</i></a>
+                                                    {% else %}
+                                                        <a href="#modalDownUser{{ user.id }}" class="js-downgradeBtn waves-effect waves-light btn orange modal-trigger" style="display: none"><i class="material-icons">arrow_downward</i></a>
+                                                    {% endif %}
+
+                                                {% endif %}
+
+                                            </td>
+                                        </tr>
+
+                                                <!-- Modal delete Structure -->
+                                                <div id="modalDelUser{{ user.id }}" class="modal">
+                                                    <div class="modal-content">
+                                                        <h4>Supprimer {% set display = "" %}
+                                                            {% for role in user.roles %}
+                                                                {% if role|trim|replace({'ROLE_USER': "", 'ROLE_NATURALIST': ""}) == "ROLE_ADMIN" %}
+                                                                    {% set display = "l'administrateur" %}
+                                                                {% elseif role|trim|replace({'ROLE_USER': ""}) == "ROLE_NATURALIST" %}
+                                                                    {% set display = "le naturaliste" %}
+                                                                {% else %}
+                                                                    {% set display = "l'utilisateur" %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            {{ display }}</h4>
+                                                        <p>Voulez-vous vraiment supprimer {% set display = "" %}
+                                                            {% for role in user.roles %}
+                                                                {% if role|trim|replace({'ROLE_USER': "", 'ROLE_NATURALIST': ""}) == "ROLE_ADMIN" %}
+                                                                    {% set display = "l'administrateur" %}
+                                                                {% elseif role|trim|replace({'ROLE_USER': ""}) == "ROLE_NATURALIST" %}
+                                                                    {% set display = "le naturaliste" %}
+                                                                {% else %}
+                                                                    {% set display = "l'utilisateur" %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            {{ display }} de façon permanente ?</p>
+                                                        <p>Avec l'adresse email : "{{ user.email }}"</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a href="#!" class="modal-close waves-effect waves-light btn">Annuler</a>
+                                                        <a data-id="{{ user.id }}" href="{{ path('delete_user', {id: user.id}) }}" class="js-delete-user waves-effect waves-light btn red darken-2">
+                                                            <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloaderonred.gif') }}" style="display: none; position: relative; top: 2px; right: 10px;">
+                                                            <i class="material-icons left">delete</i>Supprimer
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Modal upgrade Structure -->
+                                                <div id="modalUpUser{{ user.id }}" class="modal">
+                                                    <div class="modal-content">
+                                                        <h4>Upgrader {% set display = "" %}
+                                                            {% for role in user.roles %}
+                                                                {% if role|trim|replace({'ROLE_USER': "", 'ROLE_NATURALIST': ""}) == "ROLE_ADMIN" %}
+                                                                    {% set display = "l'administrateur" %}
+                                                                {% elseif role|trim|replace({'ROLE_USER': ""}) == "ROLE_NATURALIST" %}
+                                                                    {% set display = "le naturaliste" %}
+                                                                {% else %}
+                                                                    {% set display = "l'utilisateur" %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            {{ display }}</h4>
+                                                        <p>Voulez-vous vraiment upgrader {% set display = "" %}
+                                                            {% for role in user.roles %}
+                                                                {% if role|trim|replace({'ROLE_USER': "", 'ROLE_NATURALIST': ""}) == "ROLE_ADMIN" %}
+                                                                    {% set display = "l'administrateur" %}
+                                                                {% elseif role|trim|replace({'ROLE_USER': ""}) == "ROLE_NATURALIST" %}
+                                                                    {% set display = "le naturaliste" %}
+                                                                {% else %}
+                                                                    {% set display = "l'utilisateur" %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            {{ display }} ?</p>
+                                                        <p>Avec l'adresse email : "{{ user.email }}"</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a href="#!" class="modal-close waves-effect waves-light btn">Annuler</a>
+                                                        <a data-id="{{ user.id }}" href="{{ path('upgrade_user', {id: user.id}) }}" class="js-upgrade-user waves-effect waves-light btn green accent-4">
+                                                            <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloaderongreen.gif') }}" style="display: none; position: relative; top: 2px; right: 10px;">
+                                                            <i class="material-icons left">arrow_upward</i>Upgrade
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Modal downgrade Structure -->
+                                                <div id="modalDownUser{{ user.id }}" class="modal">
+                                                    <div class="modal-content">
+                                                        <h4>Downgrader {% set display = "" %}
+                                                            {% for role in user.roles %}
+                                                                {% if role|trim|replace({'ROLE_USER': "", 'ROLE_NATURALIST': ""}) == "ROLE_ADMIN" %}
+                                                                    {% set display = "l'administrateur" %}
+                                                                {% elseif role|trim|replace({'ROLE_USER': ""}) == "ROLE_NATURALIST" %}
+                                                                    {% set display = "le naturaliste" %}
+                                                                {% else %}
+                                                                    {% set display = "l'utilisateur" %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            {{ display }}</h4>
+                                                        <p>Voulez-vous vraiment downgrader {% set display = "" %}
+                                                            {% for role in user.roles %}
+                                                                {% if role|trim|replace({'ROLE_USER': "", 'ROLE_NATURALIST': ""}) == "ROLE_ADMIN" %}
+                                                                    {% set display = "l'administrateur" %}
+                                                                {% elseif role|trim|replace({'ROLE_USER': ""}) == "ROLE_NATURALIST" %}
+                                                                    {% set display = "le naturaliste" %}
+                                                                {% else %}
+                                                                    {% set display = "l'utilisateur" %}
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            {{ display }} ?</p>
+                                                        <p>Avec l'adresse email : "{{ user.email }}"</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a href="#!" class="modal-close waves-effect waves-light btn">Annuler</a>
+                                                        <a data-id="{{ user.id }}" href="{{ path('downgrade_user', {id: user.id}) }}" class="js-downgrade-user waves-effect waves-light btn orange">
+                                                            <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloaderonorange.gif') }}" style="display: none; position: relative; top: 2px; right: 10px;">
+                                                            <i class="material-icons left">arrow_downward</i>Downgrade
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                            {% endfor %}
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-    </div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -658,336 +998,25 @@ box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.12);">
     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
             integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
             crossorigin=""></script>
-    <script src="{{ asset('js/my_last_observe.js') }}"></script>
+    <script src="{{ asset('js/heart.js') }}"></script>
     <script src="{{ asset('js/delete_user.js') }}"></script>
     <script src="{{ asset('js/upgrade_user.js') }}"></script>
+    <script src="{{ asset('js/downgrade_user.js') }}"></script>
+    <script src="{{ asset('js/profile.js') }}"></script>
+    <script src="{{ asset('js/delete_observe.js') }}"></script>
+    <script src="{{ asset('js/validate_observe.js') }}"></script>
+    <script src="{{ asset('js/delete_account.js') }}"></script>
+    <script src="{{ asset('js/pagination_to_validate.js') }}"></script>
+    <script src="{{ asset('js/pagination_my_observes.js') }}"></script>
     <script>
         $(document).ready(function() {
             // Flash message display loop
             {% for flash in app.flashes('profile') %}
-                $(function () {
-                    M.toast({html: '<span>{{ flash }}</span>'});
-                });
+            $(function () {
+                M.toast({html: '<span>{{ flash }}</span>'});
+            });
             {% endfor %}
-
-            $('.tabs').tabs();
-
-            $('.js-taxrefrang').each(function () {
-                $(this).html('Rang : ' + rang($(this).data('rang')));
-            });
-
-            $('.js-taxrefhab').each(function () {
-                $(this).html('Habitat : ' + habitat($(this).data('hab')));
-            });
-
-            $('.js-taxref-fr').each(function () {
-                $(this).html(lb($(this).data('fr')) + " en France métropolitaine");
-            });
-
-            $('.js-taxref-gf').each(function () {
-                $(this).html(lb($(this).data('gf')) + " en Guyane française");
-            });
-
-            $('.js-taxref-mar').each(function () {
-                $(this).html(lb($(this).data('mar')) + " à la Martinique");
-            });
-
-            $('.js-taxref-gua').each(function () {
-                $(this).html(lb($(this).data('gua')) + " à la Guadeloupe");
-            });
-
-            $('.js-taxref-sm').each(function () {
-                $(this).html(lb($(this).data('sm')) + " à Saint-Martin");
-            });
-
-            $('.js-taxref-spm').each(function () {
-                $(this).html(lb($(this).data('spm')) + " à Saint-Pierre et Miquelon");
-            });
-
-            $('.js-taxref-may').each(function () {
-                $(this).html(lb($(this).data('may')) + " à Mayotte");
-            });
-
-            $('.js-taxref-epa').each(function () {
-                $(this).html(lb($(this).data('epa')) + " aux Îles Éparses");
-            });
-
-            $('.js-taxref-reu').each(function () {
-                $(this).html(lb($(this).data('reu')) + " à la Réunion");
-            });
-
-            $('.js-taxref-sa').each(function () {
-                $(this).html(lb($(this).data('sa')) + " aux îles subantarctiques");
-            });
-
-            $('.js-taxref-ta').each(function () {
-                $(this).html(lb($(this).data('ta')) + " en Terre Adélie");
-            });
-
-            $('.js-taxref-nc').each(function () {
-                $(this).html(lb($(this).data('nc')) + " en Nouvelle-Calédonie");
-            });
-
-            $('.js-taxref-wf').each(function () {
-                $(this).html(lb($(this).data('wf')) + " à Wallis et Futuna");
-            });
-
-            $('.js-taxref-pf').each(function () {
-                $(this).html(lb($(this).data('pf')) + " en Polynésie française");
-            });
-
-            $('.js-taxref-cli').each(function () {
-                $(this).html(lb($(this).data('cli')) + " à Clipperton");
-            });
-
-            $('.js-taxref-sb').each(function () {
-                $(this).html(lb($(this).data('sb')) + " à Saint-Barthélemy");
-            });
-
-            $('.materialboxed').click(function (e) {
-                e.stopPropagation();
-            });
-
-            $('.modifObs').click(function () {
-                return false;
-            });
-
-            $('input.autocomplete').autocomplete({
-                data: {
-            {% for user in users %}
-                    "{{ user.email }}": '{{ user.img }}',
-            {% endfor %}
-                },
-                onAutocomplete: function () {
-                        let mail = this.el.value;
-                        if (mail === "") {
-                            $('.userAutocomplete').each(function () {
-                                $(this).show();
-                            })
-                        }
-                    $('.userAutocomplete').each(function () {
-                        let tdMail = $(this).find('.userMail').html();
-                        $(this).hide();
-                        if (tdMail === mail) {
-                            $(this).show();
-                        }
-                    })
-                },
-            });
-
-            $('input.autocomplete').keyup(function () {
-                if (this.value === "") {
-                    $('.userAutocomplete').each(function () {
-                        $(this).show();
-                    })
-                }
-            });
-
-            $('#obsTab').click(function () {
-                deleteMap($('.observePanel.active'));
-                $('.collapsible').collapsible('close');
-            });
         });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            let images =document.querySelectorAll('.materialboxed');
-            let elems = document.querySelectorAll('.collapsible');
-            let tulles = M.Collapsible.init(elems, {
-                onCloseStart: function (e) {
-                    deleteMap(e);
-                },
-                onOpenEnd: function (e) {
-                    createMap(e);
-                },
-            });
-            let imagesAnim = M.Materialbox.init(images, {
-                onOpenStart: function (e) {
-                    $(elems).find('#obsMap').remove();
-                },
-                onCloseStart: function (e) {
-                    if ($('li.observePanel.active').length === 1) {
-                        createMap($('li.observePanel.active'));
-                    };
-                }
-            });
-        });
-
-        function verticalTab(evt, tabName) {
-            let i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("vertical-tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
-
-        function createMap(e) {
-            let index = $(e).data('index');
-            let lat = $(e).data('lat');
-            let long = $(e).data('long');
-
-            let $mapContainer = $('.' + 'map-container-' + index);
-
-            $($mapContainer).append('<div id="obsMap" class="map-' + index + ' col s12 l6" style="height: 400px; padding: 0"></div>');
-
-            let mymap = L.map('obsMap').setView([lat, long], 11);
-
-            L.marker([lat, long]).addTo(mymap);
-
-            L.tileLayer(
-                'https://api.mapbox.com/styles/v1/mapbox/outdoors-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibmVva2lsbGVyMTEzIiwiYSI6ImNqZ2h2c2xxMzBsbm0ycWsxemJ6YnNpZXEifQ.PiGeZsNjVNyo1G80Y1KD4Q', {
-                maxZoom: 18,
-                    minZoom: 5,
-                id: 'mapbox.streets',
-            }).addTo(mymap);
-        }
-
-        function deleteMap(e) {
-
-            let index = $(e).data('index');
-            let $map = $('.' + 'map-' + index);
-            $($map).remove();
-        }
-
-        function lb(rang) {
-            switch (rang) {
-                case "A":
-                    return "Absente";
-                    break;
-                case "B":
-                    return "Accidentelle / Visiteuse";
-                    break;
-                case "C":
-                    return "Cryptogène";
-                    break;
-                case "D":
-                    return "Douteuse";
-                    break;
-                case "E":
-                    return "Endémique";
-                    break;
-                case "F":
-                    return "Trouvée en fouille";
-                    break;
-                case "I":
-                    return "Introduite";
-                    break;
-                case "J":
-                    return "Introduite envahissante";
-                    break;
-                case "M":
-                    return "Domestique / Introduite non établie";
-                    break;
-                case "P":
-                    return "Présente";
-                    break;
-                case "Q":
-                    return "Mentionnée par erreur";
-                    break;
-                case "S":
-                    return "Subendémique";
-                    break;
-                case "W":
-                    return "Disparue";
-                    break;
-                case "X":
-                    return "Éteinte";
-                    break;
-                case "Y":
-                    return "Introduite éteinte";
-                    break;
-                case "Z":
-                    return "Endémique éteinte";
-                    break;
-            }
-        }
-
-        function rang(rang) {
-            switch (rang) {
-                case "KD":
-                    return "Règne";
-                    break;
-                case "PH":
-                    return "Embranchement";
-                    break;
-                case "CL":
-                    return "Classe";
-                    break;
-                case "OR":
-                    return "Ordre";
-                    break;
-                case "FM":
-                    return "Famille";
-                    break;
-                case "GN":
-                    return "Genre";
-                    break;
-                case "AGES":
-                    return "Agrégat";
-                    break;
-                case "ES":
-                    return "Espèce";
-                    break;
-                case "SSES":
-                    return "Sous-espèce";
-                    break;
-                case "CVAR":
-                    return "Convariété";
-                    break;
-                case "VAR":
-                    return "Variété";
-                    break;
-                case "FO":
-                    return "Forme";
-                    break;
-                case "SSFO":
-                    return "Sous-forme";
-                    break;
-                case "RACE":
-                    return "Race";
-                    break;
-                case "HYB":
-                    return "Hybride";
-                    break;
-            }
-        }
-
-        function habitat(habitat) {
-            switch (habitat) {
-                case 1:
-                    return "Marin";
-                    break;
-                case 2:
-                    return "Eau douce";
-                    break;
-                case 3:
-                    return "Terrestre";
-                    break;
-                case 4:
-                    return "Marin & Eau douce";
-                    break;
-                case 5:
-                    return "Marin & Terrestre";
-                    break;
-                case 6:
-                    return "Eau saumâtre";
-                    break;
-                case 7:
-                    return "Continental (terrestre et/ou eau douce)";
-                    break;
-                case 8:
-                    return 'Continental (terrestre et eau douce)';
-                    break;
-            }
-        }
     </script>
 {% endblock %}
 

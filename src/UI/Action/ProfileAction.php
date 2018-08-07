@@ -10,10 +10,12 @@ namespace App\UI\Action;
 
 use App\Domain\Repository\ObserveRepository;
 use App\Domain\Repository\UserRepository;
+use App\Services\Gamification;
 use App\UI\Action\Interfaces\ProfileActionInterface;
 use App\UI\Form\Handler\Interfaces\ProfileTypeHandlerInterface;
 use App\UI\Form\ProfileType;
 use App\UI\Responder\Interfaces\ProfileResponderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,10 +24,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 /**
  * Class ProfileAction
  * @Route(
- *     "/profile",
+ *     "/profil",
  *     name="app_profile",
  *     methods={"GET", "POST"}
  * )
+ * @IsGranted("ROLE_USER")
  */
 final class ProfileAction implements ProfileActionInterface
 {
@@ -49,6 +52,10 @@ final class ProfileAction implements ProfileActionInterface
      * @var UserRepository
      */
     private $userRepository;
+    /**
+     * @var Gamification
+     */
+    private $gamification;
 
     /**
      * ProfileAction constructor.
@@ -57,19 +64,22 @@ final class ProfileAction implements ProfileActionInterface
      * @param ObserveRepository           $observeRepository
      * @param TokenStorageInterface       $tokenStorage
      * @param UserRepository              $userRepository
+     * @param Gamification                $gamification
      */
     public function __construct(
         FormFactoryInterface $form,
         ProfileTypeHandlerInterface $typeHandler,
         ObserveRepository $observeRepository,
         TokenStorageInterface $tokenStorage,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        Gamification $gamification
     ) {
         $this->form              = $form;
         $this->typeHandler       = $typeHandler;
         $this->observeRepository = $observeRepository;
         $this->tokenStorage      = $tokenStorage;
         $this->userRepository    = $userRepository;
+        $this->gamification      = $gamification;
     }
     /**
      * @param Request                   $request
@@ -90,6 +100,8 @@ final class ProfileAction implements ProfileActionInterface
 
         $users = $this->userRepository->findAll();
 
+        $level = $this->gamification->getLevel($user);
+
         $profileType = $this->form->create(ProfileType::class)
             ->handleRequest($request);
 
@@ -97,6 +109,6 @@ final class ProfileAction implements ProfileActionInterface
             return $profileResponder(true);
         }
 
-        return $profileResponder(false, $profileType, $myObserves, $observesToValidate, $users);
+        return $profileResponder(false, $profileType, $myObserves, $observesToValidate, $users, $level);
     }
 }

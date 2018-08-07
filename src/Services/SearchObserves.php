@@ -8,7 +8,6 @@
 
 namespace App\Services;
 
-
 use App\Domain\Repository\ObserveRepository;
 use App\Services\Interfaces\SearchObservesInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;

@@ -42,24 +42,41 @@ class Contact
     private $mail;
 
     /**
+     * @var bool
+     */
+    private $marketing;
+
+    /**
+     * @var bool
+     */
+    private $response;
+
+    /**
      * Contact constructor.
-     *
      * @param string $author
      * @param string $message
      * @param string $subject
      * @param string $mail
+     * @param bool   $marketing
+     * @param bool   $response
+     *
+     * @throws \Exception
      */
     public function __construct(
         string $author,
         string $message,
         string $subject,
-        string $mail
+        string $mail,
+        bool   $marketing,
+        bool   $response
     ) {
-        $this->id      = Uuid::uuid4();
-        $this->author  = $author;
-        $this->message = $message;
-        $this->subject = $subject;
-        $this->mail    = $mail;
+        $this->id        = Uuid::uuid4();
+        $this->author    = $author;
+        $this->message   = $message;
+        $this->subject   = $subject;
+        $this->mail      = $mail;
+        $this->marketing = $marketing;
+        $this->response  = $response;
     }
 
     /**
@@ -88,6 +105,7 @@ class Contact
 
     /**
      * @param string $author
+     *
      * @return Contact
      */
     public function setAuthor(string $author): self
@@ -107,6 +125,7 @@ class Contact
 
     /**
      * @param string $message
+     *
      * @return Contact
      */
     public function setMessage(string $message): self
@@ -126,6 +145,7 @@ class Contact
 
     /**
      * @param string $subject
+     *
      * @return Contact
      */
     public function setSubject(string $subject): self
@@ -145,6 +165,7 @@ class Contact
 
     /**
      * @param string $mail
+     *
      * @return Contact
      */
     public function setMail(string $mail): self
@@ -153,4 +174,45 @@ class Contact
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isMarketing(): bool
+    {
+        return $this->marketing;
+    }
+
+    /**
+     * @param bool $marketing
+     *
+     * @return self
+     */
+    public function setMarketing(bool $marketing): self
+    {
+        $this->marketing = $marketing;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isResponse(): bool
+    {
+        return $this->response;
+    }
+
+    /**
+     * @param bool $response
+     *
+     * @return self
+     */
+    public function setResponse(bool $response): self
+    {
+        $this->response = $response;
+
+        return $this;
+    }
+
 }

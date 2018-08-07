@@ -8,7 +8,16 @@
     <entity name="App\Domain\Models\Comment" table="comment" repository-class="App\Domain\Repository\CommentRepository">
         <id name="id" type="uuid"/>
         <field name="content" type="text"/>
-        <many-to-one field="author" target-entity="App\Domain\Models\User" inversed-by="comments"/>
+        <many-to-one field="author" target-entity="App\Domain\Models\User" inversed-by="comments">
+            <join-column nullable="false"/>
+        </many-to-one>
+        <many-to-one
+                field="post"
+                target-entity="App\Domain\Models\Post"
+                inversed-by="postComments"
+        >
+            <join-column nullable="false"/>
+        </many-to-one>
         <field name="createdAt" type="datetime">
             <gedmo:timestampable on="create"/>
         </field>

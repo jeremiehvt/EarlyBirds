@@ -20,7 +20,7 @@ class UserActionTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/login');
+        $client->request('GET', '/se-connecter');
 
         static::assertSame(
             Response::HTTP_OK,

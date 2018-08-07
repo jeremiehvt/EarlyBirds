@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/article.css') }}">
+{% endblock %}
+
+{% block metasdesc %}{{ post.shortDesc }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col l12 m12 s12" id="subHeader">
+            <div class=" col l2 m2 s2">
+                <p id="slogan">
+                    Nos amis les oiseaux
+                </p>
+            </div>
+            {% if post %}
+                <div class="col m8 s12" id="header" data-bckg="{{ post.img }}">
+                    <h1 class="col m10 offset-m1 s12 header_text">
+                        {{ post.title }}
+                    </h1>
+                </div>
+                <div class="col l4 offset-l4 m4 offset-m4 s12">
+                    <p id="info-article">
+                        {% if post.author.nickname is not null %}
+                            {{ post.author.nickname }}
+                        {% endif %}
+                            {% if "ROLE_ADMIN" in  post.author.roles %}
+                                - Administrateur
+                            {% elseif"ROLE_USER" in  post.author.roles %}
+                                - Naturaliste
+                            {% endif %}
+                         - {{ post.createdAt|localizeddate('long',
+                            'none') }} - {{ post.category }}
+                    </p>
+                    <div class="head-link">
+                        <span class="js-like-post-count" style="position: relative; bottom: 8px; font-size: 12px">{{ post.favouredBy.count }}</span>
+                        {% if is_granted('ROLE_USER')%}
+                            <a class="toggle-heart" href="{{ path('toogle_post_heart', {id: post.id}) }}">
+                                <i id="postheart" data-url="{{ path('get_favoured') }}" data-id="{{ post.id }}" class="material-icons head-heart">favorite_border</i>
+                                <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloader.gif') }}" style="display: none; margin-bottom: 4px;">
+                            </a>
+                        {% else %}
+                            <a href="{{ path('security_login') }}">
+                                <i class="material-icons" style="color: #EB5757">favorite_border</i>
+                            </a>
+                        {% endif %}
+                        <a href=""><i class="material-icons head-share"
+                            >share</i></a>
+
+                        {% if is_granted('ROLE_NATURALIST') %}
+                            <a href="#" class="data-delete-post" data-delete="{{ path
+                                ('app_delete_article',
+                                {'id' : post.id}) }}"><i
+                                        class="material-icons
+                            head-delete"
+                                >delete</i></a>
+                            <a href="{{ path('app_update_post', {'id' : post.id}) }}"><i
+                                        class="material-icons
+                            head-edit"
+                                >edit</i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col l10 offset-l1 m10 offset-m1 s12">
+            <div class="col l10 offset-l1 m10 offset-m1 s12" id="content-article">
+                {{ post.content|raw }}
+            </div>
+
+            <div class="col l10 offset-l1 m10 offset-m1 s12" id="form">
+                <div id="comments">
+                    <ul>
+                        <li><h2 id="comments-head">Les derniers Commentaires</h2></li>
+                        {% for comment in post.postComments %}
+                        <li class="comment-content">
+                            {% if comment.author.nickname is not null %}
+                                <span id="comment-author">{{ comment.author.nickname }} : </span>
+                            {% else %}
+                                <span id="comment-author">utilisateur sans nom : </span>
+                            {% endif %}
+                                {{ comment.content }}<br>
+                            statut: {% if "ROLE_ADMIN" in  comment.author.roles %}
+                                Administrateur <br>
+                            {% elseif"ROLE_NATURALIST" in  comment.author.roles %}
+                                Naturaliste <br>
+                            {% elseif "ROLE_USER" in  comment.author.roles %}
+                            {% endif %}
+                                <em id="comment-date">posté le : {{ comment.createdAt|localizeddate('long', 'none') }} </em>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% if is_granted('ROLE_USER') %}
+                    {{ form_start(form) }}
+                        <div class="input-field col l8 m8 s12">
+                            {{ form_widget(form.content) }}
+                            <span class="form_errors">{{ form_errors(form.content) }}</span>
+                        </div>
+
+                        <div class="input-field col l4 m4 s12" id="divSubBtn">
+                            <button id="submitBtn" class="btn waves-effect waves-light col s12"
+                                    type="submit">
+                                envoyer
+                            </button>
+                        </div>
+                    {{ form_end(form) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/article.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/delete_post_from_article.js') }}"></script>
+{% endblock %}

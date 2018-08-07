@@ -1,0 +1,250 @@
+#c_body {
+    margin-top: -360px;
+    margin-bottom: -500px;
+}
+
+#form {
+    background: #F2F2F2;
+    padding-bottom: 25em;
+    padding-top: 4em;
+    margin-top: -2.3em;
+}
+
+#paraph {
+    margin-top: 4em;
+    margin-bottom: 14em;
+    font-family: Didot, serif;
+    font-size: 1.5em;
+}
+
+input#contact_mail {
+
+    padding-left: 10px;
+    height: 4.375em;
+    border: none;
+    background: #FFFCFC;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+input#contact_author {
+
+    padding-left: 10px;
+    height: 4.375em;
+    border: none;
+    background: #FFFCFC;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+input#contact_subject {
+
+    padding-left: 10px;
+    height: 4.375em;
+    border: none;
+    background: #FFFCFC;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+textarea#contact_message {
+
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 15em;
+
+    border: none;
+    background: #FFFCFC;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+input::placeholder, textarea::placeholder {
+    text-decoration-line: underline;
+    text-decoration-color: #2D9CDB;
+    padding-left: 15px;
+}
+
+input {
+    text-decoration-line: underline;
+    text-decoration-color: #2D9CDB;
+    padding: 0;
+}
+
+textarea {
+    padding-top: 15px;
+    height: 7.563em;
+    width: 100%;
+}
+
+.check {
+    margin-top: 2em;
+}
+
+#check_response {
+    margin-top: 6em;
+}
+
+.form_errors {
+    text-align: right;
+    font-size: .9em;
+    font-weight: 300;
+    font-family: MontSerrat, serif;
+    margin-top: 0;
+    color: red;
+
+}
+
+span.form_errors ul {
+    margin-top: 0;
+}
+
+#submitBtn {
+    background: #F2994A;
+    border-radius: 20px;
+    height: 3em;
+    font-size: 1.125em;
+    text-transform: initial;
+    margin: 0 0 0 22px;
+}
+
+.contact-div {
+    margin-top: 5.5em;
+    font-family: MontSerrat, serif;
+}
+
+.contact-li {
+    margin-bottom: 1em;
+}
+
+.contact_bold_text {
+    font-weight: 700;
+    font-size: 1.250em;
+}
+
+.contact_light_text {
+    font-weight: 300;
+    font-size: 1.125em;
+}
+
+.contact_nao_text {
+    font-weight: 300;
+    font-size: 2.250em;
+}
+
+.contact_nao_letter {
+    color:#039be5;
+}
+
+#slogan {
+    -webkit-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    transform: rotateZ(-90deg);
+    z-index: 3;
+    position: relative;
+    left: 105px;
+    top: 100px;
+    font-family: MontSerrat, serif;
+    font-weight: 100;
+}
+
+#footer {
+    position: absolute;
+    top: 130em;
+}
+
+#citation {
+    display: none;
+}
+
+#citation-mobile {
+    display: none;
+}
+
+.contact {
+    background: #59A177;
+    color: white;
+    border-radius: 20px;
+    vertical-align: center;
+    font-family: MontSerrat, serif;
+    font-weight: 500;
+    font-size: 1em;
+    text-transform: lowercase;
+    text-align: center;
+    padding: 1.8em;
+}
+
+@media (min-width: 1441px ) and (max-width: 1920px) {
+
+    #slogan {
+        left: 9.4em;
+    }
+}
+
+@media (min-width: 401px ) and (max-width: 992px) {
+    #form {
+        margin-top: 28em;
+        padding-bottom: 0;
+    }
+
+    #submitBtn{
+        margin: 0 2em 0 22px;
+    }
+
+    .contact-div {
+        margin-top: 3em;
+        margin-bottom: 3em;
+    }
+
+    #slogan {
+        display: none;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+
+    #citation {
+        display: none !important;
+    }
+
+    #footer-mobile {
+        margin: 0;
+        padding-top: unset;
+    }
+}
+
+@media (max-width: 400px) {
+    #footer {
+        position: unset;
+        top: unset;
+    }
+    #form {
+        margin-top: 28em;
+        padding-bottom: 0;
+    }
+
+    #paraph {
+        margin-bottom: 8em;
+    }
+
+    #slogan {
+        display: none;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+
+    #citation {
+        display: none !important;
+    }
+
+    #footer-mobile {
+        margin: 0;
+        padding-top: unset;
+    }
+}

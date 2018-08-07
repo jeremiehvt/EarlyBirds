@@ -1,28 +1,269 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}NAO - Homepage{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+{% endblock %}
+
+{% block metadesc %} Nos Amis les Oiseaux » c'est l'ornithologie pour tous, experts comme
+    débutants. Apprenez, transmettez, jouez un rôle dans la protection de l'environnement.{% endblock %}
+
+{% block title %}Observer les oiseaux, préserver la diversité{% endblock %}
 
 {% block body %}
-    <h1 class="col s12">Homepage</h1>
+<div class="row">
 
-
-
-    <div class="carousel carousel-slider fullscreen">
-        <a class="carousel-item" href="#one!"><img src="{{ asset('img/carousel/1.jpg') }}"></a>
-        <a class="carousel-item" href="#two!"><img src="{{ asset('img/carousel/2.jpg') }}"></a>
-        <a class="carousel-item" href="#three!"><img src="{{ asset('img/carousel/3.png') }}"></a>
-        <a class="carousel-item" href="#four!"><img src="{{ asset('img/carousel/4.jpg') }}"></a>
-        <a class="carousel-item" href="#five!"><img src="{{ asset('img/carousel/5.jpg') }}"></a>
+    <div class="col l12 m12 s12" id="subHeaer">
+        <div class=" col l2 m2 s2">
+            <p id="slogan">
+                Nos amis les oiseaux
+            </p>
+        </div>
+        <div class=" col l8 m8 s12" id="header">
+            <div class="video-container">
+                <iframe title="video" width="853" height="480" src="//www.youtube.com/embed/0-uqBOrMhF8?rel=0"
+                        frameborder="0" allowfullscreen>
+                </iframe>
+            </div>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col s12 show-on-small hide-on-med-and-up participate_group_small">
+            <h2 class="participate_small">DÉCOUVRIR</h2>
+        </div>
+    </div>
+
+
+    <div class="col l8 offset-l2 m8 offset-m2 s10 offset-s1" id="first">
+        <div class="hide-on-med-and-down" id="background-un"><h1 id="subTitle-un">DÉCOUVRIR</h1></div>
+
+        <h1 class="title">L'Ornithologie, une science
+            populaire</h1>
+        <p class="paraph">
+            L’ornithologie, ou science de l’étude des oiseaux sauvages, s’est toujours appuyée sur
+            les observations de réseaux d’amateurs passionnés.
+            Elle se nourrit de votre plaisir à décrire et reconnaître ces multiples plumages,
+            d’y associer un vol ou un comportement, de localiser une espèce et bien sûr, d’échanger
+            et de partager ses connaissances.<br><br>
+            Ce lien historique et singulier entre professionnels, les naturalistes et “ornithos”
+            amateurs ou débutants prend tout son sens avec l’expression “science populaire”
+        </p>
+        <p class="paraph">
+            <a class="first-link" href="{{ path('app_home') }}">Nos Amis les Oiseaux</a>, c'est
+                    l'expression de cette particularité : même
+                    si ce  site est tout d’abord un outil de terrain pratique et simple pour
+            compiler et partager vos observations, c’est également un "lieu unique" pour tous les
+            amoureux de la nature qui ont envie de participer, ensemble,
+                à préserver la diversité biologique.<br><br>
+        </p>
+        <div>
+            <a class="col l4 offset-l4 m6 offset-m3 s12 waves-effect waves-light btn"
+               id="linkBtn" href="{{ path('app_discover_nao') }}">Découvrez nos actions
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row hide-on-small-only">
+    <div class="col l12 m12 s12" id="separator">
+         <div class="col l3 offset-l1 m6 offset-m1 s10 offset-s1">
+           <p id="text-separator">
+                “ Le peu qu'on peut faire, le très peu qu'on peut faire, il faut le faire “<br>
+               <span id="little_text_separator">Théodore Monod</span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 show-on-small hide-on-med-and-up participate_group_small">
+        <h2 class="participate_small">PARTICIPER</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col l8 offset-l2 m8 offset-m2 s10 offset-s1" id="participate-div">
+        <h2 class="title">PARTICIPER ENSEMBLE A préserver la biodiversité</h2>
+        <h3 class="title" id="title-deux">Les sciences collaboratives et
+            <a class="first-link" href="{{ path('app_home') }}">NAO</a></h3>
+        <div class="hide-on-med-and-down" id="participate_group">
+            <h2 id="participate">PARTICIPER</h2>
+        </div>
+        <p class="paraph_deux">
+            Parce que du plaisir à la recherche, il n’y avait plus qu’un tout petit pas pour
+            les membres de l’association, NAO a décidé de le franchir.
+            <br><br>Elle s'est donc associée au programme scientifique qui vise à étudier les
+            effets du climat, de l’urbanisation
+            et de l’agriculture sur la biodiversité. <br>
+            Cette étude scientifique repose sur le
+            recueil d’un volume important de données fiables. C’est pourquoi la participation
+            de tous est la bienvenue !
+        </p>
+
+        <p class="paraph_deux">
+            Vous  aussi, durant vos balades avec vos enfants, entre amis ou en rando
+            avec votre club ou encore si vous exercez une activité professionnelle en
+            plein air, vous pouvez agir pour la planète en participant à cette grande
+            étude nationale éco citoyenne.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="co S12" id="separator-deux">
+        <div class="col l6 m6 s10 offset-s1 infog">
+            <h3 class="col l10 offset-l2 m10 offset-m2 s12">
+                Et si vous étiez notre prochain birder en titre ?
+            </h3>
+            <p class="col l8 offset-l2 m10 offset-m2 s12">
+                Nul besoin de connaissances très pointues, ni de matériel coûteux ou sophistiqué,
+                il vous suffit de suivre le guide  !<br><br>
+                Au fil de vos observations :  vous cumulez des points, vous gagnez en expérience,
+                vous faites évoluer votre statut d’observateur !
+            </p>
+            <a class="col l6 offset-l3 m8 offset-m3 s12 waves-effect waves-light btn"
+               id="infog_linkBtn" href="{{ path('app_observe') }}">
+                Saisissez votre 1ère
+                observation !
+            </a>
+        </div>
+        <div class="hide-on-small-only" id="infography">
+            <img id="infography-img" src="{{ asset('/img/other/infography.png') }}"/>
+        </div>
+    </div>
+</div>
+
+<div id="observatory" class="row">
+    <div id="observatory_title" class="col s10 offset-s1">
+        <h2>L'observatoire</h2>
+        <p class="obsertory-paraph">
+            Parcourez les  actualités de l’association et les dernières observations
+            des birders NAO dans leur régions.
+        </p>
+        <p class="obsertory-paraph">
+            Faites de votre première observation une réussite en découvrant
+            <a class="first-link" href="{{ path('app_actuality') }}">les 5 critères pour reconnaître un
+                oiseau à coup
+                sûr</a>
+            sur notre <a href="{{ path('app_actuality') }}">blog !</a><br>
+            <a class="waves-effect waves-light btn" id="obs_btn" href="{{ path
+                ('app_actuality') }}">J'y
+                vais !</a>
+        </p>
+    </div>
+
+    <div class="col s12" id="the-observatory">
+
+        {% if lastPost %}
+            <div class="col l3 m4 s12 observatory-card">
+                <div class="card" id="article-card">
+                    <div class="card-image">
+                        <img src="{{ lastPost.img }}">
+                        <span class="card-title">{{ lastPost.title }}</span>
+                    </div>
+                    <div class="card-content">
+                        <p class="short">
+                            <strong class="short-head">Description :
+                            </strong><br>{{ lastPost.shortDesc }}
+                        </p>
+                        <p>
+                            <a href="{{ path('app_read_article', {id: lastPost.id}) }}">lire</a>
+                        </p>
+                    </div>
+                    <div class="card-action head-link" >
+                        <span class="js-like-post-count" style="position: relative; bottom: 8px">{{ lastPost.favouredBy.count }}</span>
+                        {% if is_granted('ROLE_USER')%}
+                            <a class="js-like-post" href="{{ path('toogle_post_heart', {id: lastPost.id}) }}">
+                                <i id="postheart" data-url="{{ path('get_favoured') }}" data-id="{{ lastPost.id }}" class="material-icons">favorite_border</i>
+                                <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloader.gif') }}">
+                            </a>
+                        {% else %}
+                            <a href="{{ path('security_login') }}">
+                                <i class="material-icons" style="color: #EB5757">favorite_border</i>
+                            </a>
+                        {% endif %}
+                        <a href="#">
+                            <i class="material-icons share-link">share</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="col s1 hide-on-med-and-down article-separator-container">
+            <div class="article-separator"></div>
+        </div>
+
+        <div class="col s1 hide-on-med-and-down article-separator-container-deux">
+            <div class="article-separator-deux"></div>
+        </div>
+
+        {% for observe in observes %}
+            <div class="col l3  m4 s12 observatory-card">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{{ observe.img }}">
+                        <span class="card-title">{% if observe.ref.nomVern is defined %}
+                            {{ observe.ref.nomVern }}
+                                {% elseif observe.ref.lbNom is defined %}
+                                    {{ observe.ref.lbNom }}
+                                {% else %}Non identifié
+                                {% endif %}
+                        </span>
+                        <a href="{{ path('app_view_observe', {id: observe.id}) }}" class="btn-floating halfway-fab waves-effect waves-light orange darken-1"><i class="material-icons">add</i></a>
+                    </div>
+                    <div class="card-content">
+                        <p class="observe-infos">
+                             <span>
+                                Observé le {{ observe.createdAt|localizeddate('long', 'none') }}
+                            </span><br>
+                             <span>
+                                    {% if observe.author.nickname is defined %}
+                                        {{ observe.author.nickname }}
+                                    {% else %}
+                                        {{ observe.author.email }}
+                                    {% endif %}
+                                 {% if observe.author.nickname is empty %}
+                                     {{ observe.author.email }}
+                                 {% endif %}
+                             </span>
+                        </p>
+                    </div>
+                    <div class="card-action head-link observecard">
+                        <span class="js-like-observe-count" style="position: relative; bottom: 8px">{{ observe.upvoter.count }}</span>
+                        {% if is_granted('ROLE_USER')%}
+                            <a class="js-like-observe" href="{{ path('toggle_observe_heart', {id: observe.id}) }}">
+                                <i id="observeheart" data-url="{{ path('get_observe_like_status') }}" data-id="{{ observe.id }}" class="material-icons">favorite_border</i>
+                                <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloader.gif') }}">
+                            </a>
+                        {% else %}
+                            <a href="{{ path('security_login') }}">
+                                <i class="material-icons" style="color: #EB5757">favorite_border</i>
+                            </a>
+                        {% endif %}
+                        <a href="#">
+                            <i class="material-icons share-link">share</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script>
-        let elem = document.querySelector('.carousel');
-        let instance = M.Carousel.init(elem, {
-            fullWidth: true,
-            indicators: true,
+        {% for flash in app.flashes('homepage') %}
+        $(function() {
+            M.toast({html: '<span>{{ flash }}</span>'});
         });
+        {% endfor %}
     </script>
+    <script src="{{ asset('js/homepage.js') }}"></script>
 {% endblock %}

@@ -1,0 +1,191 @@
+div#subHeader {
+    margin-top: -24em;
+}
+
+#slogan {
+    top: 130px;
+}
+
+#header {
+    height: 360px;
+    margin-bottom: 3em;
+    padding-top: 2em;
+    background: no-repeat center url("../img/other/lastobserve.jpg");
+    background-size: cover;
+}
+.header_text {
+    text-shadow: 4px 4px 14px rgba(150, 150, 150, 0.5);
+    font-family: MontSerrat, serif;
+    font-weight: 500;
+    font-size: 2.5em;
+    color: white;
+}
+
+.header-little-text {
+    margin-top: 0;
+    text-shadow: 4px 4px 14px rgba(150, 150, 150, 0.5);
+    font-family: MontSerrat, serif;
+    font-size: 1em;
+    color: white;
+    font-weight: 300;
+}
+
+#header a {
+    border-radius: 20px;
+    margin-top: .6em;
+    background-color: #2D9CDB!important;
+    text-transform: none;
+}
+
+
+#viewObserveHeader div {
+    padding-left: 4%;
+    margin-bottom: 0;
+    height: 378px;
+    background-position: 40% 400%;
+}
+
+#viewObserveHeader h1 {
+    font-family: Didot, serif;
+    font-size: 40px;
+    color: #579BC1;
+}
+
+#viewObserveHeader p {
+    font-family: Montserrat, serif;
+    font-size: 16px;
+}
+
+#viewObserveHeader a {
+    border-radius: 20px;
+    margin: 10px;
+    background-color: #2D9CDB!important;
+    text-transform: none;
+}
+
+#observation {
+    font-family: Montserrat, serif;
+    text-transform: uppercase;
+}
+
+#observation > div {
+    padding-top: 30px;
+    padding-right: 2%;
+    padding-left: 2%;
+}
+
+#top > div.col.s12.l8 {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+#top i.material-icons.left {
+    margin-bottom: 10px;
+}
+
+#top span {
+    color: #009587;
+    font-style: italic;
+    font-size: 12px;
+    position: relative;
+    top: 5px;
+}
+
+
+#observation b {
+    text-transform: uppercase;
+    color: #00BCD4;
+}
+
+#observation li a {
+    font-style: italic;
+    font-weight: bold;
+}
+
+#info > li {
+    margin: 2px 0 2px 0;
+}
+
+#observeBtn {
+    border-radius: 20px;
+    margin: 20px 1% 20px 1%;
+    font-family: Montserrat, serif;
+    text-transform: none;
+    font-weight: bold;
+}
+
+@media (max-width: 400px)  {
+
+    #slogan {
+        display: none;
+    }
+
+    div#subHeader {
+        margin-top: 3em;
+        padding: 0;
+    }
+
+    #header {
+        padding-top: unset;
+    }
+
+    #header .header_text {
+        padding-top: 0;
+        margin-top: .8em;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: 401px) and (max-width: 992px) {
+
+    #slogan {
+        display: none;
+    }
+
+    div#subHeader {
+        margin-top: 5em;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+
+    #footer-mobile {
+        padding-top: unset;
+    }
+
+    #header {
+        padding-top:0;
+    }
+
+   .header_text {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 1920px) and (min-width: 1601px) {
+    #header {
+        height: 450px;
+        margin-top: 0;
+    }
+
+    .header_text {
+        text-shadow: 4px 4px 14px rgba(150, 150, 150, 0.5);
+        font-family: MontSerrat, serif;
+        font-weight: 500;
+        font-size: 2.5em;
+        color: white;
+    }
+
+    .header-little-text {
+        margin-top: 0;
+        text-shadow: 4px 4px 14px rgba(150, 150, 150, 0.5);
+        font-family: MontSerrat, serif;
+        font-size: 1em;
+        color: white;
+        font-weight: 300;
+    }
+}

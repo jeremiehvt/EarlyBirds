@@ -20,19 +20,19 @@ use App\Domain\Models\User;
 interface ObserveBuilderInterface
 {
     /**
-     * @param User      $author
-     * @param TaxRef    $ref
-     * @param string    $description
-     * @param string    $latitude
-     * @param string    $longitude
-     * @param \DateTime $date
-     * @param string    $img
+     * @param User           $author
+     * @param null|TaxRef    $ref
+     * @param string         $description
+     * @param string         $latitude
+     * @param string         $longitude
+     * @param \DateTime      $date
+     * @param string         $img
      *
      * @return ObserveBuilderInterface
      */
     public function create(
         User      $author,
-        TaxRef    $ref,
+                  $ref,
         string    $description,
         string    $latitude,
         string    $longitude,

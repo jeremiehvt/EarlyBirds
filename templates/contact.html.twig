@@ -1,9 +1,126 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href=" {{ asset('css/contact.css') }}">
+{% endblock %}
+
+{% block metadesc %}Une question ? Une suggestion ? N'hésitez pas à nous envoyer un message{% endblock %}
+
+{% block title %}Contactez-nous - NAO (Nos Amis les Oiseaux){% endblock %}
 
 {% block body %}
-    <div>
+    <div class="row">
+        <div class="col m12 l12 s12">
         {{ form_start(form) }}
-        <button type="submit">envoyer</button>
+            <div class="row">
+                <div class="col m2 l2 hide-on-med-and-down">
+                    <p id="slogan">
+                        Nos amis les oiseaux
+                    </p>
+                </div>
+                <div class="col m10 l9 offset-m1 ">
+                    <div class="row" id="form">
+                        <div class="input-field col l6 s10 m10 offset-l4 offset-m1 offset-s1"
+                             id="paraph">
+                            Vous avez une question ? une suggestion ?
+                            ou vous êtes naturaliste et souhaitez rejoindre l’équipe ?
+                            N'hésitez pas à nous contacter, nous nous ferons un plaisir
+                            de vous répondre dès que nous aurons posé nos jumelles !
+                        </div>
+
+
+                        <div class="input-field col l6 s10 m10 offset-l4 offset-m1 offset-s1
+                        message" >
+                            {% for message in app.flashes('contact') %}
+                                <div class="contact">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="input-field col l6 s10 m10 offset-l4 offset-m1 offset-s1">
+                            <span class="label"></span>
+                            {{ form_widget(form.subject) }}
+                            <span class="form_errors">{{ form_errors(form.subject) }}</span>
+                        </div>
+                    <div class="input-field col l6 s10 m10 offset-l4 offset-m1 offset-s1">
+                            <span class="label"></span>
+                            {{ form_widget(form.author) }}
+                        <span class="form_errors">{{ form_errors(form.author) }}</span>
+                        </div>
+                        <div class="input-field col l6 s10 m10 offset-l4 offset-m1 offset-s1">
+                            <span class="label"></span>
+                            {{ form_widget(form.mail) }}
+                            <span class="form_errors">{{ form_errors(form.mail) }}</span>
+                        </div>
+                        <div class="input-field col l6 s10 m10 offset-l4 offset-m1 offset-s1">
+                            <span class="label"></span>
+                            {{ form_widget(form.message) }}
+                            <span class="form_errors">{{ form_errors(form.message) }}</span>
+                        </div>
+                        <div class="input-field col l6 s11 m8 offset-l4" id="divSubBtn">
+                            <button id="submitBtn" class="btn waves-effect waves-light col s4 m4 l4
+                            right"
+                                    type="submit">
+                                Envoyer
+                            </button>
+                        </div>
+
+                        <div class="col l6 s10 m8 offset-l4 offset-m2 offset-s1 check"
+                             id="check_response">
+                            <label>
+                                {{ form_widget(form.response, {'attr': {'class': 'filled-in'}}) }}
+                                <span>J'autorise NAO à utiliser les informations saisies
+                                    dans ce formulaire pour m'adresser une réponse
+                                    personnalisée, par email.
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="col l6 s10 m8 offset-l4 offset-m2 offset-s1 check">
+                            <label>
+                                {{ form_widget(form.marketing, {'attr': {'class': 'filled-in'}}) }}
+                                <span>J'accepte de recevoir de NAO des offres
+                                        marketing personnalisées.<br><br>
+                                    Nous vous invitons à consulter
+                                    notre <a href="{{ path('app_confidentiality') }}">politique de
+                                        confidentialité.</a>
+                                    </span>
+                            </label>
+                        </div>
+
+                        <div class="col l3 s5 m4 offset-l4 offset-m2 offset-s1 contact-div">
+                            <ul>
+                                <li class="contact-li contact_bold_text">
+                                    Notre adresse
+                                </li>
+                                <li class="contact-li contact_nao_text">
+                                    na<span class="contact_nao_letter">o</span>
+                                </li>
+                                <li class="contact-li">
+                                    <span class="contact_light_text">
+                                        Impasse du Gypaète<br>
+                                        40190 Saint-Paul Lès Dax<br>
+                                        05 48 49 26 07
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col l3 s5 m4 contact-div">
+                            <ul class="right">
+                                <li class="contact-li contact_bold_text">email</li>
+                                <li class="contact-li contact_light_text"><a href="mailto: contact@nao.org">
+                                        contact@nao.org</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {{ form_end(form) }}
+        </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/contact.js') }}"></script>
 {% endblock %}

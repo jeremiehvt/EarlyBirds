@@ -23,6 +23,38 @@ class BadgeRepository extends ServiceEntityRepository
         parent::__construct($registry, Badge::class);
     }
 
+    /**
+     * @param Badge $badge
+     *
+     * @return bool
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function remove(Badge $badge): bool
+    {
+        $this->getEntityManager()->remove($badge);
+        $this->getEntityManager()->flush();
+
+        return true;
+    }
+
+    /**
+     * @param Badge $badge
+     *
+     * @return bool
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Badge $badge): bool
+    {
+        $this->getEntityManager()->persist($badge);
+        $this->getEntityManager()->flush();
+
+        return true;
+    }
+
 //    /**
 //     * @return Badge[] Returns an array of Badge objects
 //     */

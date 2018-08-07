@@ -13,13 +13,13 @@ namespace App\UI\Action;
 
 use App\UI\Action\Interfaces\ConfidentialityActionInterface;
 use App\UI\Responder\Interfaces\ConfidentialityResponderInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class ConfidentialityAction
  * @package App\UI\Action
  * @Route(
- *     path="/politique_de_confidentialite",
+ *     path="/politique-de-confidentialite",
  *     name="app_confidentiality",
  *     methods={"GET"},
  * )

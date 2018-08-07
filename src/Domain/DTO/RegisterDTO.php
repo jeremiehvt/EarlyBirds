@@ -23,12 +23,12 @@ class RegisterDTO implements RegisterDTOInterface
 
     /**
      * RegisterDTO constructor.
-     * @param string $email
-     * @param string $password
+     * @param string      $email
+     * @param null|string $password
      */
     public function __construct(
         string $email,
-        string $password
+        ?string $password
     ) {
         $this->email    = $email;
         $this->password = $password;

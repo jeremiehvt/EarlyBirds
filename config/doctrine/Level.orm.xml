@@ -6,8 +6,9 @@
 
     <entity name="App\Domain\Models\Level" table="level" repository-class="App\Domain\Repository\LevelRepository">
         <id name="id" type="uuid"/>
+        <field name="points" type="integer"/>
         <field name="name" length="150"/>
-        <field name="desc" type="text" nullable="true"/>
+        <field name="description" type="text" nullable="true"/>
         <field name="img" length="150" nullable="true"/>
         <one-to-many field="user" target-entity="App\Domain\Models\User" mapped-by="level"/>
     </entity>

@@ -45,8 +45,8 @@ class ProfileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ProfileDTOInterface::class,
-            'empty_data' => function (FormInterface $form) {
+            'data_class'        => ProfileDTOInterface::class,
+            'empty_data'        => function (FormInterface $form) {
                 return new ProfileDTO(
                     $form->get('nickname')->getData(),
                     $form->get('firstname')->getData(),
@@ -54,7 +54,8 @@ class ProfileType extends AbstractType
                     $form->get('img')->getData()
                 );
             },
-            'label'      => false,
+            'validation_groups' => ['ImgProfile'],
+            'label'             => false,
         ]);
     }
 }

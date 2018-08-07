@@ -6,10 +6,20 @@
 
     <entity name="App\Domain\Models\Badge" table="badge" repository-class="App\Domain\Repository\BadgeRepository">
         <id name="id" type="uuid"/>
-        <many-to-many field="user" target-entity="App\Domain\Models\User" inversed-by="badges"/>
+        <many-to-many field="user" target-entity="App\Domain\Models\User" inversed-by="badges">
+            <join-table name="users">
+                <join-columns>
+                    <join-column/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
         <field name="name"/>
-        <field name="category" type="integer"/>
-        <field name="desc" type="text"/>
-        <field name="img"/>
+        <field name="category" type="integer" nullable="true"/>
+        <field name="description" type="text" nullable="true"/>
+        <field name="price" type="integer"/>
+        <field name="img" nullable="true"/>
     </entity>
 </doctrine-mapping>

@@ -1,18 +1,52 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Repérez facilement les oiseaux qui vivent près de chez vous{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
           integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
           crossorigin=""/>
+    <link rel="stylesheet" href="{{ asset('css/map.css') }}"
 {% endblock %}
 
-{% block title %}
-    observation
-{% endblock %}
+{% block metadesc %}Pour connaître, localiser et consulter les photos des espèces observées dans
+votre région, il vous suffit de zoomer sur la carte interactive proposée par NAO.{% endblock %}
 
 {% block body %}
+
+<div class="row">
+    <div class="col l12 m12 s12" id="subHeader">
+        <div class="col m2 l2">
+            <p id="slogan">
+                Nos amis les oiseaux
+            </p>
+        </div>
+
+        <div class="col l8 m8 s12" id="header">
+            <h1 class="col m10 offset-m1 s12 header_text">
+                Cartographie des observations
+            </h1>
+        </div>
+    </div>
+
+    <div class="col l12 m12 s12" id="help_text">
+    Pour découvrir les espèces répertoriées<br> d'une région en particulier,<br> <span
+    id="help_text_info">zoomez sur
+     la carte</span>
+    </div>
+
     <div id="map"></div>
+
+
+        <a class="col s10 offset-s1 m4 offset-m4 waves-effect waves-light btn"
+        id="linkBtn"
+        href="{{ path('app_observe') }}">
+            Ajouter une observation
+        </a>
+
+</div>
+
 {% endblock %}
 
 {% block javascripts %}

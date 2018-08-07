@@ -11,6 +11,8 @@ namespace App\UI\Form;
 use App\Domain\DTO\ContactDTO;
 use App\Domain\DTO\Interfaces\ContactDTOInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -30,33 +32,49 @@ class ContactType extends AbstractType
                               array $options
     ) {
         $builder
-            ->add('message', TextType::class, [
-                'label' => false,
+            ->add('message', TextareaType::class, [
+                'label'   => false,
+                'required' => true,
                 'attr' => [
                     'placeholder' =>'votre message'
                 ]
             ])
 
             ->add('author', TextType::class, [
-                'label' => false,
+                'label'   => false,
+                'required' => true,
                 'attr' => [
                     'placeholder' =>'votre nom et prénom'
                 ]
             ])
 
             ->add('subject', TextType::class, [
-                'label' => false,
+                'label'   => false,
+                'required' => true,
                 'attr' => [
                     'placeholder' => 'sujet du mail'
                 ]
             ])
 
             ->add('mail', TextType::class, [
-                'label' => false,
+                'label'   => false,
+                'required' => true,
                 'attr' => [
                     'placeholder' => 'votre email'
                 ]
             ])
+
+            ->add('marketing', CheckboxType::class, [
+                 'label'    => false,
+                 'required' => false
+              ]
+            )
+
+            ->add('response', CheckboxType::class, [
+                    'label'    => false,
+                    'required' => true
+                ]
+            )
         ;
     }
 
@@ -72,7 +90,9 @@ class ContactType extends AbstractType
                     $form->get('author')->getData(),
                     $form->get('message')->getData(),
                     $form->get('subject')->getData(),
-                    $form->get('mail')->getData()
+                    $form->get('mail')->getData(),
+                    $form->get('marketing')->getData(),
+                    $form->get('response')->getData()
                 );
             },
             'label' => false

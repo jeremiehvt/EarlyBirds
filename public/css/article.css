@@ -1,0 +1,283 @@
+#subHeader {
+    margin-top: -23em;
+}
+
+#slogan {
+    top: 130px;
+}
+
+#header {
+    background-size: cover !important;
+    height: 614px;
+    margin-top: unset;
+}
+
+.header_text {
+    font-family: Didot, serif;
+    font-size: 3em;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    margin-top: 6.3em;
+}
+
+#info-article {
+    font-family: MontSerrat, serif;
+    font-weight: 300;
+    font-size: .875em;
+    text-align: center;
+    margin-top: 0;
+    padding: .4em 0 0 0;
+    color: #8148B6;
+    height: 4em;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.head-heart {
+    color: red;
+}
+
+.head-share {
+    color: #2D9CDB;
+}
+
+.head-delete {
+    color: red;
+    cursor: pointer;
+}
+
+.head-edit {
+    color: #F2994A;
+}
+
+.head-link {
+    margin-top: 1.5em;
+    text-align: center;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+
+.content_h2 {
+    font-family: MontSerrat, serif;
+    font-weight: 700;
+    font-size: 2.3em;
+
+}
+
+.content_h3 {
+    color: #488194;
+    font-family: MontSerrat, serif;
+    font-weight: 700;
+    font-size: 2em;
+
+}
+
+.content_h4 {
+    color: #828282;
+    font-family: MontSerrat, serif;
+    font-weight: 700;
+    font-size: 1.500em;
+
+}
+
+#content-article ul {
+    background: rgba(191, 213, 220, 0.5);
+    padding: 3%;
+}
+
+#content-article ul li .content_h3 {
+    font-family: Didot, serif;
+    font-size: 2em;
+
+}
+
+.paraph  {
+    font-family: MontSerrat, serif;
+    font-size: 1em;
+    font-weight: 200;
+
+}
+
+.em_text{
+    color: #6A3F91;
+    font-family: Didot, serif;
+    font-size: 1em;
+}
+
+.b_text {
+    font-family: MontSerrat, serif;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.quote {
+    text-align: center;
+    color: #6A3F91;
+    font-family: Didot, serif;
+    font-size: 2em;
+    border-left: none;
+    border-top: solid 1px #579BC1;
+    border-bottom: solid 1px #579BC1;
+    padding: 3% 0;
+    margin: 2em 0;
+}
+
+
+#action-link {
+    text-align: center;
+}
+
+#submitBtn {
+    background: #F2994A;
+    border-radius: 20px;
+    height: 3em;
+    font-size: 1.125em;
+    text-transform: initial;
+    margin: .5em 0;
+}
+
+input#comment_content {
+
+    padding-left: 10px;
+    height: 4.375em;
+    border: none;
+    background: #FFFCFC;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+input::placeholder {
+    text-decoration-line: underline;
+    text-decoration-color: #2D9CDB;
+    padding-left: 15px;
+}
+
+input {
+    text-decoration-line: underline;
+    text-decoration-color: #2D9CDB;
+    padding: 0;
+}
+
+#comments {
+    background: #f5f5f5;
+    margin-top: 2em;
+    border-radius: 2em;
+    padding: .4em 0 .5em 2em;
+}
+
+#comments-head {
+    color: #488194;
+    font-family: MontSerrat, serif;
+    font-weight: 700;
+    font-size: 1.3em;
+}
+
+li.comment-content {
+    font-family: MontSerrat, serif;
+    font-weight: 300;
+    font-size: 1em;
+    padding-bottom: .2em;
+}
+
+#comment-author {
+    font-family: MontSerrat, serif;
+    font-weight: 500;
+}
+
+#comment-date {
+    font-family: MontSerrat, serif;
+    font-weight: 300;
+    color: darkgrey;
+}
+
+.form_errors {
+    text-align: right;
+    font-size: .9em;
+    font-weight: 300;
+    font-family: MontSerrat, serif;
+    margin-top: 0;
+    color: #F2994A;
+}
+
+span.form_errors ul {
+    margin-top: 0;
+}
+
+
+
+@media (max-width: 400px)  {
+    #subHeader {
+        margin-top: 6em;
+        padding: 0;
+    }
+
+    #header {
+        height: 300px;
+        margin-top: 0;
+    }
+
+    .header_text {
+        margin-top: 5em;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+
+    .head-link a {
+        padding: .9em;
+    }
+
+    #info-article {
+        height: 4em;
+    }
+}
+
+@media (min-width: 401px) and (max-width: 992px) {
+
+    #subHeader {
+        margin-top: 8em;
+    }
+
+    #header {
+        height: 300px;
+        margin-top: 0;
+    }
+
+    .header_text {
+        margin-top: 2em;
+    }
+
+    #slogan {
+        display: none;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+
+    #citation {
+        display: none !important;
+    }
+
+    #footer-mobile {
+        margin: 0;
+        padding-top: unset;
+    }
+
+    i.material-icons {
+        font-size: 1.1em;
+    }
+}
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+
+    #header {
+        height: 450px;
+        margin-top: 0;
+    }
+
+    .header_text {
+        margin-top: 4em;
+    }
+}

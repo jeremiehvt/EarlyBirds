@@ -1,0 +1,560 @@
+#subHeader {
+    margin-top: -23em;
+}
+
+#slogan {
+    left: 6em;
+    top: 9em;
+}
+
+#header {
+    height: 360px;
+    background: no-repeat center url("../img/other/observation.jpg");
+    background-size: cover;
+}
+
+.header_text {
+    font-family: MontSerrat, serif;
+    font-weight: 500;
+    text-align: center;
+    color: white;
+    margin-top: 2em;
+    font-size: 4em;
+}
+
+.header-little-text {
+    color: white;
+    text-align: center;
+    font-family: MontSerrat, Serif;
+    font-weight: 500;
+    font-size: 1.750em;
+}
+
+.sub_title {
+    font-family: MontSerrat, serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 2.250em;
+    margin-top: 3em;
+}
+
+.second_sub_title, .third_sub_title {
+    font-family: MontSerrat, serif;
+    font-weight: 500;
+    font-size: 1.4em;
+    color: #488194;
+}
+
+.third_sub_title {
+    margin-bottom: 0;
+}
+
+.paraph_page {
+    color: #828282;
+    font-family: MontSerrat, serif;
+    font-weight: 300;
+    font-size: 1.250em;
+    margin-top: 0;
+}
+
+.mission-li {
+    margin-top: 2.5em;
+}
+
+ul.paraph_page {
+    margin-top: .4em;
+    padding: 0;
+}
+
+
+.paraph_link {
+    color:#488194;
+}
+
+.bold-text {
+    font-family: MontSerrat, serif;
+    font-weight: 500;
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+    color: #488194;
+}
+
+#separator {
+    margin-top: 6em;
+    background: no-repeat center url('../img/other/discover_nao_separator.png');
+    background-size: cover;
+    height:21.375em;
+}
+
+#text-separator {
+    font-family: Didot;
+    text-align: center;
+    line-height: 1.2em;
+    font-size: 3.313em;
+    margin-top: .6em;
+    margin-bottom: 0;
+}
+
+#text-separator-deux {
+    font-family: Didot;
+    text-align: right;
+    font-size: 1.2em;
+    padding: 0;
+    margin-top: 0;
+    margin-right: 4em;
+
+}
+
+#story_group {
+    position: absolute;
+    width: 99px;
+    height: 52px;
+    left: 0;
+    margin-top: 10em;
+    background: #488194;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#story {
+    font-family: MontSerrat, serif;
+    font-weight: 300;
+    font-size: 1.875em;
+    width: 18em;
+
+    -webkit-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    transform: rotateZ(-90deg);
+
+    position: absolute;
+    left: 2.5em;
+    top: 7.5em;
+}
+
+#member {
+    border: 1px solid #6A3F91;
+    padding: 1.8em;
+    padding-bottom: 6em;
+    display: none;
+}
+
+#btn-role, #btn-donate {
+    margin-left: 1em;
+    color: #6A3F91;
+    border-radius: .6em;
+    background: none;
+    border: 1px solid #6A3F91;
+}
+
+#btn-donate {
+    margin-left: 0;
+    margin-top: 2em;
+}
+
+#method_group {
+    position: absolute;
+    width: 99px;
+    height: 52px;
+    right: 0;
+    margin-top: 10em;
+    background: #488194;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#method {
+    font-family: MontSerrat, serif;
+    font-weight: 300;
+    font-size: 1.875em;
+    width: 18em;
+
+    -webkit-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    transform: rotateZ(-90deg);
+
+    position: absolute;
+    top: 7.5em;
+}
+
+.little_paraph_page {
+    background: #488194;
+    padding: 1.6em!important;
+    color: white;
+    font-family: MontSerrat, Serif;
+    font-size: 1em;
+    font-weight: 300;
+    width: 50%;
+}
+
+.frame {
+    font-family: MontSerrat, Serif;
+    font-size: 1.5em;
+    font-weight: 400;
+    margin-left: 1em;
+    color: #6A3F91;
+    border-radius: .3em;
+    width: 35%;
+    padding: .5em 0;
+    text-align: center;
+    background: none;
+    border: 1px solid #6A3F91;
+}
+
+#frame_un {
+    margin-left: 60%;
+}
+
+#frame_img_un {
+    padding: 4em 0 0 0;
+    margin-left: -1em;
+}
+
+#frame_paraph_un {
+}
+
+#frame_deux {
+    margin-top: 3em;
+    margin-bottom: 0;
+    width: 45%;
+}
+
+#frame_img_deux {
+    margin-top: 0;
+    padding: 4em 0 0 0;
+}
+
+#frame_paraph_deux {
+    margin-left: 7em;
+}
+
+#frame_img_trois {
+    margin-top: 0;
+    margin-left: -1em;
+    padding: 4em 0 0 0;
+}
+
+#frame_trois {
+    margin-left: 55%;
+    margin-top: 3em;
+    margin-bottom: 0;
+    width: 45%;
+}
+
+#link_frame_trois {
+    font-size: 1.2em;
+    color: black;
+    font-style: italic;
+}
+
+
+
+a#frame_btn {
+    margin-top: 2em;
+    background: #F2994A;
+    height: 3em;
+    padding-top: .3em;
+    border-radius: 20px;
+    font-size: 1em;
+    font-weight: 500;
+    width: 90%;
+    text-transform: initial;
+}
+
+#mission_group {
+    position: absolute;
+    width: 99px;
+    height: 52px;
+    left: 0;
+    margin-top: 7em;
+    background: #6A3F91;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#mission {
+    font-family: MontSerrat, serif;
+    font-weight: 300;
+    font-size: 1.875em;
+    width: 18em;
+
+    -webkit-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    transform-origin: 0 0;
+    transform: rotateZ(-90deg);
+
+    position: absolute;
+    left: 2.5em;
+    top: 6em;
+}
+
+#mission_title {
+    margin-bottom: 3em;
+    text-transform: capitalize;
+    color: #6A3F91;
+}
+
+#separator-trois {
+    margin-top: 6em;
+    padding-top: 4em;
+    background: no-repeat center url('../img/other/discover_nao_separator_trois.png');
+    background-size: cover;
+    height:21.375em;
+}
+
+#text-separator-trois {
+    color: white;
+    font-family: MontSerrat, Serif;
+    font-weight: 400;
+    font-size: 3em;
+    background: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    border-radius: .4em;
+    padding: .4em;
+}
+
+h2#ressources-title{
+    margin-top: 3em;
+    margin-bottom: 2em;
+    font-family: Didot !important;
+
+}
+
+li.ressource-li {
+    margin-bottom: .5em;
+}
+
+#hide-donate {
+    display: none;
+    padding: 2em;
+    padding-bottom: 9em;
+    border: 1px solid #6A3F91;
+}
+
+.donate_title {
+    color:#F2994A;
+    font-family: MontSerrat, Serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 1.5em;
+}
+
+.donate_sub_title {
+    color: #6A3F91;
+}
+
+.donate_second_sub_title {
+    margin-top: 2em;
+    color:#F2994A;
+}
+
+@media (max-width: 400px) {
+
+    #subHeader {
+        margin-top: 3em;
+        padding: 0;
+    }
+
+    #header {
+        padding: 0;
+        height: 215px;
+        margin-top: 0;
+    }
+
+    .header_text {
+        margin-top: 2.5em;
+        font-size: 2em;
+    }
+
+    .sub_title {
+        margin-top: 1em;
+    }
+
+    #btn-role {
+        margin-left: unset;
+        margin-top: 1em;
+    }
+
+    #text-separator {
+        font-size: 2em;
+    }
+
+    #text-separator-deux {
+        margin-right: 5em;
+    }
+
+    #frame_un {
+        margin-bottom: 0;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    #frame_deux {
+        width: unset;
+        margin-left: 0;
+    }
+
+    #frame_paraph_deux {
+        margin-left: unset;
+    }
+
+    #frame_trois {
+        width: unset;
+        margin-left: 0;
+    }
+
+    a#frame_btn {
+        margin-top: 2em;
+        background: #F2994A;
+        height: 4em;
+        line-height: 1.4em;
+        padding-top: .8em;
+        border-radius: 20px;
+        font-size: 1em;
+        width: 90%;
+        text-transform: initial;
+    }
+
+
+    .little_paraph_page {
+        width: unset;
+    }
+
+    #mission_title {
+        margin-bottom: unset;
+    }
+
+    #separator-trois {
+       padding-top: 6em;
+    }
+
+    #text-separator-trois {
+        font-size: 2em;
+    }
+
+    #ressources {
+        margin-bottom: 3em;
+    }
+
+
+    #slogan {
+        display: none;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: 401px) and (max-width: 992px) {
+
+    #subHeader {
+        margin-top: 5em;
+    }
+
+    #header {
+        height: 300px;
+        margin-top: 0;
+    }
+
+    .header_text {
+        margin-top: 2em;
+        font-size: 3.5em;
+    }
+
+    #slogan {
+        display: none;
+    }
+
+    #frame_un {
+        margin-left: 60%;
+        width: 50%;
+    }
+
+    #frame_paraph_un {
+        width: 20em;
+    }
+
+    #frame_img_un img {
+        width: 30em;
+    }
+
+    #frame_img_un {
+        padding: 3em 0 0 0;
+        margin-left: -1em;
+    }
+
+    #frame_paraph_deux {
+        margin-left: unset;
+        width: 55%;
+    }
+
+    #frame_img_deux img {
+        width: 20em;
+    }
+
+    #frame_img_trois img {
+       width: 30em;
+    }
+
+    p#frame_paraph_trois {
+        width: 50%;
+    }
+
+    #text-separator-trois {
+        font-size: 2em;
+    }
+
+    #separator-trois {
+        padding-top: 10em;
+    }
+
+    #ressources {
+        margin-bottom: 3em;
+    }
+
+    #frame_btn {
+        margin-left: 1em;
+    }
+
+    #footer-mobile {
+        padding-top: 0;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+
+    #citation {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+
+    #header {
+        height: 450px;
+        margin-top: 0;
+    }
+
+    .header_text {
+        margin-top: 4em;
+    }
+
+    #text-separator-deux {
+        font-family: Didot;
+        text-align: center;
+        font-size: 1.2em;
+        padding: 0;
+
+    }
+
+    #frame_paraph_deux {
+        margin-left: -2em;
+    }
+}

@@ -21,7 +21,9 @@ interface ContactBuilderInterface
         string $author,
         string $message,
         string $subject,
-        string $mail
+        string $mail,
+        bool   $response,
+        bool   $market
     ): ContactBuilder;
 
     public function getContact(): Contact;

@@ -1,1 +1,561 @@
 {% extends 'base.html.twig' %}
+
+{% block title %}Nos Amis les Oiseaux : traitement des données personnelles{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+          integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+          crossorigin=""/>
+    <link rel="stylesheet" href="{{ asset('css/confidentiality.css') }}"
+{% endblock %}
+
+{% block metadesc %}politique de confidentialité{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col l12 m12 s12" id="subHeader">
+        <p id="slogan">
+            Nos amis les oiseaux
+        </p>
+
+        <div class="col l8 offset-l2 m8 offset-m2 s12" id="header">
+            <h1 class="col m10 offset-m1 s12 header_text">
+               POLITIQUE DE CONFIDENTIALITE
+            </h1>
+        </div>
+    </div>
+
+    <div class="col l8 offset-l2 m10 offset-m1 s10 offset-s1" id="intro">
+        <h2 class="sub_title">Sommaire</h2>
+         <ul class="paraph_pge">
+            <li><a class="paraph_link" href="#1">1- Généralités</a></li>
+            <li><a class="paraph_link" href="#2">2- Nature des données personnelles recueillies</a></li>
+            <li><a class="paraph_link" href="#3">3- Que faisons-nous de ces données ?</a></li>
+            <li><a class="paraph_link" href="#3-1">3-1 Finalité des données collectées</a></li>
+            <li><a class="paraph_link" href="#3-2">3-2 Vos droits concernant vos données personnelles</a></li>
+            <li><a class="paraph_link" href="#4">4- Cas particulier des Cookies</a></li>
+            <li><a class="paraph_link" href="#4-1">4-1 Présentation d’un Cookie</a></li>
+            <li><a class="paraph_link" href="#4-2">4-2 A quoi servent les Cookies ? </a></li>
+            <li><a class="paraph_link" href="#4-2-1">4-2-1 Les Cookies techniques</a></li>
+            <li><a class="paraph_link" href="#4-2-3">4-2-3 Les Cookies « Réseaux sociaux »</a></li>
+            <li><a class="paraph_link" href="#4-3">4-3 Vos choix et modalités d’opposition et suppression concernant les cookies sur nos sites</a></li>
+            <li><a class="paraph_link" href="#4-3-1">4-3-1 Refuser ou supprimer les Cookies par l’intermédiaire de votre logiciel de navigation</a></li>
+            <li><a class="paraph_link" href="#4-3-2">4-3-2 Refuser ou supprimer un Cookie de mesure d’audience</a></li>
+            <li><a class="paraph_link" href="#4-3-3">4-3-3 Refuser un Cookie émis par un réseau social</a></li>
+            <li><a class="paraph_link" href="#4-4">4-4 Plus d’informations sur les Cookies avec la CNIL</a></li>
+            <li><a class="paraph_link" href="#5">5 Protection de vos données personnelles</a></li>
+            <li><a class="paraph_link" href="#4-3-2">4-3-2 Refuser ou supprimer un Cookie de mesure d’audience</a></li>
+            <li><a class="paraph_link" href="#6">6 Lexique</a></li>
+         </ul>
+
+         <h2 id="1" class="sub_title">1-Généralités</h2>
+         <p class="paraph_pge">
+            En France, les données personnelles sont notamment protégées par la loi n° 78-87 du
+            6 janvier 1978, la loi n° 2004-801 du 6 août 2004, l’article L. 226-13 du Code pénal,
+            la Directive Européenne du 24 octobre 1995 et le Règlement Européen à la Protection
+            des Données (RGPD) qui est entré en vigueur le 25/05/2018. Dans ce cadre et dans une
+            logique de respect de la vie privée de ses Utilisateurs, <span class="bold-text">NAO (Nos
+            Amis les
+            Oiseaux) </span>
+            a nommé un <span class="bold-text">délégué à la protection des données : Lorina Walter :</span>
+            <a class="paraph_link" href="mailto: l.walter@nao.org">l.walter@nao.org.</a>.
+            qui est à votre disposition pour toute information ou démarche concernant
+            vos données personnelles.
+         </p>
+         <p class="paraph_pge">
+             On entend par « Données personnelles » (ou données à caractère personnel) toute
+             information se rapportant à une personne physique à partir de laquelle ladite personne peut être
+             identifiée directement ou indirectement, notamment ses nom et prénom, son numéro de
+             téléphone, ses adresses postale et électronique, son mot de passe et ses informations
+             de paiement. Sont exclues les données pour lesquelles l'identité de la personne a
+             été supprimée (données anonymes).
+         </p>
+
+         <h2 id="2" class="sub_title">2- Nature des données personnelles recueillies</h2>
+         <p>
+             A l’occasion de l’utilisation du site NAO.org, peuvent êtres recueillies :
+             l’URL des liens par l’intermédiaire desquels l’Utilisateur a accédé au site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">Nao.org</a>,
+             le fournisseur d’accès de l’Utilisateur, l’adresse de protocole Internet (IP) de l’Utilisateur.
+             En tout état de cause, l’association Nos Amis les Oiseaux (NAO) ne collecte des informations
+             personnelles relatives à l’Utilisateur que pour le besoin de certains services proposés
+             par le site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">Nao.org</a> :
+         </p>
+
+         <ul class="paraph_pge">
+            <li>
+                <span class="bold-text">Formulaire de contact</span> : : saisie de vos coordonnées
+                personnelles et adresse e-mail vous permettant de nous contacter pour nous poser
+                des questions ou nous soumettre des suggestion ;
+            </li>
+            <li>
+                <span class="bold-text">Compte personnel</span>   (carnet de terrain) :
+                saisie de vos coordonnées personnelles, adresse e-mail, photo profil lors
+                de la création de votre espace personnel sur notre site ;
+            </li>
+            <li>
+                <span class="bold-text">Newsletter</span>  : enregistrement volontaire d'une
+                adresse e-mail vous permettant de recevoir notre newsletters ;<br>
+                Soit des données issues de votre navigation sur nos sites par le biais de
+                <a href="#4">Cookies</a> : consultation d'une page web,
+                clic sur un lien, recherche effectuée, etc
+            </li>
+         </ul>
+
+         <h2 id="3" class="sub_title">3- Que faisons-nous de ces données ?</h2>
+         <h3 id="3-1" class="paraph_subtitle">
+            3-1 Finalité des données collectées
+        </h3>
+
+         <ul class="paraph_pge">
+            <li class="bold-text">Selon les cas, les usages sont les suivants :</li>
+            <li>
+                Si vous nous adressez une question ou une suggestion par le biais de notre
+                formulaire de contact : dans ce cas, vos données personnelles sont utilisées
+                pour vous apporter une réponse, par email, personnalisée et de la manière la plus appropriée.
+                Vous autorisez également Nos Amis les Oiseaux (NAO) à communiquer occasionnellement
+                avec vous si elle le juge opportun afin de vous informer des dernières actualités
+                de l’association, ses actions, ses appels aux dons, via les coordonnées collectées
+                dans ce formulaire.
+
+            </li>
+            <li class="bold-text">Ces données ne seront pas conservées plus de 3 ans ;</li>
+            <li>
+                Si vous vous inscrivez pour créer un compte personnel : dans ce cas, vos données
+                personnelles sont utilisées pour personnaliser l'espace qui vous est réservé
+                (nom, photo/avatar, niveau d'expertise, etc) et la gestion de votre compte
+                (recherches service client, difficultés techniques).<br>
+                Vous autorisez également Nos Amis les Oiseaux (NAO) à communiquer
+                occasionnellement avec vous si elle le juge opportun afin de vous informer
+                des dernières actualités de l’association, ses actions, ses appels aux dons,
+                via les coordonnées collectées dans ce formulaire.
+                Ces données personnelles ne seront pas conservées plus de 3 ans.
+                Attention, cela ne concerne pas les données relatives aux observations :
+                <a href="{{ path('app_legal') }}#5">cf Mentions légales / CGU, chapitre 8,
+                paragraphe 4, droits d'auteur et de diffusion, propriété</a>
+            </li>
+            <li>
+                Si vous vous êtes abonné(e) à notre newsletters : dans ce cas, votre adresse
+                email est utilisée pour l'envoi, 1 fois par trimestre, de notre newsletter.<br>
+                Vous autorisez également Nos Amis les Oiseaux (NAO) à communiquer
+                occasionnellement avec vous si elle le juge opportun afin de vous
+                informer des dernières actualités de l’association, ses actions, ses appels aux
+                dons, via les coordonnées collectées dans ce formulaire ;
+            </li>
+            <li>
+                Le site internet de NAO (Nos Amis les Oiseaux) collecte des données personnelles
+                par le biais de <a href="4">Cookies</a> (voir présentation complète ci-dessous au
+                paragraphe 4) à des fins de ciblage publicitaire.
+                <br><br>
+                Par ailleurs, les données personnelles sont conservées conformément aux dispositions
+                du Décret n° 2011-219 du 25 février 2011 relatif à la conservation et à la
+                communication des données permettant d'identifier toute personne ayant contribué
+                à la création d'un contenu mis en ligne.
+                <br><br>
+                Les données personnelles collectées ne font l’objet d’aucun transfert
+                en dehors de l’Union Européenne.
+                <br><br>
+                <h3 class="paraph_subtitle" id="3-2">3-2 Vos droits concernant vos données
+                personnelles</h3>
+                Conformément à la loi Informatique et Libertés en date du 6 janvier 1978 telle que
+                modifiée en 2004, <span class="bold-text">vous disposez d'un droit d'accès, de rectification,
+                d’opposition et de suppression </span>concernant vos données personnelles.
+                <br><br>
+                Vous trouverez ci-dessous plus de détails et d'informations sur la manière dont
+                vous pouvez exercer vos droits et à quel moment. Nous répondrons à votre demande
+                dans un délai d'un mois, mais avons le droit de proroger ce délai de deux mois
+                le cas échéant, compte tenu de la complexité et du nombre de demandes.<br>
+                <h3 class="paraph_subtitle">
+                    Pour plus d'informations sur vos droits, veuillez lire les dispositions suivantes :
+                </h3><br>
+                <ul>
+                    <li>
+                        <h3 class="paraph_subtitle">
+                            Vous disposez des droits suivants en ce qui concerne vos données personnelles :
+                        </h3>
+                    </li>
+                    <li>
+                        <span class="bold-text">Le droit de demander l'accès à vos données personnelles. </span>
+                         Vous pouvez ainsi recevoir une copie des données personnelles que nous
+                         détenons à votre sujet et vérifier que nous les traitons en toute légalité.
+                    </li>
+                    <li>
+                        <span class="bold-text">Le droit de demander la rectification de vos données</span>
+                        si celles-ci sont inexactes. Vous pouvez également compléter les données
+                        incomplètes dont nous disposons, en tenant compte des finalités du traitement.
+                    </li>
+                    <li>
+                        <span class="bold-text">Le droit de demander la suppression de vos données personnelles si :</span>
+                        <ul>
+                            <li>
+                                vos données personnelles ne sont plus nécessaires aux fins
+                                pour lesquelles nous les avons collectées ou traitées ; ou
+                            </li>
+                            <li>
+                                vous retirez votre consentement sur lequel est fondé le traitement
+                                de vos données personnelles et il n'existe pas d'autre fondement juridique au traitement ; ou
+                            </li>
+                            <li>
+                                vous vous opposez au traitement de vos données personnelles et il
+                                n'existe pas de motif légitime impérieux pour le traitement ; ou
+                            </li>
+                             <li>
+                                vos données personnelles font l'objet d'un traitement illicite ; ou
+                            </li>
+                            <li>
+                                vos données personnelles doivent être effacées pour respecter une obligation légale.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        Attention, cela ne concerne pas les données relatives aux observations :
+                        <a href="{{ path('app_legal') }}#5">cf Mentions légales / CGU, chapitre 8, paragraphe 4, droits d'auteur et de diffusion,
+                        propriété</a>
+                    </li>
+                    <li>
+                        Attention, cela ne concerne pas les données relatives aux observations :
+                        <a href="{{ path('app_legal') }}#5">cf Mentions légales / CGU, chapitre 8, paragraphe 4, droits d'auteur et de diffusion,
+                        propriété</a>
+                    </li>
+                    <li>
+                        <span class="bold-text">Le droit de s'opposer au traitement de vos données personnelles.</span>
+                        Nous répondrons à votre demande, à moins que nous ayons un intérêt légitime impérieux
+                        pour le traitement ou que nous ayons besoin de continuer à traiter vos données personnelles
+                        pour établir la légitimité de nos droits ou les faire valoir, pour nous défendre dans le cadre d'une action en justice
+                    </li>
+                    <li>
+                        <ul>
+                            <li><span class="bold-text">Le droit de limiter le traitement des données
+                    personnelles,
+                    </span>si :</li>
+                            <li>vous contestez l'exactitude de vos données personnelles alors que nous les vérifions ; ou</li>
+                            <li>le traitement est illicite et vous vous opposez à la suppression de vos données personnelles et vous demandez la limitation ; ou</li>
+                            <li>nous n'avons plus besoin de vos données personnelles à des fins de traitement, mais celles-ci sont nécessaires dans le cadre d'actions en justice ; ou</li>
+                            <li>vous vous êtes opposé au traitement, pour la période au cours de laquelle nous devons vérifier les motifs légitimes impérieux.</li>
+                        </ul>
+                    </li>
+                    <li><span class="bold-text">Le droit à la portabilité des données.</span>Vous pouvez demander à recevoir
+                    les données personnelles qui vous concernent dans un format structuré, couramment utilisé
+                    et lisible par machine. Vous pouvez également nous demander de transmettre ces données personnelles
+                    à un tiers, lorsque cela est possible. Vous n'avez ce droit que si cette mesure porte sur les données
+                    personnelles que vous nous avez fournies, si le traitement est fondé sur le consentement ou nécessaire
+                    à l'exécution d'un contrat entre vous et nous, et si le traitement est effectué à l'aide de procédés automatisés.</li>
+
+                    <li><span class="bold-text">Le droit de définir vos instructions post-mortem</span>pour
+                    déterminer la manière dont vos données personnelles seront utilisées et la
+                    manière dont vos droits seront exercés après votre décès. Si nous sommes
+                    informés de votre décès, nous effacerons vos données personnelles (attention,
+                    cela ne concerne pas les données relatives aux observations :
+                    <a href="{{ path('app_legal') }}#5">cf Mentions légales / CGU, chapitre 8,
+                    paragraphe 4, droits d'auteur et de diffusion, propriété</a>
+                    , sauf si nous devons les conserver en application des dispositions
+                    légales ou réglementaires et/ou des délais de conservation légaux et, le cas échéant,
+                    après leur communication à un tiers désigné par vos soins.</li>
+
+                </ul>
+            </li><br>
+            <li>Vous pouvez exercer ces droits à tout moment et par tous moyens, notamment :</li>
+            <li>par courrier postal à l'adresse suivante :<br>
+            NAO (Nos Amis les Oiseaux)<br>
+            "Données personnelles", Lorina Walter<br>
+            Impasse du Gypaète - 40990 Saint-Paul-lès-Dax</li>
+
+            <li>par mail à l'adresse suivante : <a href="mailto: l.walter@nao.org">l.walter@nao
+            .org</a><br><br>
+            La demande doit être obligatoirement accompagnée d'une photocopie d'une pièce d'identité conforme et valide.<br>
+            Conformément à la loi, votre demande sera traitée dans un délai maximum de 2 mois suivant réception.<br>
+            Nous vous rappelons que les demandes abusives sont punies par la loi.<br>
+            </li>
+
+            <li><h3 class="paraph_subtitle">Dans certains cas, vous pouvez également exercer ces droits de
+            manière
+            directe :</h3></li>
+
+            <li>Si vous vous êtes abonné(e) à notre newsletters : vous pouvez à tout moment vous désabonner
+            en cliquant sur le lien de désabonnement situé en bas de chaque email reçu ;</li>
+
+            <li>Si vous avez accepté de recevoir des offres de nos partenaires : vous pouvez à
+            tout moment vous désabonner en cliquant sur le lien de désabonnement situé en bas
+            de chaque email reçu ;</li>
+
+            <li>Si vous vous êtes inscrit volontairement sur notre site (carnet de terrain) :
+            vous pouvez à tout moment accéder à vos données, les modifier ou les supprimer
+            <a href="{{ path('app_legal') }}#5">(sauf cas particulier des observations validées, cf Mentions légales / CGU,
+            chapitre 8, paragraphe 4, droits d'auteur et de diffusion</a>
+            en vous connectant sur votre Espace Membre du site ;</li>
+
+            <li>Concernant les cookies, vous disposez de moyens d’opposition directs précisés ci-dessous au paragraphe 4-3.</li>
+         </ul>
+
+          <h2 id="4" class="sub_title">4- Cas particulier des Cookies</h2>
+          <h3 id="4-1" class="paraph_subtitle"> 4-1 Présentation d’un Cookie</h3>
+         <p class="paraph_pge">
+             Un Cookie est un fichier texte utile pour la navigation sur les sites internet,
+             déposé dans un espace dédié du disque dur de votre terminal (ordinateur, tablette,
+             téléphone mobile ou tout autre appareil optimisé pour Internet), lors de la consultation
+             d’un contenu ou d’une publicité en ligne. Il sert à personnaliser les pages en les
+             adaptant à votre profil et renferme des données collectées comme, selon les cas,
+             votre nom, votre adresse mail, l'heure et le jour de connexion, le système d'exploitation
+             de votre ordinateur, les pages de sites fréquentées...
+
+         </p>
+         <h3 id="4-2" class="paraph_subtitle">  4-2 A quoi servent les Cookies ?</h3>
+         <p class="paraph_pge">
+         Trois types de Cookies, répondant aux finalités décrites ci-dessous, peuvent ainsi être
+         enregistrés dans votre terminal à l’occasion d’une visite sur notre site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">Nao.org</a> :
+         </p>
+
+         <h3 id="4-2-1" class="paraph_subtitle"> 4-2-1 Les cookies techniques</h3>
+         <p class="paraph_pge">
+             Ils sont nécessaires à la navigation sur notre site, ainsi qu’à l’accès aux différents
+             produits et services. Les cookies techniques permettent en particulier de vous reconnaître,
+             de signaler votre passage sur telle ou telle page et ainsi d’améliorer votre confort
+             de navigation : adapter la présentation du site aux préférences d'affichage de votre
+             terminal (langue utilisée, résolution d'affichage), mémoriser les mots de passe et
+             autres informations relatives à un formulaire que vous avez rempli sur le site
+             (inscription ou accès à l’Espace Membre). Les cookies techniques permettent également
+             de mettre en œuvre des mesures de sécurité (c’est le cas par exemple lorsqu’il vous
+             est demandé de vous connecter à nouveau à l’Espace Membre après un certain laps de temps).
+             Nous attirons votre attention sur le fait que la suppression des cookies techniques est
+             susceptible de dégrader votre accès au site et/ou aux services proposés.
+         </p>
+
+         <h3 id="4-2-2" class="paraph_subtitle">4-2-2 Les cookies de mesure d’audience</h3>
+         <p class="paraph_pge">
+             Ils sont émis par nos prestataires techniques aux fins de mesurer l’audience des
+             différents contenus et rubriques de notre site, afin de les évaluer et de mieux les
+             organiser. Ces cookies permettent également, le cas échéant, de détecter des problèmes
+             de navigation et par conséquent d’améliorer l’ergonomie de nos services. Ces cookies ne
+             produisent que des statistiques anonymes et des volumes de fréquentation, à l’exclusion
+             de toute information individuelle.
+         </p>
+
+         <h3 id="4-2-3" class="paraph_subtitle">4-2-3 Les cookies « Réseaux sociaux »</h3>
+         <p class="paraph_pge">
+            Ils permettent de partager des contenus de nos sites avec d’autres personnes ou de
+            faire connaître à ces autres personnes votre consultation ou votre opinion concernant
+            un contenu de notre site. Tel est, notamment, le cas des boutons «partager», issus des
+            réseaux sociaux Facebook, Twitter ou Instagram.
+         </p>
+         <p class="paraph_pge">
+           Le réseau social fournissant un tel bouton applicatif est susceptible de vous identifier
+           grâce à ce bouton, même si vous ne l’’avez pas utilisé lors de la consultation de notre
+           site. En effet, ce type de bouton applicatif peut permettre au réseau social concerné
+           de suivre votre navigation sur notre site, du seul fait que votre compte au réseau
+           social concerné est activé sur votre terminal (session ouverte) durant votre navigation
+           sur notre site. Nous n'avons aucun contrôle sur le processus employé par les réseaux
+           sociaux pour collecter des informations relatives à votre navigation sur notre site et
+           les associer aux données personnelles dont ils disposent.
+         </p>
+          <p class="paraph_pge">
+           Nous vous invitons à consulter les politiques de protection de la vie privée de ces
+           réseaux sociaux afin de prendre connaissance des finalités d’utilisation, notamment
+           publicitaires, des informations de navigation qu’ils peuvent recueillir grâce à ces
+           boutons applicatifs. Ces politiques de protection doivent notamment vous permettre
+           d'exercer vos choix auprès de ces réseaux sociaux, notamment en paramétrant vos comptes
+           d'utilisation de chacun de ces réseaux.
+         </p>
+
+         <h3 id="4-3" class="paraph_subtitle">4-3 Vos choix et modalités d’opposition et
+         suppression concernant les cookies sur nos sites</h3>
+         <p class="paraph_pge">
+             En utilisant notre site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">Nao.org</a> , vous consentez à l’utilisation des cookies précités.
+             Vous pouvez toutefois choisir à tout moment de désactiver tout ou partie des cookies,
+             selon les différents procédés décrits ci-dessous.
+         </p>
+          <p class="paraph_pge">
+            Vous pouvez aussi paramétrer votre navigateur afin qu'il vous signale au fur et à
+            mesure les cookies qui sont déposés dans votre terminal et vous demande de les accepter
+            ou de ne pas les accepter.
+         </p>
+         <p class="paraph_pge">
+            Si votre terminal est utilisé par plusieurs personnes et lorsqu’un même terminal
+            dispose de plusieurs logiciels de navigation, nous ne pouvons pas nous assurer de manière
+            certaine que les services et publicités destinés à votre terminal correspondent bien à
+            votre propre utilisation de ce terminal et non à celle d'un autre utilisateur du terminal.
+         </p>
+         <p class="paraph_pge">
+            Dans tous les cas, le partage avec d’autres personnes de l’utilisation de votre
+            terminal et la configuration des paramètres de votre navigateur à l'égard des cookies
+            relèvent de votre libre choix et de votre responsabilité.
+         </p>
+
+         <h3 id="4-3-1" class="paraph_subtitle"> 4-3-1 Refuser ou supprimer les cookies par
+         l’intermédiaire
+         de votre logiciel de navigation</h3>
+         <p class="paraph_pge">
+             Par ce biais, vous pouvez à tout moment choisir de désactiver tout ou partie des cookies
+             et/ou paramétrer votre navigateur pour qu’il vous signale les cookies déposés au fur
+             et à mesure dans votre terminal et vous demander de les accepter ou non
+             (au cas par cas ou en totalité). La désactivation de tous les cookies ne
+             vous empêchera pas d’utiliser notre site dans des conditions normales, dans
+             la mesure où aucun cookie n’est essentiel à son fonctionnement.
+         </p>
+          <p class="paraph_pge">
+             Si vous utilisez le navigateur Explorer : cliquez sur le bouton “Outils”,
+             puis “Options Internet”. Sous l’onglet général “Historique de navigation”,
+             cliquez sur “Paramètres”. Puis cliquez sur “Afficher les fichiers” et sélectionnez
+             le ou les Cookies que vous souhaitez désactiver. Fermez ensuite la fenêtre qui contient
+             cette liste de Cookies et cliquez deux fois sur “OK” pour retourner sur Internet.
+             <a class="paraph_link" href="http://windows.microsoft.com/fr-FR/windows-vista/Block-or-allow-cookies">
+             http://windows.microsoft.com/fr-FR/windows-vista/Block-or-allow-cookies</a>
+         </p>
+         <p class="paraph_pge">
+             Si vous utilisez le navigateur Firefox : cliquez sur l’icône du Menu Firefox, puis sur
+             le bouton “Outils”, puis “Options” ; dans la fenêtre qui s’affiche, choisissez “Vie Privée”
+             et cliquez sur “Supprimez Cookies Spécifiques”. Sélectionnez les Cookies que vous souhaitez
+             désactiver puis supprimez-les.<a class="paraph_link" href="http://support.mozilla
+             .org/fr/kb/Activer%20et%20d%C3%A9sactiver%20les%20cookies">
+             http://support.mozilla.org/fr/kb/Activer%20et%20d%C3%A9sactiver%20les%20cookies</a>
+         </p>
+
+         <p class="paraph_pge">
+             Si vous utilisez le navigateur Safari : cliquez sur le bouton “Paramètres”,
+             puis “Préférences”. Dans la fenêtre qui s’affiche, choisissez “Confidentialité/Sécurité”,
+             et cliquez sur “Afficher les Cookies”. Sélectionnez les Cookies que vous souhaitez
+             désactiver puis cliquez sur “Effacer” ou sur “Tout effacer”.<a class="paraph_link" href="http://www
+             .apple.com/legal/privacy/fr-ww/cookies/">
+             http://www.apple.com/legal/privacy/fr-ww/cookies/</a>
+         </p>
+
+         <p class="paraph_pge">
+            Si vous utilisez le navigateur Chrome : cliquez sur l’icône du menu Google Chrome, puis “Paramètres”. Au bas de la page, cliquez sur “Afficher les paramètres avancés”. Dans la section “Confidentialité”, cliquez sur “Paramètre de contenus”. Pour désactiver les Cookies :
+            Sélectionnez “Interdire à tous les sites de stocker des données”
+            Cliquez sur “Cookies et données de site”, puis passez la souris sur le site ayant créé le Cookie, et cliquez sur “X” dans l’angle droit, ou cliquez sur “Tout supprimer”.
+            <a class="paraph_link" href="http://support.google.com/chrome/bin/answer
+            .py?hl=fr&hlrm=en&answer=95647">http://support.google.com/chrome/bin/answer.py?hl=fr&hlrm=en&answer=95647</a>
+         </p>
+
+         <h3 id="4-3-2" class="paraph_subtitle"> 4-3-2 Refuser ou supprimer un cookie de mesure
+         d’audience</h3>
+         <p class="paraph_pge">
+             Si vous ne souhaitez pas que notre site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">Nao.org</a> enregistre des cookies dans
+             votre navigateur à des fins de mesure d’audience, vous pouvez cliquer sur les
+             liens de désactivation suivants qui enregistreront au sein de votre navigateur
+             un cookie ayant pour unique objet de les désactiver :
+             Google Analytics : <a href="https://tools.google.com/dlpage/gaoptout?hl=fr">
+             https://tools.google.com/dlpage/gaoptout?hl=fr</a><br><br>
+
+             <span>Attention</span>, ces cookies permettent de mesurer le trafic et/ou l’audience,
+             associés à notre site internet, aux pages visitées et aux interactions réalisées sur
+             le site lors de votre visite. Les désactiver empêche donc toute collecte d’informations
+             relatives à votre navigation dans notre site et donc la proposition de contenus
+             éditoriaux adaptés en fonction de votre navigation.
+
+         </p>
+
+         <h3 id="4-3-3" class="paraph_subtitle">4-3-3 Refuser un cookie émis par un réseau
+         social</h3>
+         <p class="paraph_pge">
+             Si vous ne souhaitez pas que notre site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">Nao.org</a> enregistre des cookies dans votre navigateur à cette fin, vous
+            pouvez cliquer sur les liens de désactivation suivants qui enregistreront
+            au sein de votre navigateur un cookie ayant pour unique objet de neutraliser
+            l’utilisation des autres cookies provenant d’un même émetteur. Désactiver ces
+            cookies empêchera donc toute interaction avec le ou les réseaux sociaux concernés :
+
+            <ul>
+                <li>Facebook :<a href="https://www.facebook.com/about/privacy">https://www
+                .facebook.com/about/privacy</a></li>
+                <li>Twitter :<a href="https://twitter.com/privacy?lang=fr">https://twitter
+                .com/privacy?lang=fr</a></li>
+                <li>Instagram :<a href="https://www.facebook.com/about/privacy/">https://www.facebook.com/about/privacy/</a></li>
+            </ul>
+
+
+             <span>Attention</span>, la prise en compte de vos différents souhaits repose sur un cookie
+             ou plusieurs cookies déterminés. Si vous supprimez tous les cookies enregistrés au
+             sein de votre terminal concernant notre site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">Nao.org</a>,  nous ne saurons plus quel consentement ou quel refus vous avez émis.
+            Cela reviendra donc à réinitialiser votre consentement et vous devrez donc à nouveau
+            refuser le ou les cookies que vous ne souhaitez pas conserver. De même, si vous utilisez
+            un autre navigateur Internet, vous devrez à nouveau refuser ces cookies car vos choix,
+            comme les cookies auxquels ils se rapportent, dépendent du navigateur et du terminal
+            (ordinateur, tablette, smartphone, etc.) que vous utilisez pour consulter notre site
+            <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">Nao.org</a>.
+         </p>
+
+         <h3 id="4-4" class="paraph_subtitle">4 4-4 Plus d’informations sur les Cookies avec la
+         CNIL</h3>
+          <p class="paraph_pge">
+            La CNIL (Commission Nationale Informatique et Libertés) a réalisé une vidéo pour tout
+            savoir sur les cookies. La vidéo est accessible ici : <a class="paraph_pge" href="https://www.cnil
+            .fr/atom/14976">https://www.cnil.fr/atom/14976</a>
+          </p>
+
+          <p class="paraph_pge">
+            Pour vous guider dans la démarche de limiter vos traces sur le web, si vous le souhaitez,
+            nous vous invitons à consulter la page suivante : <a href="https://www.cnil
+            .fr/fr/cookies-comment-mettre-mon-site-web-en-conformite"></a>https://www.cnil
+            .fr/fr/cookies-comment-mettre-mon-site-web-en-conformite
+          </p>
+
+          <h5 id="5" class="sub_title">5- Protection de vos données personnelles</h5>
+          <p class="paraph_pge">
+              Nous souhaitons que vous utilisiez notre site  <a class="paraph_link" href="{{ path
+               ('app_home') }}">Nao.org</a> en toute confiance. Pour cela, nous nous engageons à
+               protéger les informations que nous collectons. Bien qu'aucun site Internet ne puisse
+               garantir une sécurité absolue en raison des difficultés liées aux activités en ligne,
+               nous avons mis en place et tenons à jour des mesures organisationnelles, techniques,
+               administratives et physiques destinées à protéger les données personnelles que vous nous
+               confiez contre tout accès illégal ou non autorisé, mais aussi contre l'utilisation et la
+               divulgation de ces informations, ou encore les pertes, dommages, altérations ou destructions
+               accidentels de celles-ci.
+          </p>
+
+          <p class="paraph_pge">
+             Par exemple, afin de protéger la confidentialité de vos données personnelles,
+             Nos Amis les Oiseaux (NAO) a mis en place plusieurs niveaux de sécurité :
+             site web en HTTPS ; identifiants inventifs ; mots de passe complexes à protection
+             forte ainsi que plus généralement des modules de sécurité avancés protégeant
+             l'accès à l'ensemble du back-office du site web.
+          </p>
+
+          <p class="paraph_pge">
+            Egalement, Nos Amis les Oiseaux (NAO) s’engage à ne pas divulguer, ne pas transmettre
+            ni partager ou vendre sur un support quelconque vos données personnelles à d’autres
+            entités, entreprises ou organismes quels qu’ils soient, conformément au Règlement
+            Général de la Protection des Données (RGPD) en vigueur au 25 mai 2018 sur la protection
+            des données personnelles et aux dispositions de la loi du 1er juillet 1998 transposant
+            la directive 96/9 du 11 mars 1996 relative à la protection juridique des bases de données.
+          </p>
+
+           <h2 id="6" class="sub_title"> 6- Lexique</h2>
+          <ul class="paraph_pge">
+             <li><span class="bold-text">Utilisateur</span>: Internaute se connectant, utilisant le
+             site susnommé.</li>
+             <li><span class="bold-text">Contributeur</span>Internaute utilisateur qui crée un
+             compte personnel sur le site susnommé.</li>
+             <li><span class="bold-text">Informations / données personnelles</span> :
+             « les informations qui permettent, sous quelque forme que ce soit, directement ou non,
+             l’identification des personnes physiques auxquelles elles s’appliquent »
+             (article 4 de la loi n° 78-17 du 6 janvier 1978).</li>
+             <li><span class="bold-text">Https</span>protocole de communication client-serveur
+             sécurisé (confidentialité des données transmises). Permet à l'utilisateur d'authentifier
+             l'identité du site web.</li>
+             <li><span class="bold-text">Back-office</span> : partie du site internet qui n'est accessible que par l'administrateur</li>
+          </ul>
+
+    </div>
+
+
+    {% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}

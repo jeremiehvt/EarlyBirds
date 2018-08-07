@@ -1,1 +1,432 @@
 {% extends 'base.html.twig' %}
+
+{% block title %}Nos Amis les Oiseaux (NAO) : mentions légales et CGU{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+          integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+          crossorigin=""/>
+    <link rel="stylesheet" href="{{ asset('css/legal.css') }}"
+{% endblock %}
+
+{% block metadesc %}mentions légales nao{% endblock %}
+
+
+{% block body %}
+<div class="row">
+    <div class="col l12 m12 s12" id="subHeader">
+        <p id="slogan">
+            Nos amis les oiseaux
+        </p>
+
+        <div class="col l8 offset-l2 m8 offset-m2 s12" id="header">
+            <h1 class="col m10 offset-m1 s12 header_text">
+                MENTIONS LEGALES / CGU
+            </h1>
+        </div>
+    </div>
+
+    <div class="col l8 offset-l2 m10 offset-m1 s10 offset-s1" id="intro">
+        <h2 class="sub_title">1. Présentation du site
+        </h2>
+        <h3 class="paraph_subtitle">
+            Que dois-je faire si j'observe une espèce rare ou en voie de disparition ?
+        </h3>
+        <p class="paraph_pge">
+            En vertu de l’article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance
+            dans l’économie numérique, il est précisé aux utilisateurs du site NAO.org
+            l’identité des différents intervenants dans le cadre de sa réalisation et de son suivi :
+        </p>
+        <ul class="paraph_pge">
+            <li class="head-li">Propriétaire :</li>
+            <li>Nos Amis les Oiseaux (NAO)</li>
+            <li>Association Loi 1901</li>
+            <li>N° SIRET : XXXXXXXXXXXXXX</li>
+            <li>Impasse du Gypaète</li>
+            <li>40990 Saint-Paul-lès-Dax</li>
+            <li>05 58 XX XX XX</li>
+        </ul>
+
+        <ul class="paraph_pge">
+            <li class="head-li">Conception / Création </li>
+            <li>Agence EARLY BIRDS</li>
+            <li>Quai des Corsaires</li>
+            <li>64100 BAYONNE</li>
+            <li>www.earlybirds.fr</li>
+        </ul>
+
+        <p class="paraph_pge"><span class="bold-text">Responsable publication </span>: le président
+            de l’association : Michel Dujardin – <a class="paraph_link" href="mailto: m.dujardin@nao.org">m
+                .dujardin@nao.org</a></p>
+        <p class="paraph_pge"><span class="bold-text">Webmaster </span>: Lorina Walter –
+            <a class="paraph_link" href="mailto: l.walter@nao.org">l.walter@nao.org</a>l.walter@nao.org</p>
+        <ul class="paraph_pge">
+            <li><span class="bold-text">Hébergeur </span> : OVH </li>
+            <li>2, rue Kellermann</li>
+            <li>59100 ROUBAIX</li>
+        </ul>
+
+        <ul class="paraph_pge">
+            <li class="head-li">Crédits :</li>
+            <li>* Photos : CC0 creative common : Pixabay, Pexel et Unsplash</li>
+            <li>* Vidéo : Romain NEMEU, naturaliste adhérent dans le cadre d'un échange avec Cornell Lab</li>
+            <li>* Icônes :  © NAO by EARLY BIRDS ; CC0 creative common Freepik</li>
+            <li>* Logo :  © NAO by EARLY BIRDS</li>
+            <li>
+                Le modèle de mentions légales est offert par Subdelirium.com Mentions légales.
+                Il a été complété par l’association Nos Amis les Oiseaux (NAO) dans le cadre de
+                ses missions spécifiques et de la nouvelle directive RGPD qui entrera en vigueur
+                le 25 mai 2018.
+            </li>
+        </ul>
+
+        <h2 class="sub_title">2. Conditions générales d’utilisation du site et des services
+            proposés</h2>
+        <p class="paraph_pge">
+            L’utilisation du site   <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">NAO.org</a> implique l’acceptation pleine et entière des conditions
+            générales d’utilisation ci-après décrites. Ces conditions d’utilisation sont susceptibles
+            d’être modifiées ou complétées à tout moment, les utilisateurs du site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">NAO.org</a> sont donc
+            invités à les consulter de manière régulière.
+        </p>
+
+        <p class="paraph_pge">
+            Ce site est normalement accessible à tout moment aux utilisateurs.
+            Une interruption pour raison de maintenance technique peut être toutefois
+            décidée par Nos Amis les Oiseaux (NAO), qui s’efforcera alors de communiquer
+            préalablement aux utilisateurs les dates et heures de l’intervention.
+        </p>
+
+        <p class="paraph_pge">
+            Le site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">NAO.org</a> est mis à jour régulièrement par le Président de l’association.
+            De la même façon, les mentions légales peuvent être modifiées à tout moment :
+            elles s’imposent néanmoins à l’utilisateur qui est invité à s’y référer le plus
+            souvent possible afin d’en prendre connaissance.
+        </p>
+
+        <h2 class="sub_title">3. Description des services fournis
+        </h2>
+        <p class="paraph_pge">
+            Le site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">NAO.org</a> a pour objet de fournir une information concernant l’ensemble des
+            activités de l’association. L’association Nos Amis les Oiseaux (NAO) s’efforce
+            de fournir sur le site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">NAO.org</a> des informations aussi précises que possible.
+            Toutefois, elle ne pourra être tenue responsable des omissions, des inexactitudes
+            et des carences dans la mise à jour, qu’elles soient de son fait ou du fait des tiers
+            partenaires qui lui fournissent ces informations.
+            Tous les informations indiquées sur le site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">NAO.org</a> sont données à titre indicatif,
+            et sont susceptibles d’évoluer. Par ailleurs, les renseignements figurant sur le site
+            <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">NAO.org</a> ne sont pas exhaustifs. Ils sont donnés sous réserve de modifications ayant été
+            apportées depuis leur mise en ligne.
+        </p>
+
+        <h2 class="sub_title">4. Limitations contractuelles sur les données techniques</h2>
+        <p class="paraph_pge">
+            Le site Internet NAO.org ne pourra être tenu responsable de dommages matériels
+            liés à l’utilisation du site. De plus, l’utilisateur du site s’engage à accéder
+            au site en utilisant un matériel récent, ne contenant pas de virus et avec
+            un navigateur de dernière génération mis-à-jour.
+        </p>
+
+        <h2 class="sub_title">5. Propriété intellectuelle et contrefaçons</h2>
+        <p class="paraph_pge">
+            L’association Nos Amis les Oiseaux (NAO) est propriétaire des droits de propriété
+            intellectuelle ou détient les droits d’usage sur tous les éléments accessibles sur
+            le site, notamment les textes, images, graphismes, logo, icônes, sons, logiciels.
+        </p>
+        <p class="paraph_pge">
+            Cas particulier des logos des partenaires : les partenaires ont donné leur accord
+            préalable à l’utilisation de leur logo sur le site de l’association Nos Amis les Oiseaux (NAO).
+        </p>
+        <p class="paraph_pge">
+            Toute reproduction, représentation, modification, publication, adaptation
+            de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé,
+            est interdite, sauf autorisation écrite préalable de l’association Nos Amis les Oiseaux (NAO).
+
+        </p>
+        <p class="paraph_pge">
+            Toute exploitation non autorisée du site ou de l’un quelconque des éléments qu’il
+            contient sera considérée comme constitutive d’une contrefaçon et poursuivie conformément
+            aux dispositions des articles L.335-2 et suivants du Code de Propriété Intellectuelle.
+        </p>
+
+        <h2 class="sub_title">6. Limitations de responsabilité</h2>
+        <p class="paraph_pge">
+            L’ association Nos Amis les Oiseaux (NAO) ne pourra être tenue responsable des dommages
+            directs et indirects causés au matériel de l’utilisateur, lors de l’accès au site
+            <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">NAO.org</a>,
+            et résultant soit de l’utilisation d’un matériel ne répondant pas aux spécifications
+            indiquées au point 4, soit de l’apparition d’un bug ou d’une incompatibilité.
+        </p>
+        <p class="paraph_pge">
+            L’ association Nos Amis les Oiseaux (NAO) ne pourra également être tenue responsable
+            des dommages indirects (tels par exemple qu’une perte de marché ou perte d’une chance)
+            consécutifs à l’utilisation du site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">NAO.org</a>. Des espaces interactifs
+            (possibilité de poser des questions dans l’espace contact, saisie d'observations)
+            sont à la disposition des utilisateurs. L’ association Nos Amis les Oiseaux (NAO)
+            se réserve le droit de supprimer, sans mise en demeure préalable, tout contenu déposé
+            dans ces espaces qui contreviendrait à la législation applicable en France, en particulier
+            aux dispositions relatives à la protection des données. Le cas échéant, l’association
+            Nos Amis les Oiseaux (NAO) se réserve également la possibilité de mettre en cause
+            la responsabilité civile et/ou pénale de l’utilisateur, notamment en cas de message
+            à caractère raciste, injurieux, diffamant, ou pornographique, quel que soit le support
+            utilisé (texte, photographie…).
+        </p>
+
+        <h2 class="sub_title">7. Liens hypertextes</h2>
+        <p class="paraph_pge">
+            Le site <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">NAO.org</a> contient un certain nombre de liens hypertextes vers d’autres sites,
+            mis en place avec l’autorisation de l’association Nos Amis les Oiseaux (NAO).
+            Cependant, l’association Nos Amis les Oiseaux (NAO) n’a pas la possibilité de
+            vérifier le contenu des sites ainsi visités, et n’assumera en conséquence
+            aucune responsabilité de ce fait.
+        </p>
+
+        <h2 class="sub_title">8. Contribution identifiée</h2>
+        <p class="paraph_pge">
+            Pour publier une observation, commenter, partager un article, l'utilisateur
+            doit s'inscrire sur <a class="paraph_link" href="{{ path
+                ('app_home')
+            }}">NAO.org</a> et être connecté à son espace personnel
+            (cf notre politique de confidentialité concernant l'utilisation des données personnelles).
+            Les observations sont validées par les naturalistes, membres de l'association
+            NAO et eux-mêmes détenteurs d'un compte personnel, avant publication.
+        </p>
+
+        <ul class="paraph_pge">
+            <li class="head-li">1. Inscription</li>
+            <li>
+                L’inscription sur le site NAO.org est gratuite et s'adresse à des personnes physiques.
+                Elle implique au préalable une acceptation des présentes conditions
+                d’utilisation. L'inscription est nominative et les informations données
+                doivent être véritables. Une personne inscrite peut toutefois choisir
+                de contribuer sous un nom d'utilisateur (pseudo) pour conserver son anonymat.
+            </li>
+            <li class="head-li">2. Désinscription</li>
+            <li>
+                L' utilisateur inscrit peut demander à tout moment sa désinscription du site.
+                Il perd alors l’ensemble des droits liés à l’inscription. Cependant,
+                il consent à Nos Amis les Oiseaux (NAO) le droit de conserver ses observations
+                saisies et validées dans le cadre de ses travaux de recherche et d’études.
+                Dans ce cas, les données seront rendues anonymes.
+            </li>
+
+            <li class="head-li">3. Responsabilité des contributeurs</li>
+            <li>En créant un compte sur le site NAO.org, le contributeur est entièrement responsable
+                de toutes les activités qui se produisent dans le cadre du compte et
+                de toute autre mesure prise en relation avec le compte.<br>
+
+                * Il ne doit pas publier de contenu sur son compte d'une manière trompeuse
+                ou illégale, y compris d'une manière destinée à échanger sur le nom ou la réputation
+                d'autrui. L’association Nos Amis les Oiseaux (NAO) peut, à sa discrétion, modifier
+                ou supprimer toute description ou mot-clé qu'elle considère inapproprié ou
+                illégal.<br>
+
+                * Il doit immédiatement informer Nos Amis les Oiseaux (NAO) de toute utilisation
+                non autorisée de son compte ou de toute autre violation de la sécurité.
+                Nos Amis les Oiseaux (NAO) ne sera pas responsable des actes ou omissions de sa
+                part, y compris les dommages de toute nature subis à la suite de tels actes ou
+                omissions.<br>
+
+                * Il est entièrement responsable du contenu publié (ou permis à un tiers de le publier)
+                et du préjudice à partir de ce contenu, quelle que soit la nature du contenu :
+                texte, graphique, fichier audio ou logiciel informatique. En rendant le contenu
+                disponible, il déclare et garantit que :<br>
+            </li>
+            <li>
+                <ul class="paraph_pge">
+                    <li>
+                        le contenu ne contient ni n'installe aucun virus,
+                        ver, logiciel malveillant, cheval de Troie ou autre
+                        contenu nuisible ou destructeur ;
+                    </li>
+                    <li>
+                        Le contenu n'est pas un spam, n'est pas généré par ordinateur et ne contient
+                        pas de contenu commercial contraire à l'éthique ou indésirable conçu
+                        pour générer du trafic vers des sites tiers ou renforcer
+                        les classements des moteurs de recherche sur des sites tiers ou n’induit
+                        pas les destinataires en erreur quant à la source du matériel (comme l'usurpation d'identité) ;
+                    </li>
+                    <li>
+                        le contenu n'est pas diffamatoire, ne contient pas de menaces ou n'incite
+                        pas à la violence envers des individus ou des entités, et ne viole
+                        pas les droits de confidentialité ou de publicité d'un tiers ;
+                    </li>
+                    <li>
+                        son identifiant n'est pas nommé d'une manière qui induit les lecteurs
+                        en erreur en leur faisant croire qu'il est une autre personne ou entreprise.
+                        Par exemple, le nom de connexion n'est pas le nom d'une personne autre que lui-même ;
+                    </li>
+                    <li>
+                        Son contenu ne fait pas l'objet de publicité via des messages électroniques
+                        indésirables tels que des liens de spam sur des groupes de discussion,
+                        des listes de diffusion, des journaux et des sites Web, et des méthodes
+                        promotionnelles similaires non sollicitées.
+                    </li>
+                </ul>
+            </li>
+            <li class="head-li">4. Observation : Code de conduite</li>
+            <li>
+                a) Lors de la réalisation d’observations et d’études naturalistes,
+                la protection des espèces et de leurs habitats doit avoir la priorité.
+                Les dérangements occasionnés aux espèces doivent être réduits au minimum.
+                Une distance suffisante d'observation doit notamment être tenue  pour éviter leur fuite.
+            </li>
+            <li>
+                b) Si vous observez une espèce rare, veillez à penser aux conséquences préjudiciables
+                que pourrait avoir la diffusion, à grande échelle, de sa position sur la carte.
+                Est ce que l'oiseau et son habitat ne pourraient pas être affectés par un afflux
+                massif de visiteurs ? Nous vous engageons à nous contacter au préalable pour évaluer,
+                ensemble, les risques d'une éventuelle parution publique dans ce cas.
+            </li>
+            <li>
+                c) Durant vos observations, vous devez respecter les réglementations en
+                vigueur concernant la protection des espèces (ne pas manipuler ni capturer
+                ni tuer les oiseaux) et la protection des espaces (ne pas pénétrer dans des
+                propriétés privées (sauf accord préalable du propriétaire), respecter les zones protégées).
+            </li>
+            <li class="head-li">5. Droits d'auteur et de diffusion, propriété</li>
+            <li>
+                En soumettant du contenu à NAO.org, le contributeur accorde à Nos Amis les Oiseaux (NAO)
+                une licence internationale, libre de droits et non exclusive pour reproduire,
+                modifier, adapter et publier le contenu uniquement dans le but d'afficher,
+                distribuer et promouvoir ses observations  et journal. Il accepte qu'il soit diffusé,
+                en citant l’auteur, vers d’autres sites internet, réseaux sociaux ou médias
+                sans l’autorisation de leur auteur. Enfin, il accepte qu'il soit utilisé pour
+                des études scientifiques du domaine public.
+            </li>
+            <li>
+                Il déclare et garantit que (a) il possède et contrôle tous les droits sur le contenu
+                qu'il publie ou qu'il possède l’autorisation d'afficher un tel contenu sur le site ;
+                (b) le contenu est exact et non trompeur ; et (c) l'utilisation et l'affichage du
+                contenu qu'il fournit ne violent pas ces conditions d'utilisation et ne violeront
+                aucun droit ou ne causeront aucun préjudice à une personne ou entité.
+            </li>
+            <li id="5">
+                Une fois une observation saisie et validée, le contributeur consent à Nos Amis
+                les Oiseaux (NAO) le droit de conserver ces données dans le cadre de ses travaux
+                de recherche et d’études et ce, même si il supprime ses contenus ou son compte.
+                Dans ce cas, les données seront rendues anonymes.
+            </li>
+            <li>
+                Sans limitation de ces déclarations ou garanties, Nos Amis les Oiseaux (NAO) se
+                réserve le droit  de refuser ou résilier l'accès et l'utilisation du site
+                à toute personne ou entité dont les motivations ne seraient pas conformes
+                à ses statuts ou aux objectifs de ce site  : information, éducation et observations
+                dans le but de préserver la biodiversité et protéger l'environnement.
+            </li>
+
+            <li id="6" class="head-li">6. Barême d’attribution des points et statuts :</li>
+            <li>Création d'un compte personnel (carnet de terrain) : 100 points</li>
+            <li>Création d'une observation : 10 points</li>
+            <li>Observation validée par un naturaliste : 20 points</li>
+            <li>2 observations validées par mois* :	bonus de 50 points</li>
+            <li>4 observations validées par mois* :	bonus de 100 points</li>
+            <li>6 observations validées par mois* :	bonus de 150 points</li>
+            <li>7 observations et plus validées par mois* :	bonus de 200 points</li>
+            <li>
+                <table>
+                    <thead>
+                    <tr>
+                        <th><span class="bold-text">Statut (badges)</span></th>
+                        <th><span class="bold-text">Nombre de points à atteindre</span></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td>Roitelet</td>
+                        <td>130 points</td>
+
+                    </tr>
+                    <tr>
+                        <td>Cacatoès</td>
+                        <td>970 points</td>
+                    </tr>
+                    <tr>
+                        <td>Toucan</td>
+                        <td>1 810 points</td>
+                    </tr>
+                    <tr>
+                        <td>Hibou</td>
+                        <td>2 830 points</td>
+                    </tr>
+                    <tr>
+                        <td>Héron</td>
+                        <td>3 670 points</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+        <h2 class="sub_title">9. Gestion des données personnelles et cookies</h2>
+        <p class="paraph_pge">
+            Voir notre  <a class="paraph_link" href="{{ path
+                ('app_confidentiality')
+            }}">Politique de confidentialité</a>
+        </p>
+        <h2 class="sub_title">10. Droit applicable et attribution de juridiction</h2>
+        <p class="paraph_pge">
+            Tout litige en relation avec l’utilisation du site <a class="paraph_link" href="{{ path
+                ('app_confidentiality')
+            }}">Nao.org</a> est soumis au droit français.
+            Il est fait attribution exclusive de juridiction aux tribunaux compétents de Paris.
+
+        </p>
+        <h2 class="sub_title">11. Les principales lois concernées</h2>
+        <p class="paraph_pge">
+            Loi n° 78-17 du 6 janvier 1978, notamment modifiée par la loi n° 2004-801 du 6 août
+            2004 relative à l’informatique, aux fichiers et aux libertés.
+            <br><br>
+            Loi n° 2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique.
+            <br><br>
+            la Directive Européenne du 24 octobre 1995 et le Règlement Européen
+            à la Protection des Données (RGPD) en vigueur à partir du 25 mai 2018.
+        </p>
+
+
+        <h2 class="sub_title">12. Lexique</h2>
+        <ul class="paraph_pge">
+            <li><span class="bold-text">Utilisateur </span>: Internaute se connectant, utilisant le site susnommé
+            .</li>
+            <li><span class="bold-text">Contributeur </span>: Internaute utilisateur qui crée un compte personnel
+            sur le
+            site susnommé.</li>
+            <li><span class="bold-text">Informations / données personnelles </span>: « les informations qui
+            permettent, sous quelque forme que ce soit, directement ou non, l’identification
+            des personnes physiques auxquelles elles s’appliquent » (article 4 de la loi n° 78-17
+            du 6 janvier 1978).</li>
+            <li><span class="bold-text">Https </span>: protocole de communication client-serveur sécurisé
+            (confidentialité
+            des données transmises). Permet à l'utilisateur d'authentifier l'identité du site web
+            .</li>
+            <li><span class="bold-text">Back-office </span>: partie du site internet qui n'est accessible que par
+            l'administrateur.</li>
+
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+{% endblock %}

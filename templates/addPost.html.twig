@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/addPost.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col l12 m12 s12" id="subHeader">
+            <div class=" col l2 m2 s2">
+                <p id="slogan">
+                    Nos amis les oiseaux
+                </p>
+            </div>
+
+            <div class="col m8 s12" id="header">
+                <h1 class="col m10 offset-m1 s12 header_text">
+                    Ajouter un Article
+                </h1>
+            </div>
+        </div>
+
+        {{ form_start(form) }}
+            <div class="col l10 offset-l1 m8 offset-m2 s12">
+                <div class="input-field col l4 offset-l1 s12 m12">
+                    <span class="label" id="label1"></span>
+                    {{ form_widget((form.title)) }}
+                    <span class="form_errors">{{ form_errors(form.title) }}</span>
+                </div>
+
+                <div class="input-field col l3 offset-l3 s12 m12">
+                    <span class="label"></span>
+                    {{ form_widget(form.category) }}
+                    <span class="form_errors">{{ form_errors(form.category) }}</span>
+                </div>
+
+                <div class="input-field col l10 offset-l1 s12 m12">
+                    <span class="label"></span>
+                    {{ form_widget(form.shortDesc) }}
+                    <br> <span class="form_carac_number"></span>
+                    <span class="form_errors">{{ form_errors(form.shortDesc) }}</span>
+                </div>
+
+                <div class="input-field col l10 offset-l1 s12 m12">
+                    <span class="label"></span>
+                    {{ form_widget(form.content) }}
+                    <span class="helper-text">vous pouvez agrandir cette fenêtre</span><br>
+                    <span class="form_errors">{{ form_errors(form.content) }}</span>
+                </div>
+
+                <div class="col l10 offset-l1 s12 m12">
+                    <div class="file-field input-field col l3 m6 s12" id="divUpBtnMin">
+                        <div class="btn col l12 m10 s8 offset-s2" id="uplBtnMin">
+                            <span>Ajouter une miniature</span>
+                            {{ form_widget(form.miniature) }}<br>
+                            <div><span class="form_errors" id="error-img">{{ form_errors(form.miniature)
+                                }}</span></div>
+                        </div>
+                    </div>
+                    <div class="file-field input-field col l4 m4 s12" id="divUpBtn">
+                        <div class="btn col l10 m10 s6 offset-s3" id="uplBtn">
+                            <span>Ajouter une photo</span>
+                            {{ form_widget(form.img) }}<br>
+                            <div>
+                            <span class="form_errors" id="error-img">{{ form_errors(form.img)
+                                }}</span></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="input-field col l10 offset-l1 s12 m12" id="divSubBtn">
+                    <button id="submitBtn" formnovalidate="formnovalidate" class="btn
+                    waves-effect waves-light right"
+                            type="submit">
+                        publier votre article
+                    </button>
+                </div>
+
+                <div class="input-field col m10 offset-m1 message" >
+                    {% for message in app.flashes('post') %}
+                        <img id="notice_decoration" src="{{ asset('/img/vector/polygon.png') }}"/>
+                        <div class="flash-post" id="1">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src='{{ asset('tinymce/js/tinymce/tinymce.min.js') }}'></script>
+    <script src='{{ asset('tinymce/js/tinymce/langs/fr_fr.js') }}'></script>
+    <script src="{{ asset('js/addPost.js') }}"></script>
+    <script src="{{ asset('js/observe_validation_input.js') }}"></script>
+{% endblock %}

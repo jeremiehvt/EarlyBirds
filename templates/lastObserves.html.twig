@@ -1,79 +1,112 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}NAO - Dernières observations{% endblock %}
+{% block title %}Découvrez les oiseaux observés en France{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
           integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
           crossorigin=""/>
+    <link rel="stylesheet" href="{{ asset('/css/lastObserves.css') }}">
 {% endblock %}
 
+{% block metadesc %} Consultez l'ensemble des espèces aperçues dans l'hexagone par les
+    observateurs NAO. Accédez également aux localisations, photos et commentaires.{% endblock %}
+
 {% block body %}
-    <div class="row" style="margin-bottom: 61px">
-        <div class="col s1">
-            
-        </div>
-        <div class="col s10 center-block" style="background-image: url({{ asset('/img/boris-smokrovic-131485-unsplash.jpg') }}); background-size: 100% 100%; height: 369px">
-            
-        </div>
-        <div class="col s1">
-            
+
+    <div class="row">
+        <div class="col l12 m12 s12" id="subHeader">
+            <div class=" col l2 m2 s2">
+                <p id="slogan">
+                    Nos amis les oiseaux
+                </p>
+            </div>
+
+            <div class="col m8 s12" id="header">
+                <h1 class="col m10 offset-m1 s12 header_text">
+                    <span id="header_text_bold">Parcourez les observations</span>
+                </h1>
+                <p class="col m7 offset-m1 s12 header-little-text">
+                    Découvrez toutes les espèces répertoriées en France par nos contributeurs et
+                    apprenez-en davantage sur chacune d'entre elles d'un simple
+                    clic sur sa fiche ou en utilisant notre moteur de recherche.
+                </p>
+                <p class="col m7 offset-m1 s12 header-little-text">
+                    <b>L' accès à l'inventaire est libre et participatif :</b>
+                    <br/>Inscrivez vous et partagez vos propres observations !<br>
+                    <a href="{{ path('app_observe') }}" class="waves-effect waves-light btn blue
+                darken-1">Ajouter une observation</a>
+                </p>
+            </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col s12">
+    <div class="container">
+        <div id="lastObserveSearch" class="row">
+            <div class="col s12">
 
-            <div class="row" style="margin-bottom: 106px">
-                <div id="divautocomplete" class="col s8 offset-s2" style="background: #FFFFFF; box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px;">
-                    <div class="row" style="margin-bottom: 0">
-                        <div class="input-field col s12">
-                            <input data-url="{{ path('json_getvalidateobservestaxrefnames') }}" type="text" id="autocomplete-input" class="autocomplete">
-                            <img id="ajaxLoader" src="{{ asset('img/ajaxLoader/ajaxloader.gif') }}">
-                            <label for="autocomplete-input">Saisissez le nom latin ou vernaculaire de l’oiseau recherché</label>
+                <div class="row">
+                    <div id="divautocomplete" class="col m8 offset-m2 s10 offset-s1"
+                         style="background:
+                    #FFFFFF; box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25); border-radius: 20px;">
+                        <div class="row" style="margin-bottom: 0; padding-left: 5%; padding-right: 5%;">
+                            <div class="input-field col s12">
+                                <input data-url="{{ path('json_getvalidateobservestaxrefnames') }}" type="text" id="autocomplete-input" class="autocomplete">
+                                <img class="ObserveAjaxLoader" src="{{ asset('img/ajaxLoader/ajaxloader.gif') }}">
+                                <label for=lastObserveTulles"autocomplete-input"></label>
+                            </div>
                         </div>
                     </div>
+                    <p class="col m8 offset-m2 s10 offset-s1 help left">
+                        Saisissez le nom latin ou vernaculaire de l’oiseau recherché
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="lastObserveTulles" class="row">
+
+            {% for observe in observes %}
+
+            <div id="observeTule" class="observe col s12 m6 l4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{{ observe.img }}">
+                        <span {% if observe.ref %}data-lbnom="{{ observe.ref.lbNom }}"{% endif %} class="left-align truncate card-title black-text" style="padding-left: 18px; padding-bottom: 13px; line-height: 24px">{% if observe.ref.nomVern is defined %}{{ observe.ref.nomVern }}{% elseif observe.ref.lbNom is defined %}{{ observe.ref.lbNom }}{% else %}Non identifié{% endif %}</span>
+                        <a href="{{ path('app_view_observe', {id: observe.id}) }}" class="btn-floating halfway-fab waves-effect waves-light orange darken-1"><i class="material-icons">add</i></a>
+                    </div>
+                    <div class="card-content row" style="padding-bottom: 9px; padding-top: 9px">
+                            <div class="col s8 m7 l6 xl8 left-align">
+                                <div class="row" style="margin-bottom: 0">
+                                    <span class="truncate" style="font-size: 12px">Observé le {{ observe.createdAt|localizeddate('long', 'none') }}</span>
+                                </div>
+                                <div class="row" style="margin-bottom: 0">
+                                    <span class="truncate" style="font-size: 12px">{% if observe.author.nickname is defined %}{{ observe.author.nickname }}{% else %}{{ observe.author.email }}{% endif %}{% if observe.author.nickname is empty %}{{ observe.author.email }}{% endif %}</span>
+                                </div>
+                            </div>
+                            <div class="col s4 m5 l6 xl4 right-align" style="padding-right: 0; padding-top: 15px;">
+                                <span class="js-like-observe-count" style="position: relative; bottom: 8px; font-size: 12px">{{ observe.upvoter.count }}</span>
+                                {% if is_granted('ROLE_USER')%}
+                                <a class="js-like-observe" href="{{ path('toggle_observe_heart', {id: observe.id}) }}">
+                                    <i id="heart" data-url="{{ path('get_observe_like_status') }}" data-id="{{ observe.id }}" class="material-icons" style="color: #EB5757">favorite_border</i>
+                                    <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloader.gif') }}" style="display: none; margin-bottom: 4px;">
+                                </a>
+                                {% else %}
+                                    <a href="{{ path('security_login') }}">
+                                        <i class="material-icons" style="color: #EB5757">favorite_border</i>
+                                    </a>
+                                    {% endif %}
+                                <a href="#">
+                                    <i class="material-icons" style="color: #2D9CDB">share</i>
+                                </a>
+                            </div>
+                    </div>
+
                 </div>
             </div>
 
-            <div class="row" style="padding-left: 40px; padding-right: 40px">
-
-                {% for observe in observes %}
-
-                <div id="observeTule" class="observe col s12 l5 xl3" style="margin-right: 4%; margin-left: 4%; margin-bottom: 45px">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="{{ observe.img }}">
-                            <span data-lbnom="{{ observe.ref.lbNom }}" class="left-align truncate card-title black-text" style="padding-left: 18px; padding-bottom: 13px; line-height: 24px">{% if observe.ref.nomVern is defined %}{{ observe.ref.nomVern }}{% else %}{{ observe.ref.lbNom }}{% endif %}</span>
-                            <a class="btn-floating halfway-fab waves-effect waves-light orange darken-1"><i class="material-icons">add</i></a>
-                        </div>
-                        <div class="card-content row" style="padding-bottom: 9px; padding-top: 9px">
-                                <div class="col s6 left-align">
-                                    <div class="row" style="margin-bottom: 0">
-                                        <span class="truncate" style="font-size: 12px">Observé le {{ observe.createdAt|localizeddate('long', 'none') }}</span>
-                                    </div>
-                                    <div class="row" style="margin-bottom: 0">
-                                        <span style="font-size: 12px">{% if observe.author.nickname is defined %}{{ observe.author.nickname }}{% else %}{{ observe.author.email }}{% endif %}</span>
-                                    </div>
-                                </div>
-                                <div class="col s4 left-align" style="padding-right: 0px; padding-top: 15px;">
-                                    <span class="js-like-observe-count" style="position: relative; bottom: 8px; font-size: 12px">{{ observe.upvoter.count }}</span>
-                                    <a class="js-like-observe" href="{{ path('toggle_observe_heart', {id: observe.id}) }}">
-                                        <i id="heart" data-url="{{ path('get_observe_like_status') }}" data-id="{{ observe.id }}" class="material-icons" style="color: #EB5757">favorite_border</i>
-                                        <img id="ajaxLoading" src="{{ asset('img/ajaxLoader/ajaxloader.gif') }}" style="display: none; margin-bottom: 4px;">
-                                    </a>
-                                    <a href="#">
-                                        <i class="material-icons" style="color: #2D9CDB">share</i>
-                                    </a>
-                                </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                {% endfor %}
-            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

@@ -56,7 +56,7 @@ class ContactResponder implements ContactResponderInterface
     public function __invoke($redirect = false, FormInterface $form = null)
     {
         $redirect
-            ? $response = new RedirectResponse($this->urlGenerator->generate('app_homepage'))
+            ? $response = new RedirectResponse($this->urlGenerator->generate('app_contact'))
             : $response = new Response($this->twig->render('contact.html.twig', [
                 'form' => $form->createView()
                 ])

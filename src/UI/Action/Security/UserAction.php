@@ -24,7 +24,7 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 /**
  * Class UserAction
  * @Route(
- *     "/login",
+ *     "/se-connecter",
  *     name="security_login",
  *     methods={"GET", "POST"}
  * )

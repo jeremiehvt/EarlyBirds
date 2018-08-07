@@ -1,0 +1,164 @@
+#subHeader {
+    margin-top: -27em;
+}
+
+#header {
+
+    margin-bottom: 2em;
+    background: no-repeat center url("../img/other/faq.jpeg");
+    background-size: cover;
+    height: 300px;
+    margin-top: unset;
+}
+
+.header_text {
+    font-family: MontSerrat, serif;
+    font-weight: 500;
+    font-size: 3em;
+    text-align: center;
+    color: black;
+    text-transform: uppercase;
+    margin-top: 4em;
+}
+
+#help_text {
+    text-align: center;
+    font-family: MontSerrat, serif;
+    font-weight: 300;
+    font-size: 1em;
+    margin-bottom: 2em;
+    padding: 0;
+}
+
+#help_text_info {
+    text-align: center;
+    font-family: MontSerrat, serif;
+    font-weight: 300;
+    font-size: 1.5em;
+    color: #99bfcc;
+}
+
+.sub_title {
+    font-family: MontSerrat, serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.250em;
+    margin-top: 3em;
+}
+
+#intro {
+    border: 1px solid black;
+    background: #FFFDFD;
+}
+
+#paraph {
+    font-family: MontSerrat, serif;
+    font-weight: 300;
+    font-size: 1em;
+}
+
+.paraph_pge {
+
+    margin-top: 0;
+}
+
+.paraph_subtitle {
+    font-family: MontSerrat, serif;
+    font-weight: 300;
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+    color: #3f4e5e;
+}
+
+.paraph_link {
+    color:#2D9CDB;
+}
+
+#page_link {
+    margin-top: 3em;
+}
+
+.add-btn {
+    position: relative;
+    bottom: 1.2em;
+}
+
+.page-link-collapsible {
+    margin-top: 2em;
+    padding: 0 !important;
+    border: none;
+    box-shadow: none;
+}
+
+.page_link {
+    background: rgba(72, 129, 148, 0.5);
+    padding: 0;
+    margin-bottom: 3em;
+    border: none;
+}
+
+.page_link i {
+    margin-right: 0 !important;
+}
+
+.page-li-collapsible {
+    margin: 0;
+    padding: 0 !important;
+}
+
+.page-show {
+    border: none;
+    background: lightgrey;
+    padding-bottom: 2rem;
+    margin-top: -3em;
+    margin-bottom: 3em;
+    background: #FFFDFD;
+    border: 1px solid black;
+    border-top: none;
+}
+
+@media (max-width: 992px) and (min-width: 401px) {
+    #citation-mobile {
+        display: none !important;
+    }
+
+    #footer-mobile {
+        padding-top: unset;
+    }
+
+    #subHeader {
+        margin-top: 3em;
+    }
+
+    #header {
+        height: 300px;
+    }
+
+    .header_text {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 400px) {
+    #slogan {
+        display: none;
+    }
+
+    #subHeader {
+        margin-top: 3em;
+        padding: 0;
+    }
+
+    #header {
+        height: 300px;
+    }
+
+    .header_text {
+        font-size: 2em;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+}

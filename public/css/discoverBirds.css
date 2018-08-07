@@ -1,0 +1,182 @@
+#map {
+    height: 512px;
+    margin: auto;
+}
+
+#research {
+    margin-top: 14em;
+    height: 4.375em;
+    border: none;
+    background: #FFFCFC;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+    text-decoration-line: underline;
+    text-decoration-color: #2D9CDB;
+    padding-left: 1em;
+
+}
+
+#subHeader {
+    margin-top: -23em;
+}
+
+#slogan {
+    left: 6em;
+    top: 9em;
+}
+
+#header {
+    height: 360px;
+    background: no-repeat center url("../img/other/discoverbirds.jpg");
+    background-size: cover;
+}
+
+.header_text {
+    font-family: MontSerrat, serif;
+    font-weight: 500;
+    text-align: center;
+    color: white;
+    margin-top: 2em;
+    font-size: 3.500em;
+}
+
+input::placeholder {
+    text-decoration-line: underline;
+    text-decoration-color: #2D9CDB;
+    padding-left: 1em;
+}
+
+#divautocomplete {
+    background: #FFFFFF;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    margin-top: 4em;
+}
+
+.sub_title {
+    font-weight: 500;
+    font-size: 2em;
+    font-family: MontSerrat, serif;
+
+}
+
+#discover_bird {
+    margin-bottom: -.2em;
+}
+
+p#popupMap {
+    font-family: MontSerrat, serif;
+    text-align: center;
+    color: #F2994A;
+    font-weight: 100;
+}
+
+div#popupMap {
+    font-family: MontSerrat, serif;
+    text-align: center;
+    font-weight: 100;
+}
+
+#birdPopup {
+    width: 80px;
+    height: 80px;
+}
+
+#birdName {
+    font-family: MontSerrat, serif;
+    font-weight: 700;
+    color: #F2994A;
+}
+
+#author {
+    color: #2D9CDB;
+    font-family: MontSerrat, serif;
+    font-weight: 700;
+}
+
+.discoverAjaxLoader {
+    position: relative;
+    bottom: 30px;
+    left: 98%;
+}
+
+#lastObserveTulles {
+    font-family: Montserrat, serif;
+}
+
+#observeTule div.card-image > span {
+    color: #F2994A!important;
+    font-weight: bold;
+}
+
+@media (max-width: 400px) {
+
+    #subHeader {
+        margin-top: 0;
+        padding: 0;
+    }
+
+    #header {
+        height: 215px;
+        margin-top: 0;
+
+    }
+
+    .header_text {
+        margin-top: 3em;
+        font-size: 2em;
+    }
+
+    #slogan {
+        display: none;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: 401px) and (max-width: 992px) {
+
+    #subHeader {
+        margin-top: 5em;
+    }
+
+    #header {
+        height: 300px;
+        margin-top: 0;
+    }
+
+    .header_text {
+        margin-top: 2em;
+    }
+
+    #slogan {
+        display: none;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+
+    #citation {
+        display: none !important;
+    }
+
+    #footer-mobile {
+        margin: 0;
+        padding-top: unset;
+    }
+}
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+
+    #header {
+        height: 450px;
+        margin-top: 0;
+    }
+
+    .header_text {
+        margin-top: 4em;
+    }
+}

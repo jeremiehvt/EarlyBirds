@@ -3,33 +3,31 @@ App\Domain\DTO\RegisterDTO:
         email:
             - App\Validator\ExistingEmail:
                 groups: [Register]
-
+        password:
+            - Regex:
+                groups: [Register]
+                pattern: '/.{8,}/'
+                message: Votre mot de passe doit contenir 8 caractères minimum
+            - Regex:
+                groups: [Register]
+                pattern: '/.*[a-zA-Z]/'
+                message: Votre mot de passe doit contenir une lettre minimum
+            - Regex:
+                groups: [Register]
+                pattern: '/.*[0-9]/'
+                message: Votre mot de passe doit contenir un chiffre minimum
 App\Domain\DTO\ForgottenPasswordDTO:
     properties:
         email:
             - App\Validator\NonExistingEmail:
                 groups: [ForgottenPassword]
-
-App\Domain\DTO\ObserveDTO:
+App\Domain\DTO\ProfileDTO:
     properties:
-        description:
-            - NotBlank: ~
-            - Length:
-                min: 5
-                max: 5000
-                minMessage: 'votre description doit contenir {{ limit }} 50 caractères minimum.'
-                maxMessage: 'votre description doit contenir {{ limit }} 5000 caractères maximum.'
-                #groups: [Observe]
-        latitude:
-            - NotBlank: ~
-
-        longitude:
-            - NotBlank: ~
-
         img:
             - Image:
-                maxSize: 3M
-                maxSizeMessage: 'votre image pèse trop lourd ({{ size }} {{ suffix }}). La taille
-                 aximum authorizée est {{ limit }} {{ suffix }}.'
-                mimeTypes: [image/jpeg, image/png]
-                mimeTypesMessage: 'Veuillez choisir un image au format jpeg ou png.'
+                maxWidth: 256
+                maxHeight: 256
+                groups: [ImgProfile]
+            - File:
+                maxSize: 1024k
+                groups: [ImgProfile]

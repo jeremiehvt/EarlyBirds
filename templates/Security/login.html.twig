@@ -5,6 +5,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -15,8 +16,8 @@
 
             <div class="row">
                 <div class="col s10 offset-s1 center">
-                    <a class="waves-effect waves-light btn cyan lighten-2 black-text" href="{{ path('social_google') }}"><i class="fab fa-google-plus-g"> </i> Google</a>
-                    <a class="waves-effect waves-light btn cyan lighten-2 black-text" href="{{ path('social_facebook') }}"><i class="fab fa-facebook-f"> </i> Facebook</a>
+                    <a class="waves-effect waves-light btn orange darken-1" href="{{ path('social_google') }}"><i class="fab fa-google-plus-g"> </i> Google</a>
+                    {#<a class="waves-effect waves-light btn cyan lighten-2 black-text" href="{{ path('social_facebook') }}"><i class="fab fa-facebook-f"> </i> Facebook</a>#}
                 </div>
             </div>
 
@@ -45,7 +46,7 @@
                             {{ form_label(login_form.password) }}
                         </div>
 
-                        <button class="btn waves-effect waves-light cyan lighten-2 black-text" type="submit" name="action">Se connecter
+                        <button class="btn waves-effect waves-light orange darken-1" type="submit" name="action">Se connecter
                             <i class="material-icons right">send</i>
                         </button>
                     {{ form_end(login_form) }}
@@ -96,22 +97,45 @@
                         </div>
                     </div>
 
-                    <button class="btn waves-effect waves-light cyan lighten-2 black-text" type="submit" name="action">S'enregistrer
+                    {% if register_form.vars.errors.form.getErrors(true) is not empty %}
+                            <div class="row">
+                                <div class="col s8 offset-s2 center">
+                                    <div class="card-panel red darken-2 white-text">
+                                        <i class="material-icons" style="position: relative; top: 5px;">priority_high</i>
+                                        <ul>
+                        {% for error in register_form.vars.errors.form.getErrors(true) %}
+                                            <li>{{ error.message }}</li>
+                        {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                    {% endif %}
+
+                    <p>
+                        <label>
+                            <input id="concent" type="checkbox" required="required"/>
+                            <span>En créant un compte, j'accepte les <a href="{{ path('app_legal') }}">conditions générales d'utilisation</a> du site NAO.</span>
+                        </label>
+                    </p>
+
+                    <p>
+                        <label>
+                            <input id="concent2" type="checkbox"/>
+                            <span>J'autorise NAO à utiliser mon email pour la création d'un compte utilisateur et l'envoi d'informations qui y sont liées. <br/>Vous pouvez consulter notre <a href="{{ path('app_confidentiality') }}">politique de confidentialité</a>.</span>
+                        </label>
+                    </p>
+
+                    <button id="submitBtn" class="btn waves-effect waves-light orange darken-1" type="submit" name="action">Créer un compte
                         <i class="material-icons right">send</i>
                     </button>
+
+
 
                     {{ form_end(register_form) }}
 
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col s10 offset-s1 center">
-                    <a class="waves-effect cyan darken-3 waves-light btn" href="/logout"><i class="material-icons right"> close</i> Se déconnecter
-                    </a>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
@@ -130,4 +154,5 @@
         {% endfor %}
 
     </script>
+    <script src="{{ asset('/js/login.js') }}"></script>
 {% endblock %}

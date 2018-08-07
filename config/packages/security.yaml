@@ -38,8 +38,9 @@ security:
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/observe, roles: ROLE_USER }
         - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/saisir-article, roles: [ ROLE_NATURALIST ], methods: [GET, POST] }
+        - { path: ^/saisir-observation, roles: [ ROLE_USER ], methods: [GET, POST] }
         - { path: ^/admin, roles: ROLE_ADMIN }
 
     role_hierarchy:

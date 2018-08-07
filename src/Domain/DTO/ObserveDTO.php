@@ -10,6 +10,7 @@ namespace App\Domain\DTO;
 
 use App\Domain\DTO\Interfaces\ObserveDTOInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class ObserveDTO
@@ -18,31 +19,59 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class ObserveDTO implements ObserveDTOInterface
 {
     /**
-     * @var string
+     * @var null
      */
     public $ref;
 
     /**
+     * @Assert\NotBlank(message="la description doit être complétée")
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 5000,
+     *      minMessage = "votre description doit contenir au moins {{ limit }} carctères",
+     *      maxMessage = "votre description doit contenir moins de {{ limit }} carctères"
+     * )
      * @var string
      */
     public $description;
 
     /**
+     * @Assert\NotBlank(message="la latitude ne peut pas être vide")
+     * @Assert\Length(
+     *      min = 1,
+     *      minMessage = "votre latitude doit contenir au moins {{ limit }} carctères"
+     * )
+     *
      * @var string
      */
     public $latitude;
 
     /**
+     * @Assert\NotBlank(message="la longitude ne peut pas être vide")
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "votre longitude doit contenir au moins {{ limit }} carctères"
+     * )
      * @var string
      */
     public $longitude;
 
     /**
+     * @Assert\Date()
+     * @Assert\LessThanOrEqual("today", message="la date doit être égale ou inférieur à
+    aujourd'hui")
      * @var \DateTime
      */
     public $obsDate;
 
     /**
+     * @Assert\NotBlank(message="veuillez sélectionner une image")
+     * @Assert\File(
+     *     maxSize = "5M",
+     *     mimeTypes = {"image/jpeg", "image/png"},
+     *     maxSizeMessage = "votre image doit être inférieur à {{ limit }} {{ suffix }}",
+     *     mimeTypesMessage = "votre image doit être de type jpeg ou png"
+     * )
      * @var UploadedFile
      */
     public $img;
@@ -50,19 +79,19 @@ class ObserveDTO implements ObserveDTOInterface
     /**
      * ObserveDTO constructor.
      *
-     * @param string            $ref
-     * @param string            $description
-     * @param string            $latitude
-     * @param string            $longitude
-     * @param \DateTime         $date
+     * @param null|string       $ref
+     * @param null|string       $description
+     * @param null|string       $latitude
+     * @param null|string       $longitude
+     * @param \DateTime|null    $date
      * @param UploadedFile|null $img
      */
     public function __construct(
-        string       $ref,
-        string       $description,
-        string       $latitude,
-        string       $longitude,
-        \DateTime    $date,
+        $ref,
+        string       $description = null,
+        string       $latitude = null,
+        string       $longitude = null,
+        \DateTime    $date = null,
         UploadedFile $img = null
     ) {
         $this->ref          = $ref;
@@ -82,9 +111,9 @@ class ObserveDTO implements ObserveDTOInterface
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }

@@ -13,13 +13,13 @@ namespace App\UI\Action;
 
 use App\UI\Action\Interfaces\LegalActionInterface;
 use App\UI\Responder\Interfaces\LegalResponderInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class LegalAction
  * @package App\UI\Action
  * @Route(
- *     path="/mentions_legales",
+ *     path="/mentions-legales",
  *     name="app_legal",
  *     methods={"GET"}
  * )

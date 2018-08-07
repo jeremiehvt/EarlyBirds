@@ -29,11 +29,22 @@ class Comment
     private $content;
 
     /**
-     * Post constructor.
+     * @var Post
      */
-    public function __construct()
+    private $post;
+
+    /**
+     * Comment constructor.
+     * @param string $content
+     * @param User $author
+     *
+     * @throws \Exception
+     */
+    public function __construct(string $content, User $author)
     {
-        $this->id = Uuid::uuid4();
+        $this->id      = Uuid::uuid4();
+        $this->content = $content;
+        $this->author  = $author;
     }
 
     /**
@@ -54,7 +65,6 @@ class Comment
 
     /**
      * @param User|null $author
-     *
      * @return Comment
      */
     public function setAuthor(?User $author): self
@@ -63,4 +73,45 @@ class Comment
 
         return $this;
     }
+
+    /**
+     * @return Post
+     */
+    public function getPost(): Post
+    {
+        return $this->post;
+    }
+
+    /**
+     * @param Post $post
+     * @return Comment
+     */
+    public function setPost(Post $post): self
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param string $content
+     * @return $this
+     */
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+
+
+
 }

@@ -45,12 +45,13 @@ class ToggleObserveLike
         $this->tokenStorage      = $tokenStorage;
         $this->observeRepository = $observeRepository;
     }
+
     /**
-     * @param Observe $id
+     * @param string $id
      *
      * @return JsonResponse
      */
-    public function __invoke(Observe $id)
+    public function __invoke(string $id)
     {
         $observe     = $this->observeRepository->findOneBy(['id' => $id]);
         $currentUser = $this->tokenStorage->getToken()->getUser();
@@ -62,12 +63,16 @@ class ToggleObserveLike
                 /** @var Observe $observe */
                 $observe->removeUpvoter($currentUser);
                 $this->observeRepository->update();
-            } else {
-                /** @var Observe $observe */
-                $observe->addUpvoter($currentUser);
-                $this->observeRepository->update();
+
+                $upvoterCount = count($observe->getUpvoter());
+
+                return new JsonResponse(['hearts' => $upvoterCount]);
             }
         }
+        /** @var Observe $observe */
+        $observe->addUpvoter($currentUser);
+
+        $this->observeRepository->update();
 
         $upvoterCount = count($observe->getUpvoter());
 

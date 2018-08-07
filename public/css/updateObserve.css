@@ -1,0 +1,384 @@
+#mapid {
+    height: 81.3em;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-right: 4px solid white;
+}
+
+#c_body {
+    margin-top: -400px;
+    margin-bottom: -320px;
+}
+
+#form {
+    background-color: rgba(72, 129, 148, 1);
+    height:65em;
+    padding: 30px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+input#update_observe_ref {
+
+    padding-left: 10px;
+    height: 4.375em;
+
+    border: none;
+    background: #FFFCFC;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+input#update_observe_latitude {
+
+    padding-left: 10px;
+    height: 4.375em;
+
+    border: none;
+    background: #FFFCFC;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+input#update_observe_longitude {
+
+    padding-left: 10px;
+    height: 4.375em;
+    border: none;
+    background: #FFFCFC;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+input#update_observe_obsDate {
+    padding-left: 10px;
+    height: 4.375em;
+    border: none;
+    background: #FFFCFC;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+textarea#update_observe_description {
+
+    padding-left: 10px;
+    padding-right: 10px;
+
+    border: none;
+    background: #FFFCFC;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+input::placeholder {
+    text-decoration-line: underline;
+    text-decoration-color: #2D9CDB;
+    padding-left: 15px;
+}
+
+input {
+    text-decoration-line: underline;
+    text-decoration-color: #2D9CDB;
+    padding: 0;
+}
+
+textarea {
+    padding-top: 15px;
+    height: 7.563em;
+    width: 100%;
+}
+
+div#uplBtn {
+    border-radius: 20px;
+    background: #2D9CDB;
+    margin-left: 20%;
+
+}
+
+div#uplBtn span {
+    font-size: 1em;
+    text-transform: initial;
+}
+
+#submitBtn {
+    background: #F2994A;
+    border-radius: 20px;
+    height: 3em;
+    font-size: 1.125em;
+    text-transform: initial;
+    margin: 0 0 0 22px;
+}
+
+.label {
+    font-family: MontSerrat, serif;
+    font-weight: 800;
+    font-Size: 1.125em;
+}
+
+#label1:before {
+    content: url('../img/vector/oiseauBlanc.png');
+}
+
+#header {
+    height: 450px;
+    padding-top: 90px;
+    margin-bottom: 100px;
+    background: no-repeat center url("../img/other/observation.jpg");
+    background-size: contain;
+}
+.header_text {
+    font-family: MontSerrat, serif;
+    font-weight: 500;
+    text-align: center;
+    color: white;
+    margin-top: 2.4em;
+}
+
+#header_text_light {
+    font-family: MontSerrat, serif;
+    font-weight: 100;
+}
+
+
+
+.form_errors {
+    text-align: right;
+    font-size: .9em;
+    font-weight: 300;
+    font-family: MontSerrat, serif;
+    margin-top: 0;
+    color: #F2994A;
+
+}
+
+span.form_errors ul {
+    margin-top: 0;
+}
+
+#error-img {
+    text-align: center;
+}
+
+.flash-notice {
+    background: white;
+    border-radius: 20px;
+    font-size: 1em;
+    text-transform: capitalize;
+    padding: 5px 5px 5px 10px;
+    text-align: center;
+}
+
+.flash-observe {
+    background: #59A177;
+    color: white;
+    border-radius: 20px;
+    height: 3.000em;
+    vertical-align: center;
+    font-size: 1.200em;
+    text-transform: lowercase;
+    padding: 15px 5px 5px 5px;
+    text-align: center;
+}
+
+#notice_decoration {
+    position: absolute;
+    top: 15px;
+    right: 420px;
+    z-index: 0;
+    width: 9%;
+}
+
+p#popupMap {
+    font-family: MontSerrat, serif;
+    text-align: center;
+    color: #F2994A;
+    font-weight: 100;
+}
+
+div#popupMap {
+    font-family: MontSerrat, serif;
+    text-align: center;
+    font-weight: 100;
+}
+
+#birdPopup {
+    width: 80px;
+    height: 80px;
+}
+
+#birdName {
+    font-family: MontSerrat, serif;
+    font-weight: 700;
+    color: #F2994A;
+}
+
+#author {
+    color: #2D9CDB;
+    font-family: MontSerrat, serif;
+    font-weight: 700;
+}
+
+
+input.valid_observe_img.file-path.validate {
+    display: none;
+}
+
+@media (max-width: 400px) {
+
+    #c_body {
+
+        margin-top: 0;
+    }
+
+    #mapid {
+        height: 26.625em;
+        border: none;
+        box-shadow: none;
+    }
+
+    #header {
+        margin-top: 3.9em;
+        padding-top: 0!important;
+        margin-bottom: 0!important;
+        background: no-repeat center url("../img/other/observation.jpg");
+        background-size: cover;
+        height: 155px;
+    }
+
+    #subHeader {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    .header_text {
+        font-family: MontSerrat, serif;
+        text-align: center;
+        color: white;
+        font-size: 1em;
+    }
+
+    #header_text_light {
+        font-family: MontSerrat, serif;
+        font-weight: 100;
+    }
+
+    #header_text_second {
+        font-size: 1em;
+    }
+
+    #form {
+        box-shadow: none;
+    }
+
+}
+
+@media (min-width: 401px) and (max-width: 992px) {
+
+    #mapid {
+        height: 76em;
+        border: none;
+        box-shadow: none;
+    }
+
+    #c_body {
+
+        margin-top: 100px;
+        margin-bottom: auto;
+    }
+
+    #form {
+        box-shadow: none;
+    }
+
+    #mapid{
+        height: 78.5em;
+    }
+
+    #header {
+        height: 300px;
+        background: no-repeat center url("../img/other/observation.jpg");
+        background-size: unset;
+    }
+
+    .header_text {
+        font-family: MontSerrat, serif;
+        text-align: center;
+        color: white;
+        margin-top: .2em;
+        font-size: 1.4em;
+    }
+
+    #header_text_light {
+        font-family: MontSerrat, serif;
+        font-weight: 100;
+        margin-top: 1em;
+    }
+
+    #header_text_second {
+        font-size: 1.4em;
+        margin-top: 1em;
+    }
+
+}
+
+@media (min-width: 993px) and (max-width: 1440px) {
+
+    #header {
+        height: 360px;
+        padding-top: 90px;
+        margin-bottom: 100px;
+        background: no-repeat center url("../img/other/observation.jpg");
+        background-size: cover;
+        margin-top: 3.4em;
+
+    }
+
+    .header_text {
+        font-family: MontSerrat, serif;
+        text-align: center;
+        color: white;
+        margin-top: .2em;
+        font-size: 1.5em
+    }
+
+    #header_text_bold {
+        font-size: 2em;
+    }
+
+    #subHeader {
+        margin-top: -6em;
+    }
+}
+
+@media (min-width: 1441px) and (max-width: 1920px) {
+    #subHeader {
+        margin-top: -6em;
+    }
+
+    #notice_decoration {
+        position: absolute;
+        top: .7em;
+        right: 40em;
+        z-index: 0;
+        width: 5%;
+    }
+
+    div#uplBtn {
+        border-radius: 20px;
+        background: #2D9CDB;
+        margin-left: 27%;
+    }
+
+    .header_text {
+        font-family: MontSerrat, serif;
+        text-align: center;
+        color: white;
+        margin-top: 6em;
+        font-size: 1.5em
+    }
+
+    #header_text_bold {
+        font-size: 2em;
+    }
+
+}

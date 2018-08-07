@@ -1,0 +1,175 @@
+div#subHeader {
+    margin-top: -23em;
+}
+
+#slogan {
+    top: 130px;
+}
+
+#header {
+    height: 360px;
+    margin-bottom: 3em;
+    padding-top: 2em;
+    padding-left: .4em;
+    background: no-repeat center url("../img/other/lastobserve.png");
+    background-size: cover;
+}
+.header_text {
+    text-shadow: 4px 4px 14px rgba(150, 150, 150, 0.5);
+    font-family: Didot, serif;
+    font-weight: 500;
+    font-size: 2.3em;
+    color: #579BC1;
+}
+
+.header-little-text {
+    margin-top: 0;
+    text-shadow: 4px 4px 14px rgba(150, 150, 150, 0.5);
+    font-family: MontSerrat, serif;
+    font-size: 1.1em;
+    color: black;
+    font-weight: 300;
+}
+
+.help {
+    color: darkgray;
+}
+
+.ObserveAjaxLoader {
+    position: relative;
+    bottom: 30px;
+    left: 98%;
+}
+
+.card-image span {
+    font-weight: bold!important;
+ }
+
+#observeTule > div > div.card-image > img {
+    height: 230px;
+    width: 100%;
+    object-fit: contain;
+}
+
+#lastObserveHeader div {
+    padding-left: 4%;
+    margin-bottom: 0;
+    height: 378px;
+    background-position: 40% 400%;
+}
+
+#lastObserveHeader h1 {
+    font-family: Didot, serif;
+    font-size: 40px;
+    color: #579BC1;
+}
+
+#lastObserveHeader p {
+    font-family: Montserrat, serif;
+    font-size: 16px;
+}
+
+#header a {
+    border-radius: 20px;
+    margin-top: .6em;
+    background-color: #2D9CDB!important;
+    text-transform: none;
+}
+
+#observeTule div.card-image span {
+    font-family: Montserrat, serif;
+    color: #F2994A!important;
+    font-weight: bold;
+}
+
+#observeTule > div > div.card-content > div > div > span {
+    font-family: Montserrat, serif;
+}
+
+@media (max-width: 400px)  {
+
+    #slogan {
+        display: none;
+    }
+
+    div#subHeader {
+        margin-top: 0;
+        padding: 0;
+    }
+
+    #header {
+        padding-top: unset;
+        height: 400px !important;
+    }
+
+    #header .header_text {
+        padding-top: 0;
+        margin-top: 2em;
+    }
+
+    .header-little-text {
+
+        font-size: .9em;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: 401px) and (max-width: 992px) {
+
+    #slogan {
+        display: none;
+    }
+
+    div#subHeader {
+        margin-top: 5em;
+    }
+
+    #header {
+        padding-top: 0;
+    }
+
+    .header-little-text {
+
+        font-size: 1em;
+    }
+
+    #citation-mobile {
+        display: none !important;
+    }
+
+    #footer-mobile {
+        padding-top: unset;
+    }
+}
+
+@media (max-width: 1920px) and (min-width: 1601px) {
+
+    div#subHeader {
+        margin-top: -23em;
+    }
+
+    #header {
+        height: 450px;
+        margin-top: 0;
+    }
+
+    .header_text {
+        text-shadow: 4px 4px 14px rgba(150, 150, 150, 0.5);
+        font-family: Didot, serif;
+        font-weight: 500;
+        font-size: 2.5em;
+        color: #579BC1;
+    }
+
+    .header-little-text {
+        margin-top: 0;
+        text-shadow: 4px 4px 14px rgba(150, 150, 150, 0.5);
+        font-family: MontSerrat, serif;
+        font-size: 1.2em;
+        color: black;
+        font-weight: 300;
+    }
+}

@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class LastObservesAction
  * @Route(
- *     "/lastobserve",
+ *     "/dernieres-observations",
  *     name="app_lastobserve",
  *     methods={"GET"}
  * )

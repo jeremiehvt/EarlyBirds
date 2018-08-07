@@ -3,7 +3,7 @@
 parameters:
     locale: 'fr'
     imageFolder: '%kernel.project_dir%/public/media/'
-    media: '../media/'
+    media: '/media/'
     logoPath: '%kernel.project_dir%/public/img/logo/logo.png'
 
 services:

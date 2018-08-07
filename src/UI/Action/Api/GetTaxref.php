@@ -31,20 +31,18 @@ class GetTaxref
      * TaxrefAction constructor.
      * @param TaxRefRepository $taxRefRepository
      */
-    public function __construct(
-        TaxRefRepository $taxRefRepository
-    ) {
+    public function __construct(TaxRefRepository $taxRefRepository)
+    {
         $this->taxRefRepository = $taxRefRepository;
     }
 
     /**
      * @param $id
      *
-     * @return static
+     * @return JsonResponse
      */
     public function __invoke($id)
     {
-
         $taxref = $this->taxRefRepository->findByIdToArray($id);
 
         return JsonResponse::create($taxref[0]);

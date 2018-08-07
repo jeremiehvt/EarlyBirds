@@ -19,6 +19,11 @@ class Level
     private $id;
 
     /**
+     * @var int
+     */
+    private $points;
+
+    /**
      * @var string
      */
     private $name;
@@ -26,7 +31,7 @@ class Level
     /**
      * @var string
      */
-    private $desc;
+    private $description;
 
     /**
      * @var string
@@ -93,5 +98,69 @@ class Level
         }
 
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPoints(): int
+    {
+        return $this->points;
+    }
+
+    /**
+     * @param int $points
+     */
+    public function setPoints(int $points): void
+    {
+        $this->points = $points;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param null|string $description
+     */
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    /**
+     * @param null|string $img
+     */
+    public function setImg(?string $img): void
+    {
+        $this->img = $img;
     }
 }

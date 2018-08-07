@@ -8,9 +8,7 @@
 
 namespace App\UI\Action\Api;
 
-use App\Domain\Models\Observe;
 use App\Domain\Models\User;
-use App\Domain\Repository\ObserveRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -29,33 +27,25 @@ class GetObserveLikeStatus
      * @var TokenStorageInterface
      */
     private $tokenStorage;
-    /**
-     * @var ObserveRepository
-     */
-    private $observeRepository;
 
     /**
      * ToggleObserveLike constructor.
-     * @param ObserveRepository     $observeRepository
      * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(
-        ObserveRepository $observeRepository,
-        TokenStorageInterface $tokenStorage
-    ) {
-        $this->tokenStorage      = $tokenStorage;
-        $this->observeRepository = $observeRepository;
+    public function __construct(TokenStorageInterface $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
     }
+
     /**
-     * @param Observe $id
-     *
      * @return JsonResponse
      */
     public function __invoke()
     {
+        /** @var User $currentUser */
         $currentUser = $this->tokenStorage->getToken()->getUser();
 
-        /** @var User $currentUser */
+        /** @var array $upvotes */
         $upvotes = $currentUser->getUpvoted()->getValues();
 
         $status = [];

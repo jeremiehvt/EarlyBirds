@@ -22,13 +22,15 @@ class UserBuilder implements UserBuilderInterface
      * @param string   $email
      * @param string   $password
      * @param callable $passwordEncoder
+     * @param int      $score
      *
      * @return UserBuilder
      */
     public function createFromRegistration(
         string $email,
         string $password,
-        callable $passwordEncoder
+        callable $passwordEncoder,
+        int $score
     ):self {
         $this->user = new User(
             $email,
@@ -40,6 +42,7 @@ class UserBuilder implements UserBuilderInterface
             null,
             null,
             null,
+            100,
             null
         );
 
@@ -55,6 +58,7 @@ class UserBuilder implements UserBuilderInterface
      * @param string   $firstname
      * @param string   $lastname
      * @param string   $img
+     * @param int      $score
      *
      * @return UserBuilder
      */
@@ -66,7 +70,8 @@ class UserBuilder implements UserBuilderInterface
         string $nickname,
         string $firstname,
         string $lastname,
-        string $img
+        string $img,
+        int $score
     ): self {
         $this->user = new User(
             $email,
@@ -78,6 +83,7 @@ class UserBuilder implements UserBuilderInterface
             $firstname,
             $lastname,
             $img,
+            100,
             null
         );
 
@@ -100,6 +106,7 @@ class UserBuilder implements UserBuilderInterface
             $email,
             $password,
             $passwordEncoder,
+            null,
             null,
             null,
             null,

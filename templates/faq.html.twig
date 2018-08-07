@@ -1,1 +1,274 @@
 {% extends 'base.html.twig' %}
+
+{% block title %}Foire aux questions - Aide - Nos Amis les Oiseaux{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+          integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+          crossorigin=""/>
+    <link rel="stylesheet" href="{{ asset('css/faq.css') }}"
+{% endblock %}
+
+{% block metadesc %}foire aux questions{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col l12 m12 s12" id="subHeader">
+        <p id="slogan">
+            Nos amis les oiseaux
+        </p>
+
+        <div class="col l8 offset-l2 m8 offset-m2 s12" id="header">
+            <h1 class="col m10 offset-m1 s12 header_text">
+                foire aux questions
+            </h1>
+        </div>
+    </div>
+
+    <div class="col l8 offset-l2 m10 offset-m1 s10 offset-s1" id="intro">
+        <h2 class="sub_title">Code de conduite</h2>
+            <h3 class="paraph_subtitle">
+                Que dois-je faire si j'observe une espèce rare ou en voie de disparition ?
+            </h3>
+            <p class="paraph_pge">
+                Si vous observez une espèce rare ou signalée comme en danger,
+                nous vous engageons à nous contacter au préalable pour évaluer, ensemble,
+                les risques d'une éventuelle parution publique. En effet, les conséquences de la
+                diffusion, à grande échelle, de sa localisation pourraient être préjudiciables
+                pour l'oiseau et son habitat.<br>
+                Nous vous rappelons le code de conduite que NAO préconise :
+            </p>
+            <ul class="paraph_pge">
+                <li>
+                     Lors de la réalisation d’observations et d’études naturalistes,
+                     la protection des espèces et de leurs habitats doit avoir la priorité.
+                     Les dérangements occasionnés aux espèces doivent être réduits au minimum.
+                     Une distance suffisante d'observation doit notamment être tenue  pour éviter leur fuite.
+                </li>
+                <li>
+                    Durant vos observations, vous devez respecter les réglementations en
+                    igueur concernant la protection des espèces (ne pas manipuler, ni capturer,
+                    ni tuer les oiseaux) et la protection des espaces (ne pas pénétrer dans des propriétés
+                    privées (sauf accord préalable du propriétaire), respecter les zones protégées).
+                </li>
+            </ul>
+
+        <h2 class="sub_title">Connexion et inscription</h2>
+
+            <h3 class="paraph_subtitle">
+                Pourquoi dois-je créer un compte ?
+            </h3>
+            <p class="paraph_pge">
+                Toutes les personnes qui souhaitent soumettre une observation doivent s‘enregistrer.
+                La procédure est simple et unique. Les indications personnelles demandées nous permettent,
+                si nécessaire, de vous contacter et de garantir la qualité des informations transmises sur le site.
+                Ces données personnelles font l'objet d'une attention particulière de notre part.
+                Nous vous invitons à consulter notre <a class="paraph_link" href="{{ path
+                ('app_confidentiality')
+                }}">politique de
+                confidentialité.</a>
+                Enfin, un internaute qui souhaite seulement consulter les observations, sans accéder
+                aux fonctions avancées, n'a pas besoin de s'inscrire.
+            </p>
+
+            <h3 class="paraph_subtitle">
+                Pourquoi suis-je déconnecté automatiquement ?
+            </h3>
+            <p class="paraph_pge">
+                Vous ne restez connecté que pour une période prédéfinie : cela vous garantit que
+                votre compte ne sera pas utilisé par quelqu’un d’autre.
+            </p>
+
+            <h3 class="paraph_subtitle">
+                J'ai perdu mon mot de passe, comment faire pour me connecter ?
+            </h3>
+            <p class="paraph_pge">
+                Vous pouvez réinitialiser votre mot de passe. Il vous suffit de vous rendre sur la page de connexion
+                et de cliquer sur « J’ai perdu mon mot de passe ». Suivez les instructions et vous pourrez rapidement
+                vous reconnecter.
+                En cas de problème persistant, n'hésitez pas à nous adresser un email à
+                <a class="paraph_link" href="mailto: contact@nao.org">contact@nao.org</a>.
+            </p>
+
+            <h3 class="paraph_subtitle">
+                Comment créer un compte naturaliste ?
+            </h3>
+            <p class="paraph_pge">
+                Si vous êtes professionnel et que vous souhaitez nous rejoindre pour nous aider à valider
+                les contributions des amateurs, il faudra adresser à m.dujardin@nao.org, la copie de votre diplôme.
+                Au préalable, vous aurez créé votre compte utilisateur. C'est Monsieur Dujardin, fondateur de l'association,
+                qui modifiera votre profil en conséquence. Vous aurez alors le badge "N" sur votre avatar et les accès
+                et autorisations correspondants à votre profil.
+            </p>
+    </div>
+
+     <ul class="collapsible page-link-collapsible col l8 offset-l2 m10 offset-m1 s10 offset-s1">
+
+
+        <li class="col l12 m12 s12 page-li-collapsible">
+            <div class="collapsible-header page_link">
+                <h2 class="col s12 m12 l12 sub_title">Paramètres utilisateur
+                    <a class="add-btn btn-floating btn-large waves-effect waves-light orange darken-1
+                    right">
+                        <i class="material-icons">add</i>
+                    </a>
+                </h2>
+            </div>
+            <div class="collapsible-body page-show">
+                <h3 class="paraph_subtitle">
+                    Comment modifier mes paramètres ?
+                </h3>
+                 <p class="paraph_pge">
+                    Vous pouvez accéder à vos paramètres et les modifier à partir de votre espace personnel.
+                    Pour y accéder, vous devez d'abord vous connecter et ensuite cliquer sur l'onglet
+                    "profil" à gauche. Vos informations personnelles seront visibles et modifiables en
+                    cliquant sur l'icône "crayon". Il vous suffira ensuite de valider ces modifications
+                    en cliquant sur le bouton "enregistrer".
+                </p>
+                <h3 class="paraph_subtitle">
+                    Qu'est ce qu'un avatar ?
+                </h3>
+                 <p class="paraph_pge">
+                    C'est une image qui vous représente sur le site. Elle est associée à
+                    chacune de vos observations et commentaires déposés.
+                </p>
+                <h3 class="paraph_subtitle">
+                    Comment associer une image à mon avatar ?
+                </h3>
+                 <p class="paraph_pge">
+                    Vous devez vous connecter à votre espace personnel puis cliquer sur
+                    la zone intitulée "Avatar", en haut à gauche. Vous pourrez télécharger,
+                    à partir de votre ordinateur, la photo ou le dessin de votre choix.
+                    Pour valider la saisie, cliquer sur le bouton "enregistrer".
+                </p>
+            </div>
+        </li>
+
+        <li class="col l12 m12 s12 page-li-collapsible">
+            <div class="collapsible-header page_link">
+                <h2 class="col s12 m12 l12 sub_title">statut et badges
+                    <a class="add-btn btn-floating btn-large waves-effect waves-light orange darken-1
+                    right">
+                        <i class="material-icons">add</i>
+                    </a>
+                </h2>
+            </div>
+            <div class="collapsible-body page-show">
+                <h3 class="paraph_subtitle">
+                    Que signifie le statut indiqué sous mon nom ou pseudo ?
+                </h3>
+                 <p class="paraph_pge">
+                    Ce statut correspond à un nombre de points acquis grâce à vos observations.
+                    Plus vous contribuerez, plus vous acquerrez de points. Votre statut évolue donc au
+                    fil de votre participation. Nous avons associé un badge (représentation graphique)
+                    pour chaque statut : il est associé à votre avatar. Cela nous permet ainsi de reconnaître
+                    votre engagement et, pour les autres observateurs, d'évaluer votre niveau d'expertise.
+                    Les ornithologues professionnels, ou naturalistes, ont un statut unique et immuable.
+                    Leur badge est un "N" sur leur avatar.
+                    Vous pouvez consulter <a class="paraph_link" href="{{ path
+                    ('app_legal')
+                    }}">les Mentions légales</a>, chapitre 8 (ancre 6)
+                    pour connaître en détail les nombre de points attribués et les conditions d'octroi des statuts.
+
+                </p>
+                <h3 class="paraph_subtitle">
+                    Pourquoi certains observateurs ont-ils un "N" sur leur avatar ?
+                </h3>
+                 <p class="paraph_pge">
+                    Ce "N" distingue les naturalistes professionnels. Ils ont un statut unique et immuable.
+                </p>
+            </div>
+        </li>
+
+        <li class="col l12 m12 s12 page-li-collapsible">
+            <div class="collapsible-header page_link">
+                <h2 class="col s12 m12 l12 sub_title">observations
+                    <a class="add-btn btn-floating btn-large waves-effect waves-light orange darken-1
+                    right">
+                        <i class="material-icons">add</i>
+                    </a>
+                </h2>
+            </div>
+            <div class="collapsible-body page-show">
+                 <h3 class="paraph_subtitle">
+                    Qu'entendez-vous par "observation" ?
+                 </h3>
+                 <p class="paraph_pge">
+                    du nom de l'oiseau observé ;<br>
+                    de la date de l'observation ;<br>
+                    du lieu d'observation : les coordonnées GPS ;<br>
+                    d'une photo ;<br>
+                    d'un commentaire ;
+                </p>
+
+                <h3 class="paraph_subtitle">
+                   Comment connaître les coordonnées GPS d'un lieu ?
+                </h3>
+                 <p class="paraph_pge">
+                    Il vous suffit d'activer l'option géolocalisation de votre smartphone (ou tout autre appareil)
+                    pour être que votre position soit automatiquement reportée sur la carte interactive.
+                </p>
+
+                <h3 class="paraph_subtitle">
+                   Pourquoi ai-je la mention "observation en attente de validation" ?
+                </h3>
+                 <p class="paraph_pge">
+                    Afin de garantir le sérieux de notre site et une collecte de données fiables,
+                    chaque observation doit être validée par un ornithologue professionnel,
+                    les fameux observateurs "N". En cas de doute, il pourra vous contacter par email
+                    pour obtenir des précisions. En l'absence de photo, il pourra en ajouter une issue
+                    de notre propre bibliothèque d'images ou des fiches INPN. Vous serez informé(e)
+                    de la validation de votre(vos) observation(s) à chaque nouvelle connexion à votre compte.
+                </p>
+
+                <h3 class="paraph_subtitle">
+                   Puis-je modifier une observation ?
+                </h3>
+                 <p class="paraph_pge">
+                    Tant qu'elle est en attente de validation, vous pouvez toujours modifier ou supprimer
+                    une observation en cliquant soit sur l'icône "crayon" soit sur l'icône "poubelle".
+                    Cependant, une fois votre observation validée, vous ne pourrez plus la
+                    modifier ou la supprimer. Ceci pour garantir des résultats fiables et pérennes à l'étude.
+                </p>
+
+                <h3 class="paraph_subtitle">
+                   Je ne connais pas très bien les oiseaux, puis-je tout de même participer au programme ?
+                </h3>
+                 <p class="paraph_pge">
+                   Bien sûr ! C'est pour cela que nous avons mis à votre disposition la base de
+                   données TAXREF et les fiches descriptives des oiseaux communément rencontrés en France.
+                   Vous pouvez également visualiser les espèces observées autour de vous en consultant
+                   la carte interactive : en cliquant sur chacun des curseurs, vous pourrez visualiser
+                   la photo, le nom de l'oiseau. Cela vous aidera à vous familiariser avec les différentes
+                   espèces. Enfin, si vous avez pris une photo de l'oiseau mais que vous n'arrivez pas
+                   à déterminer son nom, vous pouvez la soumettre (avec les autres critères nécessaires
+                   à une observation) et le naturaliste chargé de la validation pourra probablement vous
+                   aider à retrouver son nom.
+                </p>
+
+                <h3 class="paraph_subtitle">
+                   Dois-je avoir une connexion internet pour soumettre une observation ?
+                </h3>
+                 <p class="paraph_pge">
+                    Oui, il faut être connecté à Internet pour pouvoir transmettre les informations recueillies.
+                    Notre site a été conçu pour être accessible par tous et pour fonctionner sur tout
+                    type de matériel, notamment par les utilisateurs qui ne possèdent pas de téléphone mobile type smartphone.
+                </p>
+            </div>
+        </li>
+
+     </ul>
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
+            integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+            crossorigin=""></script>
+    <script src="{{ asset('js/faq.js') }}"></script>
+{% endblock %}

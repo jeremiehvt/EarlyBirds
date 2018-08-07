@@ -72,7 +72,7 @@ class ForgottenPasswordTypeHandler implements ForgottenPasswordTypeHandlerInterf
 
             $this->mailer->sendResetPasswordTokenLink($user);
 
-            $this->flashBag->add('login', 'Une email de changement de mot de passe vous a été envoyé par email');
+            $this->flashBag->add('login', 'Veuillez consulter votre messagerie: un email de changement de mot de passe vous a été envoyé');
 
             return true;
         }

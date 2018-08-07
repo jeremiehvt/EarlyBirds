@@ -16,13 +16,15 @@ interface UserBuilderInterface
      * @param string   $email
      * @param string   $password
      * @param callable $passwordEncoder
+     * @param int      $score
      *
      * @return mixed
      */
     public function createFromRegistration(
         string $email,
         string $password,
-        callable $passwordEncoder
+        callable $passwordEncoder,
+        int $score
     );
 
     /**
@@ -34,6 +36,7 @@ interface UserBuilderInterface
      * @param string   $firstname
      * @param string   $lastname
      * @param string   $img
+     * @param int      $score
      *
      * @return mixed
      */
@@ -45,7 +48,8 @@ interface UserBuilderInterface
         string $nickname,
         string $firstname,
         string $lastname,
-        string $img
+        string $img,
+        int    $score
     );
 
     /**

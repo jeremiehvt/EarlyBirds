@@ -11,5 +11,7 @@
                             <field name="author" type="string"/>
                             <field name="mail" type="string"/>
                             <field name="message" type="text"/>
+                            <field name="response" type="boolean"/>
+                            <field name="marketing" type="boolean" nullable="true"/>
                         </entity>
 </doctrine-mapping>

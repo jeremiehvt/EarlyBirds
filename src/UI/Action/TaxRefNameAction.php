@@ -10,7 +10,7 @@ namespace App\UI\Action;
 
 use App\Services\Interfaces\SearchBirdsInterface;
 use App\UI\Action\Interfaces\TaxRefNameActionInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class TaxRefNameAction

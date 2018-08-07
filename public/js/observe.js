@@ -57,14 +57,19 @@ $(function() {
         }
     });
  */
-    $('#observe_ref').keyup(function() {
 
+    let domainUrl = document.location.origin;//set base uri origin to ajax request !!!!!!
+
+    $('#observe_ref').keyup(function(e) {
+
+        e.preventDefault();
         let searchLgth = $('#observe_ref').val().length;
         let searchVal = $('#observe_ref').val();
 
+
         if (searchLgth === 1) {
             $.ajax({
-               url: "http://127.0.0.1:8000/recherche-" + searchVal,
+               url: domainUrl + "/recherche-" + searchVal,
                cache: false,
                dataType: "json",
                type: "GET",
@@ -88,7 +93,7 @@ $(function() {
                       minLength: 0
                    });
                }
-           });
+            });
         }
 
     });
@@ -130,22 +135,6 @@ $(function() {
 
     }
 
-    function initS(cLat, cLong) {
-        console.log(cLat, cLong);
-        map.flyTo([cLat,cLong], 10);
-        birdMarker = L.marker([cLat,cLong]).addTo(map);
-        birdMarker.bindPopup('hello').openPopup();
-        birdMarker.addTo(map);
-        birdMarker.remove(birdMarker);
-
-        /*birdMarker = L.popup()
-         .setLatLng([cLat, cLong])
-         .setContent("I am a standalone popup.")
-         .openOn(mymap);*/
-
-
-    }
-
     function initMarker(pos) {
         let cLong = pos.coords.longitude;
         let cLat = pos.coords.latitude;
@@ -153,14 +142,83 @@ $(function() {
         if (latitude.val() === "" && longitude.val() === "") {
             latitude.val(cLat);
             longitude.val(cLong);
-            initS(cLat,cLong);
-        }
 
-        birdMarker = L.marker([latitude.val(),longitude.val()]).addTo(map);
-        birdMarker.bindPopup('<p id="popupMap">cliquez sur la carte</br>pour situer' +
-                             ' </br>l\'observation.</p>').openPopup();
-        birdMarker.addTo(map);
-        map.flyTo([latitude.val(),longitude.val()], 10);
+            birdMarker = L.marker([latitude.val(),longitude.val()]).addTo(map);
+            birdMarker.bindPopup('<p id="popupMap">cliquez sur la carte</br>pour situer' +
+                                 ' </br>l\'observation.</p>').openPopup();
+            birdMarker.addTo(map);
+            map.flyTo([latitude.val(),longitude.val()], 10);
+        } else {
+            birdMarker = L.marker([latitude.val(),longitude.val()]).addTo(map);
+            let nickname;
+            $.ajax({
+               url: domainUrl + "/search/"+latitude.val()+"/"+longitude.val(),
+               cache: false,
+               dataType: "json",
+               type: "GET",
+               success: function(result) {
+
+                   let dateObs = new Date(result[0].obsDate.date);
+                   let ref = result[0].ref;
+                   let refName;
+                   if (ref == null) {
+                       refName ="NC";
+                   } else {
+                       refName = result[0].ref.nomComplet;
+                   }
+
+                   let YY = dateObs.getFullYear();
+                   let DD = dateObs.getDate();
+                   let MM;
+
+                   switch(dateObs.getMonth()){
+                       case 1: MM = "Janvier";
+                           break;
+                       case 2: MM = "Février";
+                           break;
+                       case 3: MM = "Mars";
+                           break;
+                       case 4: MM = "Avril";
+                           break;
+                       case 5: MM = "Mai";
+                           break;
+                       case 6: MM = "Juin";
+                           break;
+                       case 7: MM = "Juillet";
+                           break;
+                       case 8: MM = "Août";
+                           break;
+                       case 9: MM = "Septembre";
+                           break;
+                       case 10: MM = "Octobre";
+                           break;
+                       case 11: MM = "Novembre";
+                           break;
+                       case 12: MM = "Décembre";
+                           break;
+                   }
+
+                   if (result[0].author.nickname === null) {
+                       nickname = "NC";
+                   } else {
+                       nickname = result[0].author.nickname;
+                   }
+
+                   birdMarker.bindPopup(
+                       '<div id="popupMap">' +
+                       '<img id="birdPopup" class="circle responsive-img" src="'+ result[0].img +'"/>' +
+                       '<br><span id="birdName">'+ refName +'</span>'+
+                       '<br>Observé le '+ DD +' '+ MM +' '+ YY +
+                       '<br><span id="author">'+ nickname +'</span>'+
+                       '<br><br>Latitude : '+ result[0].latitude + '<br>Longitude :'+ result[0].longitude +
+                       '</div>'
+                   ).openPopup();
+               }
+           });
+
+            birdMarker.addTo(map);
+            map.flyTo([latitude.val(),longitude.val()], 10);
+        }
     }
 
     function success(pos) {
@@ -208,10 +266,8 @@ $(function() {
         let long = longitude.val();
 
         if (birdMarker2 === undefined) {
-
             birdMarker2 = L.marker([lat,long]).addTo(map);
             birdMarker2.addTo(map);
-
         }
         birdMarker2.remove();
         birdMarker2 = L.marker([lat,long]).addTo(map);
@@ -233,21 +289,21 @@ $(function() {
         birdMarker2.addTo(map);
     });
 
-    //flash message
-
+    //flash message after valide or update obs and auto scrolling
     let msgUn = $('.flash-notice');
     let divUpBtn = $('#divUpBtn');
     let divSubBtn = $('#divSubBtn');
     let message = $('.message');
+    let url = document.location.origin +'/saisir-observation#mes1';
 
     if (msgUn.text().length > 0) {
+        document.location.assign(url);
         divSubBtn.hide();
         divUpBtn.hide();
-        message.fadeOut(3000, function () {
+        message.fadeOut(9000, function () {
             divSubBtn.show();
             divUpBtn.show();
         });
-
     }
 
 });

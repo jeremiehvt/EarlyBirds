@@ -10,7 +10,7 @@ namespace App\UI\Action;
 
 use App\Services\Interfaces\SearchObservesInterface;
 use App\UI\Action\Interfaces\MapObservesActionInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class MapObservesAction

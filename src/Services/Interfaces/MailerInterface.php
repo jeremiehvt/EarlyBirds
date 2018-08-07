@@ -8,6 +8,7 @@
 
 namespace App\Services\Interfaces;
 
+use App\Domain\Models\Newsletter;
 use App\Domain\Models\User;
 
 interface MailerInterface
@@ -32,4 +33,11 @@ interface MailerInterface
      * @return mixed
      */
     public function sendObservationMail(User $user);
+
+    /**
+     * @param Newsletter $newsletter
+     *
+     * @return mixed
+     */
+    public function sendConfirmNewsletter(Newsletter $newsletter);
 }

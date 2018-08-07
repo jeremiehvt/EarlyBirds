@@ -21,6 +21,15 @@ interface ContactDTOInterface
      * @param string $author
      * @param string $message
      * @param string $mail
+     * @param bool   $response
+     * @param bool   $marketing
      */
-    public function __construct(string $subject, string $author, string $message, string $mail);
+    public function __construct(
+        string $subject,
+        string $author,
+        string $message,
+        string $mail,
+        bool   $response,
+        bool   $marketing
+    );
 }
