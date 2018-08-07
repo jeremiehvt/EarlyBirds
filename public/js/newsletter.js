@@ -1,4 +1,4 @@
-$(function () {
+$( document ).ready(function() {
     $('#footer > div:nth-child(2) > div > form > div:nth-child(2) > button').click(function (e) {
         e.preventDefault();
         let mail = $('.footernewsletter').val();

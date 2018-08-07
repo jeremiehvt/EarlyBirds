@@ -66,7 +66,7 @@ class ContactType extends AbstractType
 
             ->add('marketing', CheckboxType::class, [
                  'label'    => false,
-                 'required' => true
+                 'required' => false
               ]
             )
 

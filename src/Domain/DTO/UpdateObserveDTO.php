@@ -65,10 +65,10 @@ class UpdateObserveDTO implements UpdateObserveDTOInterface
     public $obsDate;
 
     /**
-     *  @Assert\File(
-     *     maxSize = "1M",
+     * @Assert\File(
+     *     maxSize = "5M",
      *     mimeTypes = {"image/jpeg", "image/png"},
-     *     maxSizeMessage = "votre image doit être inférieur à 1mo",
+     *     maxSizeMessage = "votre image doit être inférieur à {{ limit }} {{ suffix }}",
      *     mimeTypesMessage = "votre image doit être de type jpeg ou png"
      * )
      * @var UploadedFile

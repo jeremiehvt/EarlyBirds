@@ -154,8 +154,8 @@
                                        class="category-link">vie de l'association
 
                                </li>
-                                <li data-cat="Événement"
-                                        class="category-link">Événement
+                                <li data-cat="Événements"
+                                        class="category-link">Événements
                                 </li>
                                 <li data-cat="L’art d'observer les oiseaux"
                                     class="category-link">L’art d'observer les oiseaux
@@ -203,10 +203,10 @@
                 </ul>
             </div>
 
-            <div class="col l8 m6 s12" id="article">
+            <div class="col l8 m12 s12" id="article">
                 {% if posts is not null %}
                     {% for post in posts %}
-                        <div class="col l6 m12 s12">
+                        <div class="col l6 m6 s12">
                             <div class="card" id="article-card">
                                 <div class="card-image">
                                     <img src="{{ post.img }}" alt="image de l'article de nao">
@@ -265,8 +265,8 @@
                                     {% endif %}
                                         <a href=""><i class="material-icons head-share"
                                                      >share</i></a>
-                                        {% if is_granted('ROLE_NATURALIST') %}
-                                        <a class="data-delete-post" data-delete="{{ path
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="data-delete-post" href="" data-delete="{{ path
                                             ('app_delete_article', {'id' : post
                                             .id}) }}"><i
                                                     class="material-icons head-delete"

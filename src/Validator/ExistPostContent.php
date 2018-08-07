@@ -21,7 +21,7 @@ class ExistPostContent extends Constraint
     /**
      * @var string
      */
-    public $message = 'l\'article doit contenir entre à 50 et 15000 caractères. Le votre en contient {{ number }} ';
+    public $message = 'l\'article doit contenir entre 300 et 15000 caractères. Le votre en contient {{ number }} ';
 
     /**
      * @return string

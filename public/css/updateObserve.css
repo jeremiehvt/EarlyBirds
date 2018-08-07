@@ -296,7 +296,7 @@ input.valid_observe_img.file-path.validate {
 
     #header {
         height: 300px;
-        background: no-repeat center url(../img/other/observation.jpeg);
+        background: no-repeat center url("../img/other/observation.jpg");
         background-size: unset;
     }
 
@@ -324,10 +324,10 @@ input.valid_observe_img.file-path.validate {
 @media (min-width: 993px) and (max-width: 1440px) {
 
     #header {
-        height: 300px;
+        height: 360px;
         padding-top: 90px;
         margin-bottom: 100px;
-        background: no-repeat center url(../img/other/observation.jpeg);
+        background: no-repeat center url("../img/other/observation.jpg");
         background-size: cover;
         margin-top: 3.4em;
 

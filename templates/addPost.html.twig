@@ -54,16 +54,17 @@
                         <div class="btn col l12 m10 s8 offset-s2" id="uplBtnMin">
                             <span>Ajouter une miniature</span>
                             {{ form_widget(form.miniature) }}<br>
-                            <span class="form_errors" id="error-img">{{ form_errors(form.miniature)
-                                }}</span>
+                            <div><span class="form_errors" id="error-img">{{ form_errors(form.miniature)
+                                }}</span></div>
                         </div>
                     </div>
                     <div class="file-field input-field col l4 m4 s12" id="divUpBtn">
                         <div class="btn col l10 m10 s6 offset-s3" id="uplBtn">
                             <span>Ajouter une photo</span>
                             {{ form_widget(form.img) }}<br>
+                            <div>
                             <span class="form_errors" id="error-img">{{ form_errors(form.img)
-                                }}</span>
+                                }}</span></div>
                         </div>
                     </div>
 

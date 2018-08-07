@@ -59,7 +59,7 @@ div#popupMap {
     text-align: center;
     font-family: MontSerrat, serif;
     font-weight: 300;
-    font-size: 1em;
+    font-size: 1.8em;
     margin-bottom: 2em;
     padding: 0;
 }
@@ -117,6 +117,10 @@ div#popupMap {
     .header_text {
         font-size: 2em;
         margin-top: 1em;
+    }
+
+    #help_text {
+        font-size: 1em;
     }
 
     #footer-mobile {

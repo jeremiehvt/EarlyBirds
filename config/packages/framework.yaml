@@ -28,14 +28,10 @@ framework:
         #default_redis_provider: redis://localhost
 
         # APCu (not recommended with heavy random-write workloads as memory fragmentation can cause perf issues)
-        #app: cache.adapter.apcu
-
-#    validation: { enabled: true, enable_annotations: true }
+#        app: cache.adapter.apcu
 
     validation: { enabled: true, enable_annotations: true }
 
 sensio_framework_extra:
-    psr_message:
-        enabled: false
     router:
         annotations: false
